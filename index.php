@@ -2,7 +2,8 @@
 /**
  *  création de l'index 
  */
-require 'controller/router.php';
+require_once 'controller/router.php';
 
-$router = new Router();
-$router->routeQuery();
+$router = new Router(); 
+$router->routeQuery(); 
+
