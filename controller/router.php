@@ -30,6 +30,13 @@ class Router
 					} else {
 						throw new Exception ('Le numéro du billet est incorrect.');
 					}
+				} elseif ($_GET['action'] == 'toComment'){
+					
+					$author = $this->getParam($_POST, 'author');
+					$comment = $this->getParam($_POST, 'comment');
+					$post_id = $this->getParam($_POST, 'id');
+
+					$this->postControl->toComment($author, $comment, $post_id);
 				}
 			} else {
 				$this->homeControl->homePage();

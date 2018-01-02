@@ -76,6 +76,10 @@ class Post
     	return $this->post_amended_date;
     }
 
+    /**
+     * [setId description]
+     * @param [type] $id [description]
+     */
     public function setId($id)
     {
     	$id = (int) $id;
