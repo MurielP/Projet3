@@ -1,0 +1,32 @@
+html, body {
+   height: 100%;
+}
+
+   body {
+   	color : #eff4f4;
+   	background: #b7e5e1;
+   	font-family: 'Futura-Medium', 'Futura', 'Trebuchet MS', sans-serif;
+   }
+
+   h1, h2 {
+   	color: white;
+   }
+
+#global {
+      min-height: 100%;
+      background : #636867;
+      width: 70%;
+      margin: auto; /* centre la div */
+      text-align: justify;
+      padding : 5px 20px;
+   }
+
+#content {
+      margin-bottom: 30px;
+      color: black;
+   }
+
+#blogTitle, #blogFooter {
+    text-align: center;
+
+   }
