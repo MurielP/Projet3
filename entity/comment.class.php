@@ -59,7 +59,7 @@ class Comment
     	return $this->comment;
     }
 
-    public function getComment_date() 
+    public function getFormatted_comment_date() 
     {
     	return $this->comment_date;
     }
@@ -92,25 +92,30 @@ class Comment
     }
 
     public function setAuthor($author)
-    {	
-    	if(is_string($author) AND strlen($author <= 30)) {
+    {
+        $author = trim($author);
+
+    	if(isset($author) AND is_string($author) AND strlen($author) <= 15 AND strlen($author) >= 5) {
     		return $this->author = $author;
     	} else {
-    		trigger_error('Le nom de l\'auteur doit être une chaîne de caractères qui comprend moins de 30 caractères.', E_USER_ERROR);
-    		
+    		$_SESSION['errorAuthor']= 'Le nom de l\'auteur doit être une chaîne de caractères qui comprend entre 5 et 15 caractères.';
     	}
     }
 
     public function setComment($comment)
     {
-    	if(is_string($comment)) {
+        $comment = trim($comment);
+
+    	if(isset($comment) AND is_string($comment)) {
     		return $this->comment = $comment;
-    	}
+    	} else {
+            $_SESSION['errorComment'] = 'Le commentaire doit être une chaîne de caractères.';
+        }
     }
 
-    public function setComment_date($comment_date) 
+    public function setFormatted_comment_date($comment_date) 
     {
         return $this->comment_date = $comment_date;
 
-    }
+    }  
 }

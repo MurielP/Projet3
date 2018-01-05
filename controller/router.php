@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * création de la classe Router 
  * dont la méthode principale analyse la requête entrante pour déterminer l'action à entreprendre 
@@ -25,11 +26,13 @@ class Router
 				if ($_GET['action'] == 'post') {
 
 					$postId = intval($this->getParam($_GET, 'id'));
+
 					if ($postId != 0) {
 						$this->postControl->post($postId);
 					} else {
 						throw new Exception ('Le numéro du billet est incorrect.');
 					}
+
 				} elseif ($_GET['action'] == 'toComment'){
 					
 					$author = $this->getParam($_POST, 'author');
@@ -38,6 +41,7 @@ class Router
 
 					$this->postControl->toComment($author, $comment, $post_id);
 				}
+				
 			} else {
 				$this->homeControl->homePage();
 			}

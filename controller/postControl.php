@@ -42,8 +42,13 @@ class PostControl
 	 */
 	public function toComment($author, $comment, $post_id)
 	{
-		$this->commentManager->addComment($author, $comment, $post_id);
-		$this->post($post_id);
+		$comment = new Comment(array(
+				'author' => $author, 
+				'comment' => $comment,
+				'post_id' => $post_id,
+ 		));
+		$this->commentManager->addComment($comment->getAuthor(), $comment->getComment(), $comment->getPost_id());
+		header('Location: index.php?action=post&id=' .$post_id );
 	}
 }
 

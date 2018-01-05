@@ -1,6 +1,6 @@
 <a href="index.php?action=registerUser">Se connecter</a>
 
-<?php foreach ($posts as $key => $post) : ?> 
+<?php foreach ($posts as $post) : ?> 
 	
 	<article>
 		<header>

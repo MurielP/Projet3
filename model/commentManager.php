@@ -13,7 +13,7 @@ class CommentManager extends Database
 	
 	public function getComments($postId)
 	{
-		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d %m %Y à %Hh%imin%ss\')  AS comment_date FROM comments WHERE post_id = ? ORDER BY comment_date');
+		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d %m %Y à %Hh%imin%ss\')  AS formatted_comment_date FROM comments WHERE post_id = ? ORDER BY comment_date');
 		$comments = $this->executeQuery($sql, array($postId));
 		
 		$commentsObj = array();
@@ -39,7 +39,9 @@ class CommentManager extends Database
 	 */
 	public function addComment($author, $comment, $post_id)
 	{
+		if (!empty($author) and !empty($comment)) {
 		$sql = ('INSERT INTO comments (author, comment, post_id, comment_date) VALUES (?,?,?,NOW())');
 		$addedComment = $this->executeQuery($sql, array($author, $comment, $post_id));
+		}
 	}
 }	

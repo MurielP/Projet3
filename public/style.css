@@ -30,3 +30,9 @@ html, body {
     text-align: center;
 
    }
+
+.alert {
+   background-color : tomato;
+   color : white;
+}
+

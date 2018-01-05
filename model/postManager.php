@@ -11,7 +11,6 @@ class PostManager extends Database
 	 */
 	public function getPosts()
 	{
-
 		$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d %m %Y à %Hh%imin%ss\') AS creation_date FROM posts ORDER BY creation_date DESC ');
 		$posts = $this->executeQuery($sql);
 		
@@ -29,7 +28,11 @@ class PostManager extends Database
         }
         return $postsObj; 
 	}
-
+	/**
+	 * [getPost récupère un billet selon son id]
+	 * @param  [int] $postId [id du billet]
+	 * @return affiche un billet 
+	 */
 	public function getPost($postId) {
         $sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d %m %Y à %Hh%imin%ss\') AS creation_date FROM posts WHERE id = ?');
 		$post = $this->executeQuery($sql, array($postId));

@@ -94,7 +94,7 @@ class Post
 
     public function setAuthor($author)
     {	
-    	if(is_string($author) AND strlen($author <= 30)) {
+    	if(is_string($author) AND strlen($author) <= 15) {
     		return $this->author = $author;
     	}
     }
@@ -108,7 +108,7 @@ class Post
 
     public function setContent($content)
     {
-    	if(is_string($content) AND strlen($content <= 30)) {
+    	if(is_string($content)) {
     		return $this->content = $content;
     	}
     }
@@ -124,12 +124,5 @@ class Post
     	return $this->post_amended_date = $post_amended_date;
     }
 
-    public function ValidAuthor()
-    {
-    	if(!empty($this->author) AND is_string($this->author) AND strlen($this->author <= 30)) {
-    		return true;
-    	} else {
-    		trigger_error('Le nom de l\'auteur doit être de type string et sa longueur doit être inférieur à 30 caractères.', E_USER_ERROR);
-    	}
-    }    
+   
 }
