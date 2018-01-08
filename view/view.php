@@ -14,7 +14,7 @@ class View
  */
 	public function __construct($action) 
 	{
-		$this->file = 'view/view' .$action .'.php'; // Détermination du nom du fichier vue à partir de l'action
+		$this->file = 'view/view_' .$action .'.php'; // Détermination du nom du fichier vue à partir de l'action
 	}
 
 /**

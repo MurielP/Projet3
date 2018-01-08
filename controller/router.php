@@ -4,17 +4,23 @@ session_start();
  * création de la classe Router 
  * dont la méthode principale analyse la requête entrante pour déterminer l'action à entreprendre 
  */
-require_once 'homeControl.php';
-require_once 'postControl.php';
+require_once 'controller/autoloader.php';
+Autoloader::registerAutoload();
+
+
+
+//require_once 'home_control.php';
+require_once 'post_control.php';
 require_once 'view/view.php';
 
 class Router 
 {
-	private $postControl;
+	private $post_control;
+	private $home_control;
 
 	public function __construct() {
-		$this->postControl = new PostControl();
-		$this->homeControl = new HomeControl();
+		$this->post_control = new Post_control();
+		$this->home_control = new Home_control();
 	}
 /**
  * [routeQuery méthode qui permet d'appeler la page nécessaire pour exécuter l'action passée en paramètre
@@ -28,7 +34,7 @@ class Router
 					$postId = intval($this->getParam($_GET, 'id'));
 
 					if ($postId != 0) {
-						$this->postControl->post($postId);
+						$this->post_control->post($postId);
 					} else {
 						throw new Exception ('Le numéro du billet est incorrect.');
 					}
@@ -39,11 +45,11 @@ class Router
 					$comment = $this->getParam($_POST, 'comment');
 					$post_id = $this->getParam($_POST, 'id');
 
-					$this->postControl->toComment($author, $comment, $post_id);
+					$this->post_control->toComment($author, $comment, $post_id);
 				}
 				
 			} else {
-				$this->homeControl->homePage();
+				$this->home_control->homePage();
 			}
 		} 
 		catch (Exception $e) {
@@ -57,7 +63,7 @@ class Router
  * @return [string]  message d'erreur dans la vue             
  */
 	private function error($errorMessage) {
-		$view = new View("Error");
+		$view = new View("error");
 		$view->generate(array(
 			'errorMessage' => $errorMessage));
 	}
