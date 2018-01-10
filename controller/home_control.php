@@ -1,7 +1,5 @@
 <?php 
 
-require 'controller/autoloader.php';
-
 //require_once 'model/post_manager.php';
 //require_once 'view/view.php';
 

@@ -1,4 +1,5 @@
 <?php
+/*
 require_once 'model/post_manager.php';
 require_once 'entity/post.class.php';
 
@@ -6,7 +7,7 @@ require_once 'model/comment_manager.php';
 require_once 'entity/comment.class.php';
 
 require_once 'view/view.php';
-
+*/
 class Post_control
 {
 	private $post_manager;
