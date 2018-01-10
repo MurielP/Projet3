@@ -1,8 +1,8 @@
 <?php
-
+/*
 require_once 'database.php'; 
 require_once 'entity/post.class.php';
-
+*/
 class Post_manager extends Database
 {
 	/**

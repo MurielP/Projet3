@@ -1,8 +1,8 @@
 <?php
-
+/*
 require_once 'database.php'; 
 require_once 'entity/comment.class.php';
-
+*/
 class Comment_manager extends Database
 {
 	/**
