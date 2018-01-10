@@ -1,0 +1,42 @@
+<?php
+/**
+ * classe Autoloader
+ */
+class Autoloader
+{
+	protected  $directories = array();
+	/**
+	 * méthode autoload pour charger les fichiers 
+	 * @param  [string] $myClass [nom de la classe à charger]
+	 * @return [bool] si true enregistre l'autoloader
+	 */
+	private  function autoload($myClass)
+	{
+		foreach ($this->directories as $directory)
+		{
+			if(file_exists($path = $directory . '/' . $myClass . '.php')){
+				require_once $path;
+			}
+		}
+		//echo 'Essai pour charger la classe "' . $myClass . '" via la méthode "' . __METHOD__ . '()"';
+		// si namespace $myClass = str_replace('\\',DIRECTORY_SEPARATOR, $myClass ); 
+		//require_once __DIR__ . DIRECTORY_SEPARATOR . ($myClass) .'.php';
+	}
+
+	/** 
+	* méthode registerAutoload enregistre l'autoload 
+	*
+	*/
+	public  function registerAutoload()
+	{
+		spl_autoload_register(array($this, 'autoload')); 
+	}
+
+	public function addDirectories($directories)
+	{
+		$this->directories = (array)$directories;
+	}
+	
+}
+
+// ne pas lancer d'exception pour laisser la place au prochain autoloader
