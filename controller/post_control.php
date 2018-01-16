@@ -11,6 +11,7 @@ require_once 'view/view.php';
 class Post_control
 {
 	private $post_manager;
+	private $comment_manager;
 
 	public function __construct()
 	{
@@ -27,6 +28,7 @@ class Post_control
 	{
 		$post = $this->post_manager->getPost($postId);
 		$comments = $this->comment_manager->getComments($postId);
+
 		$view = new View('post');
 		$view->setTitle('Billet simple pour l\'Alaska');
 		$view->generate(array(
@@ -48,7 +50,12 @@ class Post_control
 				'comment' => $comment,
 				'post_id' => $post_id,
  		));
-		$this->comment_manager->addComment($comment->getAuthor(), $comment->getComment(), $comment->getPost_id());
+
+		$this->comment_manager->createComment(
+			$comment->getAuthor(), 
+			$comment->getComment(), 
+			$comment->getPost_id());
+
 		header('Location: index.php?action=post&id=' .$post_id );
 	}
 }

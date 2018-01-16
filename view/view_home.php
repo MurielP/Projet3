@@ -1,4 +1,4 @@
-<a href="index.php?action=registerUser">Se connecter</a>
+<a href="index.php?action=registerUser">Créer un compte</a>
 
 <?php foreach ($posts as $post) : ?> 
 	

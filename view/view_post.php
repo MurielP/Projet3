@@ -25,10 +25,10 @@
 <h2>Laissez-nous votre commentaire</h2>
 
 <?php
-if (isset($_SESSION['errorAuthor']) AND $_SESSION['errorAuthor'] != '' ) {
+if (isset($_SESSION['errorAuthor']) AND $_SESSION['errorAuthor'] != '') {
 	?>
 	<div class="alert">
-		<p><?= $_SESSION['errorAuthor']?></p>
+		<p><?= $_SESSION['errorAuthor'] ?></p>
 	</div>
 	<?php
 	unset($_SESSION['errorAuthor']);

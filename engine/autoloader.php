@@ -29,6 +29,10 @@ class Autoloader
 		spl_autoload_register(array($this, 'autoload')); 
 	}
 
+	/**
+	 * [addDirectories description]
+	 * @param [type] $directories [fichiers à ajouter ds le tableau]
+	 */
 	public function addDirectories($directories)
 	{
 		$this->directories = (array)$directories;

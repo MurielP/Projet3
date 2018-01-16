@@ -1,7 +1,7 @@
 <?php
 /*
 require_once 'database.php'; 
-require_once 'entity/comment.class.php';
+require_once 'entity/comment.php';
 */
 class Comment_manager extends Database
 {
@@ -37,11 +37,11 @@ class Comment_manager extends Database
 	 * @param [string] $comment [commentaire]
 	 * @param [int] $post_id [id du billet choisi]
 	 */
-	public function addComment($author, $comment, $post_id)
+	public function createComment($author, $comment, $post_id)
 	{
 		if (!empty($author) and !empty($comment)) {
 		$sql = ('INSERT INTO comments (author, comment, post_id, comment_date) VALUES (?,?,?,NOW())');
-		$addedComment = $this->executeQuery($sql, array($author, $comment, $post_id));
+		$createdComment = $this->executeQuery($sql, array($author, $comment, $post_id));
 		}
 	}
 }	
