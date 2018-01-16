@@ -51,7 +51,7 @@ class Router
 					}
 				} elseif ($_GET['action'] == 'registerUser') {
 					
-					if(!empty($_POST['username'])  AND !empty($_POST['password']) AND !empty($_POST['email'])){
+					if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['email'])){
 						$username = $this->getParam($_POST, 'username');
 						$password = $this->getParam($_POST, 'password');
 						$email = $this->getParam($_POST, 'email');

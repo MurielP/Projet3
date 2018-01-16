@@ -20,31 +20,22 @@ class User_control
 	{
 		
 		if (!isset($_SESSION['usernameError']) AND !isset($_SESSION['passwordError']) AND !isset($_SESSION['emailError'])){
-			
-			$user = new User(array(
-				'username' => $username,
-				'password' => $password,
-				'email' => $email
-			));
 
-			$this->user_manager->createUser(
-					$user->getUsername(),
-					$user->getPassword(),
-					$user->getEmail()
-				);
+			$this->user_manager->createUser($username, $password, $email);
 
 			header('Location: index.php?action=dashboard');
+		
 		} else {
 			$view = new View('user');
 			$view ->setTitle('S\'inscrire');
-			$view->generate(array(
-				'username' => $username,
-				'password' => $password,
-				'email' => $email
-			));
+			$view->generate(array());
 		}
 	}
 
+	/**
+	 * [registerUserPage]  
+	 * @return [type] [description]
+	 */
 	public function registerUserPage()
 	{
 		$view = new View('user');

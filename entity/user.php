@@ -62,7 +62,7 @@ class User
 		return $this->email = $email; 
 	}
 
-	public function inscription_date() 
+	public function getInscription_date() 
 	{ 
 		return $this->inscription_date = $inscription_date; 
 	}
