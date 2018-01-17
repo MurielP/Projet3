@@ -6,11 +6,10 @@ class User
 	 * __construct 
 	 * @param array $data 
 	 */
-	public function __construct(array $data)	
+	public function __construct(array $data)
 	{
 		$this->hydrate($data);
 	}
-
 	/**
 	 * hydrate 
 	 * @param  array  $data [attributs des billets]
@@ -29,7 +28,6 @@ class User
             }
         }
     }
-
     /**
      * attributs 
      */
@@ -44,27 +42,27 @@ class User
 	*/
 	public function getId() 
 	{ 
-		return $this->id = $id; 
+		return $this->id; 
 	}
 
 	public function getUsername()
 	{ 
-		return $this->username = $username; 
+		return $this->username; 
 	}
 
 	public function getPassword() 
 	{ 
-		return $this->password = $password; 
+		return $this->password; 
 	}
 
 	public function getEmail() 
 	{ 
-		return $this->email = $email; 
+		return $this->email; 
 	}
 
 	public function getInscription_date() 
 	{ 
-		return $this->inscription_date = $inscription_date; 
+		return $this->inscription_date; 
 	}
 
 	/**
@@ -82,10 +80,17 @@ class User
 	/** [setUsername pseudonyme] */
 	public function setUsername($username) 
 	{
-		if (is_string($username) AND strlen($username) <= 50){
-			$this->username = $username;
+		$username = trim($username);
+
+		if (is_string($username) AND strlen($username) <= 10){
+			/* if (preg, $var) {
+				$this->username = $username;
+			} else {
+				$_SESSION['errors']['userformat'] ....
+			}
+			*/
 		} else {
-			$_SESSION['usernameError'] = 'Votre pseudonyme est invalide. Il doit être composé de caractères alphanumériques.' ;
+			$_SESSION['errors']['usernameError'] = 'Votre pseudonyme est invalide. Il doit être composé de moins de 10 caractères alphanumériques.' ;
 		}
 	}
 	/**
@@ -94,11 +99,13 @@ class User
  	*/
 	public function setPassword($password) 
 	{	
+		$password = trim($password);
+
 		if (!empty ($password)){
-			$password = password_hash($password, PASSWORD_BCRYPT);
-			$this->password = $password;
+			$password_hash = password_hash($password, PASSWORD_BCRYPT);
+			$this->password = $password_hash;
 		} else {
-			$_SESSION['passwordError'] = 'Le mot de passe saisi  n\'est pas correct';
+			$_SESSION['errors']['passwordError'] = 'Le mot de passe saisi  n\'est pas correct';
 		}
 	}
 	/** [setEmail email]
@@ -106,10 +113,15 @@ class User
 	**/
 	public function setEmail($email) 
 	{
-		if (preg_match('#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#', $email)) {
+		$email = strtolower($email);
+		$email = trim ($email);
+
+		if(preg_match('#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#', $email)){
 			$this->email = $email;
+		
 		} else {
-			$_SESSION['emailError'] = 'L\'email saisi n\'est pas valide';
+			$_SESSION['errors']['emailError'] = 'Le mail saisi  n\'est pas correct';
 		}
+		
 	}
 }

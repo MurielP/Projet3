@@ -58,6 +58,9 @@ class Router
 
 						$this->user_control->registerUser($username, $password, $email);
 					} else {
+						if(isset($_POST['username']) AND empty($_POST['username'])){
+							$_SESSION['errors']['emptyUser'] = 'Le champ Pseudo ne peut pas être vide';
+						}
 						$this->user_control->registerUserPage();
 					}
 				} else {

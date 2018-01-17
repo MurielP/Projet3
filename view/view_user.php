@@ -7,15 +7,23 @@
 <h2>S'inscrire</h2>
 
 <?php
-if (isset($_SESSION['usernameError']) AND $_SESSION['usernameError'] != '') {
+var_dump($_SESSION);
+
+	if(isset($_SESSION['errors']) AND $_SESSION['errors'] != '') {
+		foreach ($_SESSION['errors'] as $key => $value) {
 ?>
 	<div class="alert">
-		<p><?= $_SESSION['usernameError']?></p>
+		<p><?= $value ?></p>
 	</div>
 <?php
-	unset($_SESSION['usernameError']);
-}
+	}
+}	
+	$_SESSION['errors'] =  [];
+
+	//unset($_SESSION['errors']);
+
 ?>
+
 
 <form method="post" action="index.php?action=registerUser">
 	<fieldset>
