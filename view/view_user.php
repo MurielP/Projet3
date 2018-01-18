@@ -8,7 +8,6 @@
 
 <?php
 var_dump($_SESSION);
-
 	if(isset($_SESSION['errors']) AND $_SESSION['errors'] != '') {
 		foreach ($_SESSION['errors'] as $key => $value) {
 ?>
@@ -16,12 +15,10 @@ var_dump($_SESSION);
 		<p><?= $value ?></p>
 	</div>
 <?php
-	}
+}
 }	
-	$_SESSION['errors'] =  [];
-
-	//unset($_SESSION['errors']);
-
+	// création d'un tableau vide pour afficher les erreurs 
+	$_SESSION['errors'] = [];
 ?>
 
 

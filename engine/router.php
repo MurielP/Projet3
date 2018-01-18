@@ -48,9 +48,13 @@ class Router
 					$post_id = $this->getParam($_POST, 'id');
 
 					$this->post_control->toComment($author, $comment, $post_id);
+					} else {
+						throw new Exception ('Vous ne pouvez pas ajouter un commentaire à ce billet.');
 					}
 				} elseif ($_GET['action'] == 'registerUser') {
-					
+					/*
+					* si les champs sont remplis j'appelle la méthode pour enregistrer le nouveau user(manager)
+					*/
 					if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['email'])){
 						$username = $this->getParam($_POST, 'username');
 						$password = $this->getParam($_POST, 'password');
@@ -58,13 +62,19 @@ class Router
 
 						$this->user_control->registerUser($username, $password, $email);
 					} else {
+						/**
+						 * si mon champ est vide j'envoie un msg d'erreur 
+						 */
 						if(isset($_POST['username']) AND empty($_POST['username'])){
 							$_SESSION['errors']['emptyUser'] = 'Le champ Pseudo ne peut pas être vide';
-						}
+						} 
+						/*
+						* et je renvoie le visiteur sur la pager de création de compte si les champs sont vides
+						*/
 						$this->user_control->registerUserPage();
 					}
 				} else {
-					throw New Exception ('Action non valide.');
+					throw New Exception ('La page dashboard n\'est pas encore créée.');
 				 // elseif ($_GET['action'] == 'logUser') {}
 				}
 				// } elseif ($_GET['action'] == 'logOutUser') {}

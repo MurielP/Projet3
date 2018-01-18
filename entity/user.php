@@ -80,17 +80,14 @@ class User
 	/** [setUsername pseudonyme] */
 	public function setUsername($username) 
 	{
-		$username = trim($username);
-
-		if (is_string($username) AND strlen($username) <= 10){
-			/* if (preg, $var) {
-				$this->username = $username;
+		if (is_string(trim($username)) AND preg_match('#^[a-zA-Z0-9]{5,15}$#', $username)) {
+			if (ucfirst($username) != $username) {
+				$_SESSION['errors']['usernameFormatUC'] ='Votre pseudonyme doit commencer par une majuscule.';
 			} else {
-				$_SESSION['errors']['userformat'] ....
+				$this->username = $username;
 			}
-			*/
 		} else {
-			$_SESSION['errors']['usernameError'] = 'Votre pseudonyme est invalide. Il doit être composé de moins de 10 caractères alphanumériques.' ;
+			$_SESSION['errors']['usernameFormatError'] = 'Votre pseudonyme est invalide. Il doit comprendre entre 5 et 15 caractères alphanumériques. Les espaces vides ne sont pas acceptés.' ;
 		}
 	}
 	/**
@@ -113,7 +110,7 @@ class User
 	**/
 	public function setEmail($email) 
 	{
-		$email = strtolower($email);
+		
 		$email = trim ($email);
 
 		if(preg_match('#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#', $email)){

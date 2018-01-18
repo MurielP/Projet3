@@ -3,11 +3,9 @@
 class User_manager extends Database 
 {
 	/**
-	 * createUser [insérer le nouveau user en BDD]
-	 * @param [string] $username [pseudonyme]
-	 * @param  [string] $password [mot de passe ]
-	 * @param  [string] $email    [email]
-	 * @return  le nouvel utilisateur
+	 * [createUser] requête préparée qui insère le nouveau $user ds la table membres et prend en paramètre $user
+	 * @param  [type] $user [fait appel aux contrôles effectués dans l'entité user.php]
+	 * @return nouveau $user
 	 */
 	public function createUser($user) 
 	{
@@ -19,12 +17,14 @@ class User_manager extends Database
 			$user->getEmail()
 		));		
 			return $result; 
-
+		/**
+		 * catch pour attraper les erreurs liées à la bdd 
+		 */
 		} catch (Exception $e){
+			// erreur 23000 car clé unique pour le username en bdd
 			if($e->getCode() == 23000){
-				$_SESSION['errors']['userdb'] = 'Le nom de l\'utilisateur est déjà utilisé.';
+				$_SESSION['errors']['usernameDb'] = 'Déjà pris! Le pseudonyme choisi est déjà utilisé. Veuillez choisir un autre pseudonyme.';
 			}
-		
 		}
 	}
 
