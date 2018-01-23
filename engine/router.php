@@ -65,13 +65,19 @@ class Router
 						/**
 						 * si mon champ est vide j'envoie un msg d'erreur 
 						 */
-						if(isset($_POST['username']) AND empty($_POST['username'])){
+						if (isset($_POST['username']) AND empty($_POST['username'])){
 							$_SESSION['errors']['emptyUser'] = 'Le champ Pseudo ne peut pas être vide';
-						} 
-						/*
-						* et je renvoie le visiteur sur la pager de création de compte si les champs sont vides
-						*/
-						$this->user_control->registerUserPage();
+						} elseif (isset($_POST['email']) AND empty($_POST['email'])){
+							$_SESSION['errors']['emptyEmail'] = 'Le champ Email ne peut pas être vide';
+							
+						} elseif (isset($_POST['password']) AND empty($_POST['password'])){
+							$_SESSION['errors']['emptyPassword'] = 'Le champ Mot de passe ne peut pas être vide';
+						}
+							/*
+							* et je renvoie le visiteur sur la pager de création de compte si les champs sont vides
+							*/
+							$this->user_control->registerUserPage();
+						
 					}
 				} else {
 					throw New Exception ('La page dashboard n\'est pas encore créée.');

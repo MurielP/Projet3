@@ -1,4 +1,12 @@
-<a href="index.php?action=registerUser">Créer un compte</a>
+<div id="menu">
+
+
+	<ul>
+		<li><a href="index.php?action=registerUser">Créer un compte</a></li>
+		<li><a href="index.php?action=log">Se connecter</a></li>
+	</ul>
+
+</div>
 
 <?php foreach ($posts as $post) : ?> 
 	

@@ -28,6 +28,7 @@ class User_control
 			'email' => $email
 		));
 
+		
 		/**
 		 * si la tableau d'erreur est vide alors j'appelle la fonction createUser du user_manager
 		 */
@@ -42,11 +43,18 @@ class User_control
 				$view = new View('user');
 				$view ->setTitle('S\'inscrire');
 				$view->generate(array());
+		
 			}
+
 		/**
 		 * si mon tableau contient des erreurs alors je renvoie le visiteur sur la page d'inscription view_user.php
 		 */
-		} else {
+		} elseif (count($_SESSION['errors']) != 0) {
+			$mailExist= $this->user_manager->alreadyExists($email);
+			var_dump($mailExist); // retourne NULL ???
+			
+	
+		//} else {
 			$view = new View('user');
 			$view ->setTitle('S\'inscrire');
 			$view->generate(array());
