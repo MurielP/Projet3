@@ -42,7 +42,7 @@ if (isset($_SESSION['errorAuthor']) AND $_SESSION['errorAuthor'] != '') {
 	<p><label for="author">Auteur</label> : <input type="text" name="author" id="author" value=""/></p>
 	<p><label for="comment">Commentaire</label> : <textarea name="comment" id="comment" value=""></textarea></p>
 			
-	<input type="hidden" name="id" id="id" value="<?php echo $post->getId();?>"/> 
+	<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
 
 	<p><input type="submit" value="Postez votre commentaire" /></p>
 	</fieldset>

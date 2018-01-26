@@ -23,12 +23,16 @@ class User_control
 		 * @var User qui comprend les champs username, password et email
 		 */
 		$user = new User(array(
-			'username' => $username,
+			'username' => $username, 
 			'password' => $password,
 			'email' => $email
 		));
 
-		
+		/** 
+		 * je vérifie si l'email existe déjà en bdd 
+		 */
+		$this->user_manager->alreadyExists($user);
+
 		/**
 		 * si la tableau d'erreur est vide alors j'appelle la fonction createUser du user_manager
 		 */
@@ -39,22 +43,11 @@ class User_control
 			 */
 			if ($insert == true) {
 				header('Location: index.php?action=dashboard');	
-			} else {
-				$view = new View('user');
-				$view ->setTitle('S\'inscrire');
-				$view->generate(array());
-		
 			}
-
 		/**
 		 * si mon tableau contient des erreurs alors je renvoie le visiteur sur la page d'inscription view_user.php
 		 */
-		} elseif (count($_SESSION['errors']) != 0) {
-			$mailExist= $this->user_manager->alreadyExists($email);
-			var_dump($mailExist); // retourne NULL ???
-			
-	
-		//} else {
+		} else {
 			$view = new View('user');
 			$view ->setTitle('S\'inscrire');
 			$view->generate(array());
@@ -69,6 +62,20 @@ class User_control
 		$view = new View('user');
 		$view ->setTitle('S\'inscrire');
 		$view->generate(array());
+	}
+
+	public function logAdmin($loginAdmin, $passwordAdmin)
+	{
+		$user = new User(array(
+			'username' => $loginAdmin,
+			'paswword' => $passwordAdmin
+		));
+
+		$admin = $this->user_manager->getUserByLogin($user); 
+		
+		//$_SESSION['admin']) 
+		
+		header('Location: ');
 	}
 }
 

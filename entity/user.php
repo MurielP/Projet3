@@ -87,7 +87,7 @@ class User
 				$this->username = $username;
 			}
 		} else {
-			$_SESSION['errors']['usernameFormatError'] = 'Votre pseudonyme est invalide. Il doit comprendre entre 5 et 15 caractères alphanumériques. Les espaces vides ne sont pas acceptés.' ;
+			$_SESSION['errors']['usernameFormatError'] = 'Votre pseudonyme est invalide. Il doit comprendre entre 5 et 15 caractères alphanumériques.' ;
 		}
 	}
 	/**
@@ -100,7 +100,7 @@ class User
 
 		if (!empty ($password)){
 			$password_hash = password_hash($password, PASSWORD_BCRYPT);
-			$this->password = $password_hash;
+				$this->password = $password_hash;
 		} else {
 			$_SESSION['errors']['passwordError'] = 'Le mot de passe saisi  n\'est pas correct';
 		}
