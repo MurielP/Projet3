@@ -15,7 +15,7 @@ class User_manager extends Database
 			$result = $this->executeQuery($sql, array(
 				$user->getUsername(),
 				$user->getPassword(),
-				$user->getEmail()
+				$user->getEmail(),
 				));		
 			return $result; 
 		/**
@@ -36,13 +36,11 @@ class User_manager extends Database
 	 * @param  $email [mail à vérifier]
 	 * @return [bool] retourne la 1ère colonne - fetchColumn() - depuis la ligne suivante d'un jeu de résultats ou FALSE s'il n'y a plus de ligne
 	 */
-	public function alreadyExists($user)
+	public function emailExists($user)
 	{		
 			// COUNT(*)  --counts all values including null
 			$sql = ('SELECT COUNT(*) AS nb_resultat FROM members WHERE email = ?');
-			$req = $this->executeQuery($sql, array(
-				$user->getEmail())
-			);
+			$req = $this->executeQuery($sql, array($user->getEmail()));
 			$resultMail = $req->fetchColumn(); 
 			//var_dump($resultMail); 
 
@@ -51,16 +49,27 @@ class User_manager extends Database
 			} 
 	}
 	
+	/**
+	 * [getUserByLogin] récupère l'iderntifiant de l'admin
+	 * @param  [type] $user [description]
+	 * @return [type]       [description]
+	 */
 	public function getUserByLogin($user)
 	{
 		$sql = ('SELECT id, username, email, date_FORMAT (inscription_date, \'%d %m %Y à %Hh%imin%ss\') AS inscription_date FROM members WHERE $username = ?');
-		$userBdd = $this->executeQuery($sql, array(
-			$user->getUsername()
-			));
-		// si on a trouvé un $userBdd 
-			// if ($userBdd == 1) {
-		// alors on va regarder avec la fontion de verifpassword() si exist
-		// 
+		$req = $this->executeQuery($sql, array($user->getUsername()));
+		$userBdd = $req->fetchColumn();
+	// si on a trouvé un $userBdd 
+	// if ($userBdd == 1) {
+	//  alors on regarde avec la fonction de verifpassword() si existe
+		// 	if(password_verify(($_POST['password'], $userBdd['password'])){
+		//  	$username = $userBdd->setUsername($username);
+				//  
+				//    
+			//	} else {
+			//
+			// 	}
+
 			// si ok on va formater $userBdd comme un $user normal avec set
 			// renvoie vers controleur  et ajout de session
 			
@@ -71,17 +80,17 @@ class User_manager extends Database
 	 * @param  [int] $id [id du membre]
 	 * @return [bool]retourne le nombre de lignes affectées par la dernière requête DELETE, INSERT ou UPDATE exécutée par l'objet PDOStatement correspondant. 
 	 */
-	public function getUserDetails($id)
+/*	public function getUserDetails($userId)
 	{
 		$sql = ('SELECT id, username, email, date_FORMAT (inscription_date, \'%d %m %Y à %Hh%imin%ss\') AS inscription_date FROM members WHERE id = ?');
-		$user = $this->executeQuery($sql, array(
-			$user->getId()
-			));
+		$userDetails = $this->executeQuery($sql, array($userId));
 
-		if ($user->rowCount() == 1) {
-			return $user->fetch();
+		if ($userDetails->rowCount() > 0) {
+			$result = new User($userDetails->fetch());
+			return $result;
 		} else {
-			throw new Exception('Aucun membre ne correspond au numéro ' .$user->getId. '.');
+			throw new Exception('Aucun membre ne correspond au numéro ' .$userDetails->getId(). '.');
 		}
 	}
+*/	
 }

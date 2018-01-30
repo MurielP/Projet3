@@ -53,46 +53,54 @@ class Router
 					}
 				} elseif ($_GET['action'] == 'registerUser') {
 					/*
-					* si les champs sont remplis j'appelle la méthode pour enregistrer le nouveau user(manager)
+					* si les champs sont remplis et que mon mdp de confirmation est ok -> j'appelle la méthode pour enregistrer le nouveau user(manager)
 					*/
-					if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['email'])){
+					if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['email']) AND!empty($_POST['confirm_password'])){
 						$username = $this->getParam($_POST, 'username');
 						$password = $this->getParam($_POST, 'password');
 						$email = $this->getParam($_POST, 'email');
+						$confirm_password = $this->getParam($_POST, 'confirm_password');
 
-						$this->user_control->registerUser($username, $password, $email);
+						$this->user_control->registerUser($username, $password, $email, $confirm_password);
+						
 					} else {
 						/**
 						 * si mon champ est vide j'envoie un msg d'erreur 
 						 */
 						if (isset($_POST['username']) AND empty($_POST['username'])){
-							$_SESSION['errors']['emptyUser'] = 'Le champ Pseudo ne peut pas être vide';
+							$_SESSION['errors']['emptyUser'] = 'Le champ Pseudo doit être rempli';
 
 						} elseif (isset($_POST['email']) AND empty($_POST['email'])){
-							$_SESSION['errors']['emptyEmail'] = 'Le champ Email ne peut pas être vide';
+							$_SESSION['errors']['emptyEmail'] = 'Le champ Email doit être rempli';
 							
 						} elseif (isset($_POST['password']) AND empty($_POST['password'])){
-							$_SESSION['errors']['emptyPassword'] = 'Le champ Mot de passe ne peut pas être vide';
-						} 
-							/*
-							* et je renvoie le visiteur sur la pager de création de compte si les champs sont vides
-							*/
-							$this->user_control->registerUserPage();
+							$_SESSION['errors']['emptyPassword'] = 'Le champ Mot de passe doit être rempli';
+
+						} elseif (isset($_POST['confirm_password']) AND empty($_POST['confirm_password'])){
+							$_SESSION['errors']['emptyConfirm_password'] = 'Le champ Confirmer votre mot de passe doit être rempli';
+						}
+						/*
+						* et je renvoie le visiteur sur la pager de création de compte si les champs sont vides
+						*/
+						$this->user_control->registerUserPage();
 						}
 						
 				} elseif ($_GET['action'] == 'admin') {
-					if (!empty($_POST['loginAdmin']) AND !empty($_POST['passwordAdmin'])) {
-						$loginAdmin = $this->getParam($_POST, 'loginAdmin');
-						$passwordAdmin = $this->getParam($_POST, 'passwordAdmin');
+					if (!empty($_POST['username']) AND !empty($_POST['password'])) {
+						$loginAdmin = $this->getParam($_POST, 'username');
+						$passwordAdmin = $this->getParam($_POST, 'password');
 
-						$this->user_control->logAdmin();
+						$this->user_control->logAdmin($loginAdmin, $passwordAdmin);
+					} else {
+
+						throw new Exception ('Vous ne pouvez pas entrer dans l\'espace administrateur.');
+						var_dump($loginAdmin);
 					}
 
 				} else {
-					throw New Exception ('La page dashboard n\'est pas encore créée.');
-				 // elseif ($_GET['action'] == 'logUser') {}
+					throw New Exception ('Action inconnue.');
 				}
-				// } elseif ($_GET['action'] == 'logOutUser') {}
+				
 				
 			} else {
 				$this->home_control->homePage();
@@ -123,6 +131,7 @@ class Router
 		} else 
 		throw new Exception ('Le paramètre ' . $name . ' est absent.');
 	}
+
 }
 
 

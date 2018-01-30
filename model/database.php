@@ -37,11 +37,5 @@ abstract class Database
 		return $result;
 	}
 
-	/**
-	 * [lastInsertId] pour récupérer le dernier id insérer
-	 * @return [int] [le dernier id insérer]
-	 */
-	public function lastInsertId(){
-		return $this->db->lastInsertId();
-	}
+	
 }

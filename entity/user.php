@@ -36,6 +36,7 @@ class User
     private $password;
     private $email; 
     private $inscritpion_date; 
+    private $confirm_password;
 
     /**
  	* liste les getters 
@@ -65,6 +66,11 @@ class User
 		return $this->inscription_date; 
 	}
 
+	public function getConfirm_password()
+	{
+		return $this->confirm_password;
+	}
+
 	/**
  	* liste les setters 
 	*/
@@ -80,7 +86,7 @@ class User
 	/** [setUsername pseudonyme] */
 	public function setUsername($username) 
 	{
-		if (is_string(trim($username)) AND preg_match('#^[a-zA-Z0-9]{5,15}$#', $username)) {
+		if (is_string(trim($username)) AND preg_match('#^[a-zA-Z0-9_]{5,15}$#', $username)) {
 			if (ucfirst($username) != $username) {
 				$_SESSION['errors']['usernameFormatUC'] ='Votre pseudonyme doit commencer par une majuscule.';
 			} else {
@@ -98,11 +104,11 @@ class User
 	{	
 		$password = trim($password);
 
-		if (!empty ($password)){
-			$password_hash = password_hash($password, PASSWORD_BCRYPT);
-				$this->password = $password_hash;
+		if (preg_match('#^[a-zA-Z0-9_]{8,32}$#', $password)){
+			$password_hash = password_hash($password, PASSWORD_DEFAULT);
+			$this->password = $password_hash;
 		} else {
-			$_SESSION['errors']['passwordError'] = 'Le mot de passe saisi  n\'est pas correct';
+			$_SESSION['errors']['passwordError'] = 'Votre mot de passe saisi  n\'est pas correct. Il doit comporter au moins 8 caractères alphanumériques.';
 		}
 	}
 	/** [setEmail email]
@@ -118,5 +124,16 @@ class User
 			$_SESSION['errors']['emailError'] = 'Le mail saisi  n\'est pas correct.';
 		}
 		
+	}
+
+	public function setConfirm_password($confirm_password)
+	{
+		$confirm_password = trim($confirm_password);
+
+		if ($_POST['confirm_password'] == $_POST['password']){
+			$this->confirm_password = $confirm_password;
+		} else {
+			$_SESSION['errors']['confirm_passwordError'] = 'Le mot de passe de confirmation saisi est différent. Merci de vérifier votre mot de passe. ';
+		}
 	}
 }
