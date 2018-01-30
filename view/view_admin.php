@@ -3,9 +3,7 @@
     	<a href="index.php">Retour à l'accueil</a>
        
     </header>
-
-<h2>Créer mon compte</h2>
-
+    
 <?php
 var_dump($_SESSION);
 
@@ -25,30 +23,21 @@ var_dump($_SESSION);
 	$_SESSION['errors'] = [];
 ?>
 
-
-
-<form method="post" action="index.php?action=registerUser">
+<form method="post" action="index.php?action=admin">
 	<fieldset>
-		<legend>Créer mon compte</legend>
+		<legend>Accès espace administraeur</legend>
 
-		<p><label for="username">Votre pseudo</label> : 
+		<p><label for="username">Votre identifiant</label> : 
 			<input type="text" name="username" id="username" value="" required/>
-		</p>
-
-		<p><label for="email">Votre Email</label> : 
-			<input type="email" name="email" id="email" value="" required>
 		</p>
 
 		<p><label for="password">Votre mot de passe</label> : 
 			<input type="password" name="password" id="password" value="" required>
 		</p>
 
-		<p><label for="confirm_password">Confirmer votre mot de passe</label> : 
-			<input type="password" name="confirm_password" id="confirm_password" value="" required>
-		</p>
-
-		<p><button type="submit" value="" />Je veux devenir membre !</button></p>
+		<p><button type="submit" value="" />Se connecter</button></p>
 
 	</fieldset>
 </form>
 
+</article>
