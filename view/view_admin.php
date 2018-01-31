@@ -3,8 +3,9 @@
     	<a href="index.php">Retour à l'accueil</a>
        
     </header>
-    
+
 <?php
+
 var_dump($_SESSION);
 
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
@@ -23,16 +24,17 @@ var_dump($_SESSION);
 	$_SESSION['errors'] = [];
 ?>
 
-<form method="post" action="index.php?action=admin">
+
+<form method="post" action="index.php?action=logAdmin">
 	<fieldset>
-		<legend>Accès espace administraeur</legend>
+		<legend>Accès espace administrateur</legend>
 
 		<p><label for="username">Votre identifiant</label> : 
 			<input type="text" name="username" id="username" value="" required/>
 		</p>
 
 		<p><label for="password">Votre mot de passe</label> : 
-			<input type="password" name="password" id="password" value="" required>
+			<input type="password" name="username" id="password" value="" required>
 		</p>
 
 		<p><button type="submit" value="" />Se connecter</button></p>

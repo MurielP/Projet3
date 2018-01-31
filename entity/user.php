@@ -71,6 +71,7 @@ class User
 		return $this->confirm_password;
 	}
 
+
 	/**
  	* liste les setters 
 	*/
@@ -136,4 +137,5 @@ class User
 			$_SESSION['errors']['confirm_passwordError'] = 'Le mot de passe de confirmation saisi est différent. Merci de vérifier votre mot de passe. ';
 		}
 	}
+
 }

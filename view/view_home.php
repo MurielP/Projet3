@@ -3,8 +3,8 @@
 
 	<ul>
 		<li><a href="index.php?action=registerUser">Créer un compte</a></li>
-		<!-- <li><a href="index.php?action=log">Se connecter</a></li> -->
-		<li><a href="index.php?action=admin">Espace administrateur</a></li>
+		<!-- <li><a href="index.php?action=test">Se connecter</a></li> -->
+		<li><a href="index.php?action=logAdmin">Espace administrateur</a></li>
 		
 	</ul>
 

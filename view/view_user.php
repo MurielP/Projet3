@@ -26,7 +26,6 @@ var_dump($_SESSION);
 ?>
 
 
-
 <form method="post" action="index.php?action=registerUser">
 	<fieldset>
 		<legend>Créer mon compte</legend>

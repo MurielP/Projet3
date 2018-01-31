@@ -80,23 +80,31 @@ class Router
 							$_SESSION['errors']['emptyConfirm_password'] = 'Le champ Confirmer votre mot de passe doit être rempli';
 						}
 						/*
-						* et je renvoie le visiteur sur la pager de création de compte si les champs sont vides
+						* et je renvoie le visiteur sur la page de création de compte si les champs sont vides
 						*/
 						$this->user_control->registerUserPage();
-						}
+					}
 						
-				} elseif ($_GET['action'] == 'admin') {
-					if (!empty($_POST['username']) AND !empty($_POST['password'])) {
+				} elseif ($_GET['action'] == 'logAdmin') {
+					if(!empty($_POST['username']) AND !empty($_POST['password'])) {
 						$loginAdmin = $this->getParam($_POST, 'username');
 						$passwordAdmin = $this->getParam($_POST, 'password');
 
 						$this->user_control->logAdmin($loginAdmin, $passwordAdmin);
 					} else {
-
-						throw new Exception ('Vous ne pouvez pas entrer dans l\'espace administrateur.');
-						var_dump($loginAdmin);
+						/**
+						 * si mon champ est vide j'envoie un msg d'erreur 
+						 */
+						if (isset($_POST['loginAdmin']) AND empty($_POST['loginAdmin'])){
+							$_SESSION['errors']['emptyloginAdmin'] = 'Le champ Identifiant doit être rempli';
+						} elseif (isset($_POST['passwordAdmin']) AND empty($_POST['passwordAdmin'])){
+							$_SESSION['errors']['emptyPasswordAdmin'] = 'Le champ Mot de passe doit être rempli';
+						}
+						/*
+						* et je renvoie l'admin sur la page de connexion  si les champs sont vides
+						*/
+						$this->user_control->tryLogAdmin($loginAdmin, $passwordAdmin);
 					}
-
 				} else {
 					throw New Exception ('Action inconnue.');
 				}
@@ -105,8 +113,7 @@ class Router
 			} else {
 				$this->home_control->homePage();
 			}
-		} 
-		catch (Exception $e) {
+		} catch (Exception $e) {
 			$this->error($e->getMessage());
 		}
 	}

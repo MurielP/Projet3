@@ -50,7 +50,7 @@ class User_control
 				$view->generate(array(
 					'user' => $user
 					));
-
+				
 			}
 		/**
 		 * si mon tableau contient des erreurs alors je renvoie le visiteur sur la page d'inscription view_user.php
@@ -88,8 +88,7 @@ class User_control
 		$admin = $this->user_manager->getUserByLogin($user); 
 		
 		if ($admin == true){
-			$_SESSION['admin'] = $admin; 
-
+			
 			$view = new View('admin');
 			$view ->setTitle('Mon compte adminstrateur');
 			$view->generate(array(
@@ -99,6 +98,13 @@ class User_control
 		}
 	}
 
+	public function tryLogAdmin($loginAdmin, $passwordAdmin)
+	{
+
+		$view = new View('admin');
+		$view ->setTitle('Mon compte administrateur');
+		$view->generate(array());
+	}
 /*
 	public function userDashoard($userId)
 	{

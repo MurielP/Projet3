@@ -47,6 +47,8 @@ class User_manager extends Database
 			if ($resultMail == 1){
 				$_SESSION['errors']['existingEmail'] = 'L\'email  '. $user->getEmail() .' existe déjà en base données. Veuillez choisir un autre email.';
 			} 
+			
+
 	}
 	
 	/**
@@ -56,23 +58,28 @@ class User_manager extends Database
 	 */
 	public function getUserByLogin($user)
 	{
-		$sql = ('SELECT id, username, email, date_FORMAT (inscription_date, \'%d %m %Y à %Hh%imin%ss\') AS inscription_date FROM members WHERE $username = ?');
-		$req = $this->executeQuery($sql, array($user->getUsername()));
-		$userBdd = $req->fetchColumn();
-	// si on a trouvé un $userBdd 
-	// if ($userBdd == 1) {
-	//  alors on regarde avec la fonction de verifpassword() si existe
-		// 	if(password_verify(($_POST['password'], $userBdd['password'])){
-		//  	$username = $userBdd->setUsername($username);
-				//  
-				//    
-			//	} else {
-			//
-			// 	}
+		try{
+		$sql = ('SELECT id, username, password, email, date_FORMAT (inscription_date, \'%d %m %Y à %Hh%imin%ss\') AS inscription_date FROM members WHERE $username = ?');
+		$userBdd = $this->executeQuery($sql, array($user->getUsername()));
+		$userBdd->fetchColumn();
+		
 
-			// si ok on va formater $userBdd comme un $user normal avec set
-			// renvoie vers controleur  et ajout de session
+		}catch(Exception $e){
+			$_SESSION['errors']['errorUserBdd'] = 'Votre identifiant est erroné.';
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+		// si on a trouvé un $userBdd 
+		if ($userBdd == 1){
+
+		//  alors on regarde avec la fonction de verifpassword() si existe
+			if (password_verify($password_hash, $loginPassword)){
+			  	$_SESSION['admin']['loginPassword'] = $userBdd; 
+			  	header('Location: view_admin.php');
 			
+			} else {
+				$_SESSION['errors']['errorPasswordVerif'] = 'Votre mot de passe est erroné.';
+			}
+		}	
 	}
 
 	/**
