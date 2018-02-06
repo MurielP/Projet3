@@ -1,15 +1,16 @@
 	 <header>
     	<a href="index.php">Retour à la liste des billets</a>
-        <h1><?=  htmlspecialchars($post->getTitle()) ?></h1>
-         <time>Le <?= htmlspecialchars($post->getCreation_date()) ?></time>
-       
+        <h2><?=  htmlspecialchars($post->getTitle()) ?></h2>
+         <time>Le <?= htmlspecialchars($post->getCreation_date()) ?></time>   
     </header>
+
     <p><?= htmlspecialchars($post->getContent()) ?></p>
+  
 </article>
 <hr />
-<header>
-    <h1>Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h1>
-</header>
+
+    <h2>Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h2>
+
 
 <?php foreach ($comments as $comment) : ?> 
 	<article>
@@ -22,19 +23,27 @@
 <?php endforeach; ?>
 
 
-<h2>Laissez-nous votre commentaire</h2>
+<h3>Laissez-nous votre commentaire</h3>
+
 
 <?php
-if (isset($_SESSION['errorAuthor']) AND $_SESSION['errorAuthor'] != '') {
-	?>
-	<div class="alert">
-		<p><?= $_SESSION['errorAuthor'] ?></p>
-	</div>
-	<?php
-	unset($_SESSION['errorAuthor']);
-}
-
+	//var_dump($_SESSION['errors']);
+	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
+		foreach ($_SESSION['errors'] as $type => $message) {
 ?>
+	<div class="alert">
+		<p>Une erreur s'est produite dans le formulaire.</p>
+		<ul>
+			<li><?= $message ?></li>
+		</ul>
+	</div>
+<?php
+}
+}	
+	// création d'un tableau vide pour afficher les erreurs 
+	$_SESSION['errors'] = [];
+?>
+
 
 <form method="post" action="index.php?action=toComment">
 	<fieldset>

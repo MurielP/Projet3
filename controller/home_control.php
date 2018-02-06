@@ -12,6 +12,10 @@ class Home_control
 		$this->post_manager = new Post_manager();
 	}
 
+	/**
+	 * [homePage] page d'accueil 
+	 * @return [type] [affiche la liste des billets]
+	 */
 	public function homePage()
 	{
 		$posts = $this->post_manager->getPosts();

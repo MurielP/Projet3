@@ -86,24 +86,26 @@ class Post
 
     	if ($id > 0) {
     		return $this->id = $id;
-    	} else {
-    		trigger_error('L\'id du billet doit être de type integer et > 0.', E_USER_ERROR);
-    		// return false; 
-    	}
+    	} 
     }
 
     public function setAuthor($author)
     {	
-    	if(is_string($author) AND strlen($author) <= 15) {
+        // \s pour intégrer les whitespaces
+    	if(is_string($author) AND strlen($author) <= 20 AND strlen($author) >= 5) {
     		return $this->author = $author;
-    	}
+    	} else {
+            $_SESSION['errors']['authorPost'] = 'Le nom de l\'auteur est invalide. Il doit comprendre entre 5 et 20 caractères alphanumériques.' ;
+        }
     }
 
     public function setTitle($title)
     {
     	if(is_string($title) AND strlen($title <= 100)) {
     		return $this->title = $title;
-    	}
+    	} else {
+            $_SESSION['errors']['titlePost'] = 'Le titre de l\'article est invalide. Il doit être composé d\'une chaîne de moins de 100 caractères .' ;
+        }
     }
 
     public function setContent($content)

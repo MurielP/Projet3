@@ -1,16 +1,15 @@
 <?php
+// require_once 'controller/autoloader.php';
+// Autoloader::registerAutoload();
+//require_once 'home_control.php';
+//require_once 'post_control.php';
+//require_once 'view/view.php';
+
+
 /**
  * création de la classe Router 
  * dont la méthode principale analyse la requête entrante pour déterminer l'action à entreprendre 
  */
-/*
-require_once 'controller/autoloader.php';
-Autoloader::registerAutoload();
-*/
-
-//require_once 'home_control.php';
-//require_once 'post_control.php';
-//require_once 'view/view.php';
 
 class Router 
 {
@@ -32,11 +31,19 @@ class Router
 			if (isset($_GET['action'])) {
 				if ($_GET['action'] == 'post') {
 
+					// déclaration de la variable $postId 
 					$postId = intval($this->getParam($_GET, 'id'));
 
 					if ($postId != 0) {
 						$this->post_control->post($postId);
 					} else {
+						/**
+						 * lance une instance de la classe Exception selon son constructeur
+						 * public __construct (
+						 * [ string $message = "" 
+						 * [, int $code = 0 
+						 * [, Throwable $previous = NULL ]]] )
+						 */
 						throw new Exception ('Le numéro du billet est incorrect.');
 					}
 
@@ -84,8 +91,17 @@ class Router
 						*/
 						$this->user_control->registerUserPage();
 					}
-						
-				} elseif ($_GET['action'] == 'logAdmin') {
+
+					// si insertion registerUser ok -> j'affiche userProfile
+				} elseif ($_GET['action'] == 'userProfile'){
+					if(isset($_SESSION['user']) AND !empty($_SESSION['user'])){
+						$this->user_control->userProfile();
+					}
+					
+				} elseif ($_GET['action'] == 'logAdmin' ) {
+					// je vide la session ['user']
+					$_SESSION['user'] = '';
+					// si mes champs sont correctement remplis,je logAdmin
 					if(!empty($_POST['username']) AND !empty($_POST['password'])) {
 						$loginAdmin = $this->getParam($_POST, 'username');
 						$passwordAdmin = $this->getParam($_POST, 'password');
@@ -103,23 +119,34 @@ class Router
 						/*
 						* et je renvoie l'admin sur la page de connexion  si les champs sont vides
 						*/
-						$this->user_control->tryLogAdmin($loginAdmin, $passwordAdmin);
+						$this->user_control->tryLogAdmin();
 					}
+				// si insertion logAdmin ok -> j'affiche adminProfile	
+				}elseif ($_GET['action'] == 'adminProfile'){
+					
+					if(isset($_SESSION['user']) AND !empty($_SESSION['user'])){
+						$this->user_control->adminProfile();
+					} else {
+						throw new Exception ('Vous ne pouvez pas accéder à la page d\'administration.');
+					}
+
 				} else {
 					throw New Exception ('Action inconnue.');
 				}
 				
 				
 			} else {
+				// page par défaut
 				$this->home_control->homePage();
 			}
+		// attrape les exceptions "Exception" si existantes avec la varivable $e qui représente l'exception lancée	
 		} catch (Exception $e) {
 			$this->error($e->getMessage());
 		}
 	}
 
 /**
- * error méthode qui permet de générer la vue pour les messages d'erreur
+ * méthode 'error' qui permet de générer la vue pour les messages d'erreur
  * @param  [string] $errorMessage 
  * @return [string]  message d'erreur dans la vue             
  */
@@ -130,11 +157,12 @@ class Router
 	}
 
 /** 
-* getParam méthode privée qui recherche un paramètre dans un tableau. Si un paramètre est manquant on affiche un message indiquant le nom du parmètre manquant 
+* getParam méthode privée qui recherche un paramètre dans un tableau. Si un paramètre est manquant on affiche un message indiquant le nom du parmètre manquant.
+* $array[$key]
 */
 	private function getParam($array, $name) {
 		if (isset($array[$name])) {
-			return $array[$name];
+			return $array[$name]; 
 		} else 
 		throw new Exception ('Le paramètre ' . $name . ' est absent.');
 	}

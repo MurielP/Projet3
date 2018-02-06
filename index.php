@@ -12,6 +12,7 @@ session_start();
 require 'engine/autoloader.php';
 $autoloader = new Autoloader();
 
+// Definit un array de fichiers dans l'ordre de priorités  
 $autoloader->addDirectories(
 	array(
 	'engine',	

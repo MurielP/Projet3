@@ -59,28 +59,70 @@ class User_manager extends Database
 	public function getUserByLogin($user)
 	{
 		try{
-		$sql = ('SELECT id, username, password, email, date_FORMAT (inscription_date, \'%d %m %Y à %Hh%imin%ss\') AS inscription_date FROM members WHERE $username = ?');
+		$sql = ('SELECT id, username, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS inscription_date FROM members WHERE username = ?');
 		$userBdd = $this->executeQuery($sql, array($user->getUsername()));
-		$userBdd->fetchColumn();
 		
+		$result = $userBdd->fetch();
+		//print_r($result);
+		$user = new User($result);
+		return $user;
 
 		}catch(Exception $e){
 			$_SESSION['errors']['errorUserBdd'] = 'Votre identifiant est erroné.';
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
 		}
-		// si on a trouvé un $userBdd 
-		if ($userBdd == 1){
-
-		//  alors on regarde avec la fonction de verifpassword() si existe
-			if (password_verify($password_hash, $loginPassword)){
-			  	$_SESSION['admin']['loginPassword'] = $userBdd; 
-			  	header('Location: view_admin.php');
-			
-			} else {
-				$_SESSION['errors']['errorPasswordVerif'] = 'Votre mot de passe est erroné.';
-			}
-		}	
 	}
+
+	/**
+	 * [verifyUserByPassword] si mot de passe  vérifié -> 
+	 * @param  [type] $user     [description]
+	 * @param  [type] $password [description]
+	 * @return [type]           [description]
+	 */
+	public function verifyUserByPassword($user, $passwordAdmin)
+	{
+		try{
+		$sql = ('SELECT id, username, password, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS inscription_date FROM members WHERE username = ?');
+		$userBdd = $this->executeQuery($sql, array($user->getUsername()));
+		
+		$result = $userBdd->fetch();	
+		
+			if(password_verify($passwordAdmin, $result['password'])){
+
+				$user->setId($result['id']);
+				$user->setUsername($result['username']);
+				$user->setEmail($result['email']);
+				$user->setInscription_date($result['inscription_date']);
+
+				return $user;
+			}else{
+				// si aucun retour = erreur
+				return; 
+			}
+
+		}catch(Exception $e){
+			$_SESSION['errors']['errorUserBdd'] = 'Votre identifiant est erroné.';
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}	
+
+	public function getAdminByLogin($user)
+	{
+		try{
+			$sql = ('SELECT id, username, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS inscription_date FROM members WHERE username = ?');
+			$adminBdd = $this->executeQuery($sql, array($user->getUsername()));
+			
+			$result = $adminBdd->fetch();	
+			//print_r($result);
+			$user = new User($result);
+			return $user;
+
+		}catch(Exception $e){
+			$_SESSION['errors']['errorAdminBdd'] = 'Votre identifiant est erroné.';
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+
 
 	/**
 	 * [getUserDetails] récupère les infos d'un membre 

@@ -74,8 +74,7 @@ class Comment
     	if ($id > 0) {
     		return $this->id = $id;
     	} else {
-    		trigger_error('L\'id du billet doit être de type integer et > 0.', E_USER_ERROR);
-    		// return false; 
+    		$_SESSION['errors']['errorId'] = 'L\'id du billet doit être de type integer et > 0.';
     	}
     }
 
@@ -86,8 +85,7 @@ class Comment
     	if ($post_id > 0) {
     		return $this->post_id = $post_id;
     	}  else {
-    		trigger_error('L\'id du billet doit être de type integer et > 0.', E_USER_ERROR);
-    		// return false; 
+    		$_SESSION['errors']['errorPostId'] = 'L\'id du billet doit être de type integer et > 0.';
     	}
     }
 
@@ -95,10 +93,10 @@ class Comment
     {
         $author = trim($author);
 
-    	if(isset($author) AND is_string($author) AND strlen($author) <= 15 AND strlen($author) >= 5) {
+    	if(isset($author) AND is_string($author) AND strlen($author) >= 4 AND strlen($author) <= 15) {
     		return $this->author = $author;
     	} else {
-    		$_SESSION['errorAuthor']= 'Le nom de l\'auteur doit être une chaîne de caractères qui comprend entre 5 et 15 caractères.';
+    		$_SESSION['errors']['errorAuthor']= 'Le nom de l\'auteur doit être une chaîne de caractères qui comprend entre 4 et 15 caractères.';
     	}
     }
 
@@ -109,7 +107,7 @@ class Comment
     	if(isset($comment) AND is_string($comment)) {
     		return $this->comment = $comment;
     	} else {
-            $_SESSION['errorComment'] = 'Le commentaire doit être une chaîne de caractères.';
+            $_SESSION['errors']['errorComment'] = 'Le commentaire doit être une chaîne de caractères.';
         }
     }
 

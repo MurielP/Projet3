@@ -18,6 +18,23 @@ class View
 	}
 
 /**
+ * [getTitle]
+ * @return [str] [titre]
+ */
+public function getTitle() 
+    {
+    	return $this->title;
+    }
+/**
+* [getFile]
+* @return [str] [fichier]
+ */
+public function getFile() 
+    {
+    	return $this->file;
+    }
+
+/**
  * permet de générer le titre de l'onglet
  * @param $title 
  */
@@ -26,6 +43,14 @@ class View
 		$this->title = $title;
 	}
 
+/**
+ * permet de générer le fichier associé la vue
+ * @param $file 
+ */
+	public function setFile($file) 
+	{
+		$this->file = $file;
+	}
 /**
  * méthode qui génère la vue 
  * @param  $data (titre et vue)
@@ -41,9 +66,9 @@ class View
 		echo $view;
 	}
  /**
-  * méthode qui génère fichier vue et renvoie le résultat - encapsule l'utilisation de require et permet le check de l'existence du fihcier vue à afficher
-  * @param  $file
-  * @param  $data
+  * méthode qui génère fichier vue et renvoie le résultat - encapsule l'utilisation de require et permet le check de l'existence du fichier vue à afficher
+  * @param  $file [nom du fichier vue à afficher]
+  * @param  $data [données à afficher]
   * @return ob_get_clean pour arrêter la temporisation de sortie 
   */
 	private function generateFile($file, $data) 
@@ -51,14 +76,11 @@ class View
 		// Rend les éléments du tableau $donnees accessibles dans la vue
 		if (file_exists($file)) {
 			extract($data);
-
-		ob_start();
-
-		// inclut fichier vue
-		// résultat placé dans le tampon de sortie 
-		require $file;
-
-		return ob_get_clean();
+			ob_start();
+			// inclut fichier vue
+			// résultat placé dans le tampon de sortie 
+			require $file;
+			return ob_get_clean();
 		} else {
 			throw new Exception ('Le fichier '. $file . ' introuvable.');
 		}

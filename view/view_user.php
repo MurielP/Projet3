@@ -7,8 +7,7 @@
 <h2>Créer mon compte</h2>
 
 <?php
-var_dump($_SESSION);
-
+var_dump($_SESSION['errors']);
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 		foreach ($_SESSION['errors'] as $type => $message) {
 ?>

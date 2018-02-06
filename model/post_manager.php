@@ -7,19 +7,21 @@ class Post_manager extends Database
 {
 	/**
 	 * renvoie la liste de tous les billets
-	 * @return  PDO Statement - la liste des billets 
+	 * @return la liste des billets 
 	 */
 	public function getPosts()
 	{
+
 		$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d %m %Y à %Hh%imin%ss\') AS creation_date FROM posts ORDER BY creation_date DESC ');
 		$posts = $this->executeQuery($sql);
 		
+		// tableau vide
 		$postsObj = array();
         foreach ($posts as $post){
             $postObj = new Post($post);
 
             /**
-             * array_push ( array &$array , mixed $value1 [, mixed $... ] )
+             * array_push ( array &$array , $value1 [, $... ] )
              * array = tableau d'entrée (ici $postsObj = array() donc un tableau vide)
              * $value1 = 1ère valeur à insérer à la fin du tableau (ici $postObj donc un nouvel objet Post($post))
              * retourne nveau nb d'éléments ds le tableau

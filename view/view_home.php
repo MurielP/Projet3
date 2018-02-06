@@ -1,13 +1,9 @@
 <div id="menu">
-
-
 	<ul>
 		<li><a href="index.php?action=registerUser">Créer un compte</a></li>
 		<!-- <li><a href="index.php?action=test">Se connecter</a></li> -->
-		<li><a href="index.php?action=logAdmin">Espace administrateur</a></li>
-		
+		<li><a href="index.php?action=logAdmin">Espace administrateur</a></li>		
 	</ul>
-
 </div>
 
 <?php foreach ($posts as $post) : ?> 
@@ -15,9 +11,8 @@
 	<article>
 		<header>
 		
-			<a href="index.php?action=post&id=<?= htmlspecialchars($post->getId()) ?>">
+			<a href="index.php?action=post&id=<?= htmlspecialchars($post->getId()) ?>"><h1><?= htmlspecialchars($post->getTitle()) ?></h1></a>
 
-			<h1><?= htmlspecialchars($post->getTitle()) ?></h1></a>
 			De : <?= htmlspecialchars($post->getAuthor()) ?><br />
 			Le <time><?= htmlspecialchars($post->getCreation_date()) ?></time>
 		</header>

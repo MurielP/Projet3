@@ -44,12 +44,8 @@ class User_control
 			 * si $insert est ok je renvoie le user vers son dashboard
 			 */
 			if ($insert == true) {
-		
-				$view = new View('dashboard');
-				$view ->setTitle('Mon compte membre');
-				$view->generate(array(
-					'user' => $user
-					));
+				$_SESSION['user'] = $user->getUsername();
+				header('Location: index.php?action=userProfile');
 				
 			}
 		/**
@@ -60,6 +56,22 @@ class User_control
 			$view ->setTitle('S\'inscrire');
 			$view->generate(array());
 		}
+	}
+
+	/**
+	 * [userProfile] 
+	 * @return [type] [description]
+	 */
+	public function userProfile()
+	{	
+		$user = new User(array('username' => $_SESSION['user']));
+		$user = $this->user_manager->getUserByLogin($user);
+
+		$view = new View('dashboard');
+		$view ->setTitle('Mon compte membre');
+		$view->generate(array(
+				'user' => $user
+				));
 	}
 	/**
 	 * [registerUserPage]  si les champs sont vides 
@@ -85,24 +97,35 @@ class User_control
 			'password' => $passwordAdmin
 		));
 		
-		$admin = $this->user_manager->getUserByLogin($user); 
+		// création de la var $admin 
+		$admin = $this->user_manager->verifyUserByPassword($user, $passwordAdmin); 
 		
-		if ($admin == true){
+		// si le username de l'admin correspond à $loginAdmin
+		if ($user->getUsername() == $loginAdmin){
+			$_SESSION['user']= $loginAdmin;
+			header('Location: index.php?action=adminProfile');
 			
-			$view = new View('admin');
-			$view ->setTitle('Mon compte adminstrateur');
-			$view->generate(array(
-					'user' => $user
-					));
-			
+		}else{
+			header('Location: index.php?action=logAdmin');
 		}
 	}
 
-	public function tryLogAdmin($loginAdmin, $passwordAdmin)
+	public function adminProfile()
 	{
-
-		$view = new View('admin');
+		$user = new User(array('username' => $_SESSION['user']));
+		$user = $this->user_manager->getAdminByLogin($user);
+		
+		$view = new View('adminDashboard');
 		$view ->setTitle('Mon compte administrateur');
+		$view->generate(array(
+				'user' => $user
+				));
+	}
+
+	public function tryLogAdmin()
+	{
+		$view = new View('admin');
+		$view ->setTitle('Accès administrateur');
 		$view->generate(array());
 	}
 /*

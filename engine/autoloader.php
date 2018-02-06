@@ -12,25 +12,27 @@ class Autoloader
 	 */
 	private  function autoload($myClass)
 	{
+		 // Boucle pour parcourir chaque directory afin de charger le fichier comprenant la classe requise une seule fois(require_once)
+        // Si on retrouve la même classe dans un répertoire plus tard, cette classe sera ignorée grâce au require_once 
 		foreach ($this->directories as $directory)
 		{
 			if(file_exists($path = $directory . '/' . $myClass . '.php')){
 				require_once $path;
-			}
+			} 
 		}
 	}
 
 	/** 
 	* méthode registerAutoload enregistre l'autoload 
-	*
+	* $this = classe Autoloader
 	*/
-	public  function registerAutoload()
+	public function registerAutoload()
 	{
 		spl_autoload_register(array($this, 'autoload')); 
 	}
 
 	/**
-	 * [addDirectories description]
+	 * [addDirectories] ajouter des directories 
 	 * @param [type] $directories [fichiers à ajouter ds le tableau]
 	 */
 	public function addDirectories($directories)

@@ -35,7 +35,7 @@ class User
     private $username;
     private $password;
     private $email; 
-    private $inscritpion_date; 
+    private $inscription_date; 
     private $confirm_password;
 
     /**
@@ -127,6 +127,10 @@ class User
 		
 	}
 
+	/**
+	 * [setConfirm_password] valide le mot de passe si les champs mot de passe et validation du mot de passe sont identiques
+	 * @param [string] $confirm_password [mot de passe confirmé]
+	 */
 	public function setConfirm_password($confirm_password)
 	{
 		$confirm_password = trim($confirm_password);
@@ -136,6 +140,11 @@ class User
 		} else {
 			$_SESSION['errors']['confirm_passwordError'] = 'Le mot de passe de confirmation saisi est différent. Merci de vérifier votre mot de passe. ';
 		}
+	}
+
+	public function setInscription_Date($inscription_date)
+	{
+		$this->inscription_date = $inscription_date;
 	}
 
 }

@@ -5,8 +5,7 @@
     </header>
 
 <?php
-
-var_dump($_SESSION);
+var_dump($_SESSION['user']);
 
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 		foreach ($_SESSION['errors'] as $type => $message) {
@@ -34,7 +33,7 @@ var_dump($_SESSION);
 		</p>
 
 		<p><label for="password">Votre mot de passe</label> : 
-			<input type="password" name="username" id="password" value="" required>
+			<input type="password" name="password" id="password" value="" required>
 		</p>
 
 		<p><button type="submit" value="" />Se connecter</button></p>

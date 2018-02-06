@@ -8,11 +8,19 @@ require_once 'entity/comment.class.php';
 
 require_once 'view/view.php';
 */
+
+/**
+ * Classe qui gère les billets
+ */
 class Post_control
 {
 	private $post_manager;
 	private $comment_manager;
 
+	/**
+	 * [__construct]
+	 * création des instances manager
+	 */
 	public function __construct()
 	{
 		$this->post_manager = new Post_manager();
@@ -57,6 +65,13 @@ class Post_control
 			$comment->getPost_id());
 
 		header('Location: index.php?action=post&id=' .$post_id );
+	}
+
+	public function tryToComment()
+	{
+		$view = new View('post');
+		$view->setTitle('Billet simple pour l\'Alaska');
+		$view->generate(array());
 	}
 }
 
