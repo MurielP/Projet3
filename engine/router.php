@@ -201,8 +201,7 @@ class Router
 						*/
 						$this->admin_control->addPostPage();
 					}
-				} elseif ($_GET['action'] == 'getPostsList') {
-					
+				} elseif ($_GET['action'] == 'getPostsList') { //dashboard
 					$this->admin_control->getPostsList();
 					
 				} else {

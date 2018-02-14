@@ -41,14 +41,21 @@
 		</fieldset>
 	</form>
 
-<?php foreach ($lists as $list) :?>
-	<table>
+<table>
 	  <caption>Liste des billets</caption>
 		  <tr>
 		  	 <th>Date de création</th>
 			 <th>Titre</th>
 			 <th>Aperçu du contenu</th>
-			 <th>Auteur<?= htmlspecialchars ($list->getAuthor()) ?></th>
+			 <th>Auteur</th>
 		  </tr>
-	</table>
+<?php foreach ($posts as $post) :?>
+		<tr>
+			<td><?= htmlspecialchars ($post->getCreation_date()) ?></td>
+			<td><?= htmlspecialchars ($post->getTitle()) ?></td>
+			<td><?= htmlspecialchars ($post->getContent()) ?></td>
+			<td><?= htmlspecialchars ($post->getAuthor()) ?></td>
+		</tr>
+
 <?php endforeach; ?>
+</table>

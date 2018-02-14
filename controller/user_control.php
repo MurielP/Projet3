@@ -3,10 +3,12 @@
 class User_control
 {
 	private $user_manager;
+	private $post_manager;
 
 	public function __construct()
 	{
 		$this->user_manager = new User_manager();
+		$this->post_manager = new Post_manager();
 	}
 
 	/**
@@ -119,10 +121,13 @@ class User_control
 		$user = new User(array('username' => $_SESSION['userUsername']));
 		$user = $this->user_manager->getAdminByLogin($user);
 
-		$view = new View('adminDashboard');
+		$posts = $this->post_manager->getPosts();
+
+		$view = new View('adminDashboard'); // plutot userProfile
 		$view ->setTitle('Mon compte administrateur');
 		$view->generate(array(
-				'user' => $user
+				'user' => $user,
+				'posts'=> $posts
 				));
 	}
 

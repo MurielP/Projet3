@@ -51,6 +51,22 @@ class Post_manager extends Database
 
     } 
 
+    public function savePost($lastPost)
+	{
+		try {
+			$sql = ('INSERT INTO posts (author, title, content, creation_date) VALUES (?,?,?,NOW())');
+			$createdPost = $this->executeQuery($sql, array(
+				$lastPost->getAuthor(),
+				$lastPost->getTitle(),
+				$lastPost->getContent(),
+
+			));
+			return $createdPost; 
+		} catch (Exception $e) {
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+
     /*
     public function getPost($post_id) {
     	

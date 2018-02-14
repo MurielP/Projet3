@@ -2,13 +2,13 @@
 
 class Admin_control
 {
-	private $admin_manager;
 	private $post_manager;
+	private $user_manager;
 
 	public function __construct()
 	{
-		$this->admin_manager = new Admin_manager();
 		$this->post_manager = new Post_manager();
+		$this->user_manager = new User_manager();
 
 	}
 
@@ -24,7 +24,7 @@ class Admin_control
 		 * si la tableau d'erreur est vide alors j'appelle la fonction savePost du admin_manager
 		 */
 		if (count($_SESSION['errors']) == 0){
-			$insertPost = $this->admin_manager->savePost($lastPost);		
+			$insertPost = $this->post_manager->savePost($lastPost);		
 		} 
 			header('Location: index.php');
 	}
@@ -36,10 +36,17 @@ class Admin_control
 
 	public function getPostsList()
 	{
-		$postsList = $this->admin_manager->getList();
+		$postsList = $this->post_manager->getPosts();
+		
+		$user = new User(array('username' => $_SESSION['userUsername']));
+		$user = $this->user_manager->getAdminByLogin($user);
+	
 
 		$view = new view('adminDashboard');
-		$view->setTitle('');
-		$view->generate(array());
+		$view->setTitle('Les billets');
+		$view->generate(array(
+			'posts' => $postsList,
+			'user' =>$user
+		));
 	}
 }
