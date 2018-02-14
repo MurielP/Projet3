@@ -16,6 +16,7 @@ class User_manager extends Database
 				$user->getUsername(),
 				$user->getPassword(),
 				$user->getEmail(),
+				$user->getInscriptionDate()
 				));		
 			return $result; 
 		/**
@@ -40,10 +41,15 @@ class User_manager extends Database
 	{		
 			// COUNT(*)  --counts all values including null
 			$sql = ('SELECT COUNT(*) AS nb_resultat FROM members WHERE email = ?');
-			$req = $this->executeQuery($sql, array($user->getEmail()));
+			$req = $this->executeQuery($sql, array(
+				$user->getEmail()
+			));
+
+			// récupère la 1ère colonne ici colonne email
 			$resultMail = $req->fetchColumn(); 
 			//var_dump($resultMail); 
 
+			// si le mail existe en bdd -> je crée un tableau d'erreurs que je stocke ds une variable de session SESSION
 			if ($resultMail == 1){
 				$_SESSION['errors']['existingEmail'] = 'L\'email  '. $user->getEmail() .' existe déjà en base données. Veuillez choisir un autre email.';
 			} 
@@ -52,7 +58,7 @@ class User_manager extends Database
 	}
 	
 	/**
-	 * [getUserByLogin] récupère l'iderntifiant de l'admin
+	 * [getUserByLogin] récupère l'identifiant de l'admin
 	 * @param  [type] $user [description]
 	 * @return [type]       [description]
 	 */
@@ -62,7 +68,8 @@ class User_manager extends Database
 		$sql = ('SELECT id, username, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS inscription_date FROM members WHERE username = ?');
 		$userBdd = $this->executeQuery($sql, array($user->getUsername()));
 		
-		$result = $userBdd->fetch();
+		// fetch(PDO::FETCH_ASSOC) :Retourne la ligne suivante en tant qu'un tableau indexé par le nom des colonnes
+		$result = $userBdd->fetch(PDO::FETCH_ASSOC);
 		//print_r($result);
 		$user = new User($result);
 		return $user;
@@ -74,10 +81,10 @@ class User_manager extends Database
 	}
 
 	/**
-	 * [verifyUserByPassword] si mot de passe  vérifié -> 
+	 * [verifyUserByPassword] si mot de passe  vérifié
 	 * @param  [type] $user     [description]
 	 * @param  [type] $password [description]
-	 * @return [type]           [description]
+	 * @return [type] $user     [description]
 	 */
 	public function verifyUserByPassword($user, $passwordAdmin)
 	{
@@ -86,8 +93,8 @@ class User_manager extends Database
 		$userBdd = $this->executeQuery($sql, array($user->getUsername()));
 		
 		$result = $userBdd->fetch();	
-		
-			if(password_verify($passwordAdmin, $result['password'])){
+		//var_dump($result);
+			if($user AND password_verify($passwordAdmin, $result['password'])){
 
 				$user->setId($result['id']);
 				$user->setUsername($result['username']);
@@ -97,7 +104,7 @@ class User_manager extends Database
 				return $user;
 			}else{
 				// si aucun retour = erreur
-				return; 
+				return false; 
 			}
 
 		}catch(Exception $e){

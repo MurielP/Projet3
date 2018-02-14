@@ -28,14 +28,14 @@ class Post_control
 	}
 
 	/**
-	 * [post affiche un post en fonction de son id ]
-	 * @param  [int] $postId [id du post]
-	 * @return un billet et ses commentaires
+	 * [post affiche un billet et ses commentaires en fonction de son id ]
+	 * @param  [int] $post-id [id du post]
+	 * @return vue de la page un billet et ses commentaires
 	 */
-	public function post($postId)
+	public function post($post_id)
 	{
-		$post = $this->post_manager->getPost($postId);
-		$comments = $this->comment_manager->getComments($postId);
+		$post = $this->post_manager->getPost($post_id);
+		$comments = $this->comment_manager->getComments($post_id);
 
 		$view = new View('post');
 		$view->setTitle('Billet simple pour l\'Alaska');
@@ -51,27 +51,18 @@ class Post_control
 	 * @param  [int] $post_id [id du billet concerné]
 	 * @return  page post actualisée
 	 */
-	public function toComment($author, $comment, $post_id)
+	public function addComment($author, $comment, $post_id)
 	{
-		$comment = new Comment(array(
+		$lastComment = new Comment(array(
 				'author' => $author, 
 				'comment' => $comment,
 				'post_id' => $post_id,
  		));
 
-		$this->comment_manager->createComment(
-			$comment->getAuthor(), 
-			$comment->getComment(), 
-			$comment->getPost_id());
-
-		header('Location: index.php?action=post&id=' .$post_id );
-	}
-
-	public function tryToComment()
-	{
-		$view = new View('post');
-		$view->setTitle('Billet simple pour l\'Alaska');
-		$view->generate(array());
+		if (count($_SESSION['errors']) == 0){
+			$insertComment = $this->comment_manager->saveComment($lastComment);		
+		} 
+			header('Location: index.php?action=post&id=' .$post_id );
 	}
 }
 

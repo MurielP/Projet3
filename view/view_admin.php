@@ -5,7 +5,7 @@
     </header>
 
 <?php
-var_dump($_SESSION['user']);
+var_dump($_SESSION['errors']);
 
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 		foreach ($_SESSION['errors'] as $type => $message) {
@@ -19,7 +19,7 @@ var_dump($_SESSION['user']);
 <?php
 }
 }	
-	// création d'un tableau vide pour afficher les erreurs 
+	// création d'un tableau vide pour vider les erreurs
 	$_SESSION['errors'] = [];
 ?>
 
@@ -28,12 +28,12 @@ var_dump($_SESSION['user']);
 	<fieldset>
 		<legend>Accès espace administrateur</legend>
 
-		<p><label for="username">Votre identifiant</label> : 
-			<input type="text" name="username" id="username" value="" required/>
+		<p><label for="login">Votre identifiant</label> : 
+			<input type="text" name="username" id="username" value=""/>
 		</p>
 
 		<p><label for="password">Votre mot de passe</label> : 
-			<input type="password" name="password" id="password" value="" required>
+			<input type="password" name="password" id="password" value="">
 		</p>
 
 		<p><button type="submit" value="" />Se connecter</button></p>

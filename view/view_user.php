@@ -20,7 +20,7 @@ var_dump($_SESSION['errors']);
 <?php
 }
 }	
-	// création d'un tableau vide pour afficher les erreurs 
+	// création d'un tableau vide afin de vider les erreurs
 	$_SESSION['errors'] = [];
 ?>
 
@@ -30,19 +30,19 @@ var_dump($_SESSION['errors']);
 		<legend>Créer mon compte</legend>
 
 		<p><label for="username">Votre pseudo</label> : 
-			<input type="text" name="username" id="username" value="" required/>
+			<input type="text" name="username" id="username" value=""/>
 		</p>
 
 		<p><label for="email">Votre Email</label> : 
-			<input type="email" name="email" id="email" value="" required>
+			<input type="email" name="email" id="email" value="">
 		</p>
 
 		<p><label for="password">Votre mot de passe</label> : 
-			<input type="password" name="password" id="password" value="" required>
+			<input type="password" name="password" id="password" value="">
 		</p>
 
 		<p><label for="confirm_password">Confirmer votre mot de passe</label> : 
-			<input type="password" name="confirm_password" id="confirm_password" value="" required>
+			<input type="password" name="confirm_password" id="confirm_password" value="">
 		</p>
 
 		<p><button type="submit" value="" />Je veux devenir membre !</button></p>

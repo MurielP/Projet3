@@ -18,7 +18,7 @@ class Autoloader
 		{
 			if(file_exists($path = $directory . '/' . $myClass . '.php')){
 				require_once $path;
-			} 
+			}
 		}
 	}
 
@@ -27,7 +27,8 @@ class Autoloader
 	* $this = classe Autoloader
 	*/
 	public function registerAutoload()
-	{
+	{	
+		// chq fois qu'une classe non déclarée est appelée, la fonction enregistrée via spl_autoload_register est appelée avec le nom de la classe
 		spl_autoload_register(array($this, 'autoload')); 
 	}
 
@@ -37,6 +38,7 @@ class Autoloader
 	 */
 	public function addDirectories($directories)
 	{
+		// transtypage en array
 		$this->directories = (array)$directories;
 	}
 }

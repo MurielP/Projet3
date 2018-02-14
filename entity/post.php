@@ -20,13 +20,16 @@ class Post
 	 */
 	public function hydrate(array $data)
     {
+        // boucle avec le tableau de $data - $key = nom de la propriété et $ value = valeur
         foreach ($data as $key => $value)
         {
+            // récupère le nom du setter correspondant
             $method = 'set'.ucfirst($key);
 
+            // vérifie que le setter correspondant existe 
             if (method_exists($this, $method))
             {
-                // on appelle la méthode
+                // si il existe -> on l'appelle 
                 $this->$method($value);
             }
         }

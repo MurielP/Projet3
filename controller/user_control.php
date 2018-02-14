@@ -31,7 +31,7 @@ class User_control
 		));
 
 		/** 
-		 * je vérifie si l'email existe déjà en bdd 
+		 * je vérifie si l'email du $user existe déjà en bdd 
 		 */
 		$this->user_manager->emailExists($user);
 
@@ -40,11 +40,12 @@ class User_control
 		 */
 		if (count($_SESSION['errors']) == 0){
 			$insert = $this->user_manager->createUser($user);
+
 			/**
-			 * si $insert est ok je renvoie le user vers son dashboard
+			 * si $insert est ok : je crée ma variable de session je renvoie le user vers son userProfile - vue dashboard
 			 */
 			if ($insert == true) {
-				$_SESSION['user'] = $user->getUsername();
+				$_SESSION['userUsername'] = $user->getUsername();
 				header('Location: index.php?action=userProfile');
 				
 			}
@@ -59,15 +60,17 @@ class User_control
 	}
 
 	/**
-	 * [userProfile] 
-	 * @return [type] [description]
+	 * [userProfile] création d'un new User en fonction de son username et récupère es infos liées
+	 * @return affiche le dashboard du user créé
 	 */
 	public function userProfile()
 	{	
-		$user = new User(array('username' => $_SESSION['user']));
+		// création d'un new User
+		$user = new User(array('username' => $_SESSION['userUsername']));
+		// 
 		$user = $this->user_manager->getUserByLogin($user);
 
-		$view = new View('dashboard');
+		$view = new View('memberDashboard');
 		$view ->setTitle('Mon compte membre');
 		$view->generate(array(
 				'user' => $user
@@ -96,14 +99,15 @@ class User_control
 			'username' => $loginAdmin,
 			'password' => $passwordAdmin
 		));
+
+			// création de la var $admin 
+			$admin = $this->user_manager->verifyUserByPassword($user, $passwordAdmin); 
 		
-		// création de la var $admin 
-		$admin = $this->user_manager->verifyUserByPassword($user, $passwordAdmin); 
-		
-		// si le username de l'admin correspond à $loginAdmin
-		if ($user->getUsername() == $loginAdmin){
-			$_SESSION['user']= $loginAdmin;
-			header('Location: index.php?action=adminProfile');
+			// si le username de l'admin correspond à $loginAdmin
+			if ($user->getUsername() == $loginAdmin){
+				$_SESSION['userUsername'] = $loginAdmin;
+				header('Location: index.php?action=adminProfile');
+
 			
 		}else{
 			header('Location: index.php?action=logAdmin');
@@ -112,9 +116,9 @@ class User_control
 
 	public function adminProfile()
 	{
-		$user = new User(array('username' => $_SESSION['user']));
+		$user = new User(array('username' => $_SESSION['userUsername']));
 		$user = $this->user_manager->getAdminByLogin($user);
-		
+
 		$view = new View('adminDashboard');
 		$view ->setTitle('Mon compte administrateur');
 		$view->generate(array(
@@ -125,23 +129,18 @@ class User_control
 	public function tryLogAdmin()
 	{
 		$view = new View('admin');
-		$view ->setTitle('Accès administrateur');
+		$view->setTitle('Accès administrateur');
 		$view->generate(array());
 	}
-/*
-	public function userDashoard($userId)
-	{
-		$userId = intval($_GET['id']);
-		if ($userId != 0) {
-
-			$userDetails = $this->user_manager->getUserDetails($userId);
-
-			$view = new view('dashboard');
-			$view->setTitle('Détail de votre compte');
-			$view->generate(array('userDetails' => $userDetails));
-		}
+	
+	public function logout()
+	{	
+		$_SESSION['userUsername'] = [];
+		session_destroy();
+		header('Location: index.php');
 	}
-*/	
+
+	
 }
 
 
