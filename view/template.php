@@ -8,13 +8,13 @@
     <body>
         <div id="global">
             <header>
-                <h1 id="blogTitle">Mon Blog pour un écrivain</h1></a>
+                <h1 id="blogTitle">Billet simple pour l'Alaska</h1></a>
             </header>
             <div id="content">
                 <?= $content ?>
             </div> <!-- #contenu -->
             <footer id="blogFooter">
-                Blog réalisé avec PHP, HTML5 et CSS.
+                Jean Forteroche vous livre ses aventures.
             </footer>
         </div> <!-- #global -->
     </body>

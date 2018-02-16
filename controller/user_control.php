@@ -140,8 +140,13 @@ class User_control
 	
 	public function logout()
 	{	
+		// ecrase le tableau 
 		$_SESSION['userUsername'] = [];
+		// détruit les variables de la session en cours
+		session_unset();
+		// détruit la session en cours
 		session_destroy();
+		// redirection
 		header('Location: index.php');
 	}
 

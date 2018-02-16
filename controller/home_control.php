@@ -20,6 +20,7 @@ class Home_control
 	{
 		$posts = $this->post_manager->getPosts();
 
+		// appel du fichier qui génère la vue 
 		$view = new view('home');
 		$view->setTitle('Accueil - Jean Forteroche');
 		$view->generate(array('posts' => $posts));

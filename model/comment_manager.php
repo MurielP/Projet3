@@ -49,9 +49,25 @@ class Comment_manager extends Database
 				$lastComment->getComment(),
 				$lastComment->getPost_id()
 			));
+			
 			return $createdComment; 
 		} catch (Exception $e) {
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
 		}
 	}
+
+	public function getOneComment($post_id) {
+        $sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date FROM comments WHERE post_id = ?');
+		$newComment = $this->executeQuery($sql, array($post_id));
+
+		// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $oneComment j'ai un post_id alors je vais afficher 
+		if ($newComment->rowCount() > 0) {
+			// fetch() = va chercher la 1ère ligne de résultat
+			$result = new Comment($newComment->fetch());
+			return $result;
+		}
+		else 
+			throw new Exception('Aucun commentaire ne correspond au numéro ' .$id. '.');
+
+    } 
 }	

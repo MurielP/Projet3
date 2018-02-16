@@ -91,9 +91,8 @@ class Comment
 
     public function setAuthor($author)
     {
-        $author = trim($author);
-
-    	if(isset($author) AND is_string($author) AND strlen($author) >= 4 AND strlen($author) <= 15) {
+    	if(isset($author) AND is_string($author) AND strlen($author) >= 4 AND strlen($author) <= 15 AND 
+            ($author = trim($author))) {
     		return $this->author = $author;
     	} else {
     		$_SESSION['errors']['errorAuthor']= 'Le nom de l\'auteur doit être une chaîne de caractères qui comprend entre 4 et 15 caractères.';
@@ -102,9 +101,7 @@ class Comment
 
     public function setComment($comment)
     {
-        $comment = trim($comment);
-
-    	if(isset($comment) AND is_string($comment)) {
+    	if(isset($comment) AND is_string($comment) AND ($comment = trim($comment))) {
     		return $this->comment = $comment;
     	} else {
             $_SESSION['errors']['errorComment'] = 'Le commentaire doit être une chaîne de caractères.';

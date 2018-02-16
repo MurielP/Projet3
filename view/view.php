@@ -54,10 +54,11 @@ public function getFile()
 /**
  * méthode qui génère la vue 
  * @param  $data (titre et vue)
- * @return $view
+ * @return $view 
  */
 	public function generate($data) 
 	{
+		// appelle la vue selon action et récupère les données
 		$content = $this->generateFile($this->file, $data);
 		$view = $this->generateFile('view/template.php', array(
 			'title' => $this->title, 
@@ -68,13 +69,14 @@ public function getFile()
  /**
   * méthode qui génère fichier vue et renvoie le résultat - encapsule l'utilisation de require et permet le check de l'existence du fichier vue à afficher
   * @param  $file [nom du fichier vue à afficher]
-  * @param  $data [données à afficher]
+  * @param  array($data) [données à afficher]
   * @return ob_get_clean pour arrêter la temporisation de sortie 
   */
 	private function generateFile($file, $data) 
 	{
 		// Rend les éléments du tableau $donnees accessibles dans la vue
 		if (file_exists($file)) {
+			// vérifie l'existence d'une variable / transforme en variable les index d'un tableau associatif 
 			extract($data);
 			ob_start();
 			// inclut fichier vue
@@ -82,7 +84,7 @@ public function getFile()
 			require $file;
 			return ob_get_clean();
 		} else {
-			throw new Exception ('Le fichier '. $file . ' introuvable.');
+			throw new Exception ('Le fichier '. $file . ' est introuvable.');
 		}
 	}
 }

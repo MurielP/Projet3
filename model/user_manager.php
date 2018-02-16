@@ -119,7 +119,7 @@ class User_manager extends Database
 			$sql = ('SELECT id, username, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS inscription_date FROM members WHERE username = ?');
 			$adminBdd = $this->executeQuery($sql, array($user->getUsername()));
 			
-			$result = $adminBdd->fetch();	
+			$result = $adminBdd->fetch(PDO::FETCH_ASSOC);	
 			//print_r($result);
 			$user = new User($result);
 			return $user;

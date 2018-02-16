@@ -94,8 +94,8 @@ class Post
 
     public function setAuthor($author)
     {	
-        // \s pour intégrer les whitespaces
-    	if(is_string($author) AND strlen($author) <= 20 AND strlen($author) >= 5) {
+    	if(is_string($author) AND strlen($author) <= 20 AND strlen($author) >= 5 AND 
+            ($author = trim($author))) {
     		return $this->author = $author;
     	} else {
             $_SESSION['errors']['authorPost'] = 'Le nom de l\'auteur est invalide. Il doit comprendre entre 5 et 20 caractères alphanumériques.' ;
@@ -104,7 +104,7 @@ class Post
 
     public function setTitle($title)
     {
-    	if(is_string($title) AND strlen($title <= 100)) {
+    	if(is_string($title) AND strlen($title <= 100) AND ($title = trim($title))) {
     		return $this->title = $title;
     	} else {
             $_SESSION['errors']['titlePost'] = 'Le titre de l\'article est invalide. Il doit être composé d\'une chaîne de moins de 100 caractères .' ;
@@ -113,9 +113,11 @@ class Post
 
     public function setContent($content)
     {
-    	if(is_string($content)) {
+    	if(is_string($content) AND ($content = trim($content))) {
     		return $this->content = $content;
-    	}
+    	} else {
+            $_SESSION['errors']['contentPost'] = 'Le contenu de l\'article est invalide. Il doit être composé d\'une chaîne de caractères .' ;
+        }
     }
     
     public function setCreation_date($creation_date) 

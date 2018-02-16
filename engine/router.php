@@ -60,7 +60,6 @@ class Router
 					$post_id = $this->getParam($_POST, 'id');
 
 					$this->post_control->addComment($author, $comment, $post_id);
-
 					/**
 					 * si j'ai des erreurs j'affiche un msg et je renvoie vers la page du billet choisi avec ses commentaires
 					 */
@@ -73,9 +72,9 @@ class Router
 							$comment = $this->getParam($_POST, 'comment');
 							$_SESSION['errors']['emptyComment'] = 'Le champ Commentaire doit être rempli';
 						}
-
 						// vérifie si j'ai un id de billet 
 						$post_id = (int)$this->getParam($_POST, 'id');
+
 						// si id de billet mais des erreurs, je renvoie sur la page du billets et ses commentaires 
 						if ($post_id > 0) {
 							header('Location: index.php?action=post&id=' .$post_id ); // non traité $_POST
@@ -83,12 +82,6 @@ class Router
 							header('Location : index.php');
 						}
 					} 
-
-				/**
-				} elseif ($_GET['action'] == 'homePage') {
-					$this->home_control->homePage();
-				**/
-
 				} elseif ($_GET['action'] == 'registerUser') {
 					/*
 					* si les champs sont remplis et que mon mdp de confirmation est ok -> j'appelle la méthode pour enregistrer le nouveau user(manager)

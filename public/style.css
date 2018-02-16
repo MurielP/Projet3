@@ -4,7 +4,7 @@ html, body {
 
    body {
    	color : #eff4f4;
-   	background: #b7e5e1;
+   	background: #132F35;
    	font-family: 'Futura-Medium', 'Futura', 'Trebuchet MS', sans-serif;
    }
 
@@ -14,8 +14,8 @@ html, body {
 
 #global {
       min-height: 100%;
-      background : #636867;
-      width: 70%;
+      background : #517581;
+      width: 100%;
       margin: auto; /* centre la div */
       text-align: justify;
       padding : 5px 20px;
@@ -36,6 +36,74 @@ html, body {
    color : white;
 }
 
+.successAlert {
+  background-color : #A0C03C;
+  color : white;
 
+}
 
+.comments {
+  background-color : #0D738F;
+}
 
+.tablePostList{
+  font-family: 'Futura-Medium', 'Futura', 'Trebuchet MS', sans-serif;
+  margin: 25px auto;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+  border-bottom: 2px solid #00cccc;
+  box-shadow: 0px 0px 20px 
+}
+
+caption {
+  font-size: 20px;
+  text-transform: uppercase;
+  background-color: #6E7578;
+  color : #fff;
+
+}
+tr:hover {
+   background: #f4f4f4;
+}
+
+th {
+    background : #A8B3B7;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    border: 1px solid #eee;
+    padding: 12px 35px;
+    border-collapse: collapse;
+}
+
+td {
+    color: #A8B3B7;
+    border: 1px solid #eee;
+    padding: 12px 35px;
+    border-collapse: collapse;
+}
+
+.navbar {
+  background-color: #A8B3B7;
+}
+
+ul.navbar-horizontale li{
+  display: inline;
+}
+
+li{
+  list-style-type: none; 
+  padding: 0.5em;
+}
+
+.form {
+  margin: 0 auto;
+  width: 500px;
+  padding: 1em;
+}
+
+label {
+  display: inline-block;
+  width: 200px;
+  text-align: left;
+}
