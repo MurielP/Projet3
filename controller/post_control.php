@@ -36,6 +36,7 @@ class Post_control
 	{
 		$post = $this->post_manager->getPost($post_id);
 		$comments = $this->comment_manager->getComments($post_id);
+		//$comments = $this->comments_manager->getCommentsNumber($post_id);
 
 		$view = new View('post');
 		$view->setTitle('Billet simple pour l\'Alaska');
@@ -64,10 +65,9 @@ class Post_control
 			$insertComment = $this->comment_manager->saveComment($lastComment);	
 
 			/**
-			 * si $insert est ok : je crée ma variable de session je renvoie le user vers son userProfile - vue dashboard
+			 * si $insertComment est ok : je crée ma variable de session pour afficher msg success 
 			 */
 			if ($insertComment == true) {
-				$oneComment = $this->comment_manager->getOneComment($post_id);
 				$_SESSION['success']['commentInserted'] = 'Votre commentaire a bien été enregistré';
 			}	
 		} 

@@ -1,10 +1,12 @@
-<div id="menu">
-	<ul>
-		<li><a href="index.php?action=registerUser">Créer un compte</a></li>
-		<li><a href="index.php?action=logUser">Espace membre</a></li>
-		<li><a href="index.php?action=logAdmin">Espace administrateur</a></li>		
-	</ul>
-</div>
+<container>
+    <nav class="navbar">
+	    <ul class="navbar-horizontale">
+	   		<li><a href="index.php?action=registerUser">Créer un compte</a></li>
+	 		<li><a href="index.php?action=logUser">Espace membre</a></li>
+	    	<li><a href="index.php?action=logAdmin">Espace administrateur</a></li>	
+	    </ul>
+	</nav>
+</container>
 
 <?php foreach ($posts as $post) : ?> 
 	
@@ -14,9 +16,11 @@
 			<a href="index.php?action=post&id=<?= htmlspecialchars($post->getId()) ?>">
 				<h1><?= htmlspecialchars($post->getTitle()) ?></h1>
 			</a>
-
-			De : <?= htmlspecialchars($post->getAuthor()) ?><br />
-			Le <time><?= htmlspecialchars($post->getCreation_date()) ?></time>
+			<p>
+				De : <?= htmlspecialchars($post->getAuthor()) ?><br />
+				Le <time><?= htmlspecialchars($post->getFormatted_creation_date()) ?></time>
+				
+			</p>
 		</header>
 			<p><?=  htmlspecialchars($post->getContent()) ?></p>
 	</article>

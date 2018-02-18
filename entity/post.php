@@ -69,7 +69,7 @@ class Post
     	return $this->content;
     }
 
-    public function getCreation_date() 
+    public function getFormatted_creation_date() 
     {
     	return $this->creation_date;
     }
@@ -120,7 +120,7 @@ class Post
         }
     }
     
-    public function setCreation_date($creation_date) 
+    public function setFormatted_creation_date($creation_date) 
     {
         return $this->creation_date = $creation_date;
 

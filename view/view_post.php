@@ -1,11 +1,12 @@
 <header>
-<!--  <?=  '<pre>' . print_r($post,true) . '</pre>'; ?>-->
+ <!-- <?=  '<pre>' . print_r($comments,true) . '</pre>'; ?> -->
 	<a href="index.php">Retour à la liste des billets</a>
 
 	<h2><?=  htmlspecialchars($post->getTitle()) ?></h2>
-         <time>Le <?= htmlspecialchars($post->getCreation_date()) ?></time>   
-    <p><?= htmlspecialchars($post->getContent()) ?></p>
-    <hr />
+    	<time>Le <?= $post->getFormatted_creation_date()?></time>   
+
+    	<p><?= htmlspecialchars($post->getContent()) ?></p>
+    	<hr />
 </header>    
 
     <h2>Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h2>

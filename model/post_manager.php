@@ -12,7 +12,7 @@ class Post_manager extends Database
 	public function getPosts()
 	{
 
-		$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin%ss\') AS creation_date FROM posts ORDER BY creation_date DESC ');
+		$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_creation_date FROM posts ORDER BY creation_date DESC');
 		$posts = $this->executeQuery($sql);
 		
 		// tableau vide
@@ -37,10 +37,10 @@ class Post_manager extends Database
 	 */
 	
 	public function getPost($post_id) {
-        $sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin%ss\') AS creation_date FROM posts WHERE id = ?');
+        $sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_creation_date FROM posts WHERE id = ?');
 		$post = $this->executeQuery($sql, array($post_id));
 
-		// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher 
+		// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le billet
 		if ($post->rowCount() > 0) {
 			// fetch() = va chercher la 1ère ligne de résultat
 			$result = new Post($post->fetch());

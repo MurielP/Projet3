@@ -13,7 +13,7 @@ class Comment_manager extends Database
 	
 	public function getComments($post_id)
 	{
-		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date FROM comments WHERE post_id = ? ORDER BY comment_date');
+		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date FROM comments WHERE post_id = ? ORDER BY comment_date DESC');
 		$comments = $this->executeQuery($sql, array($post_id));
 		
 		// création d'un tableau vide 
@@ -56,18 +56,5 @@ class Comment_manager extends Database
 		}
 	}
 
-	public function getOneComment($post_id) {
-        $sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date FROM comments WHERE post_id = ?');
-		$newComment = $this->executeQuery($sql, array($post_id));
 
-		// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $oneComment j'ai un post_id alors je vais afficher 
-		if ($newComment->rowCount() > 0) {
-			// fetch() = va chercher la 1ère ligne de résultat
-			$result = new Comment($newComment->fetch());
-			return $result;
-		}
-		else 
-			throw new Exception('Aucun commentaire ne correspond au numéro ' .$id. '.');
-
-    } 
 }	

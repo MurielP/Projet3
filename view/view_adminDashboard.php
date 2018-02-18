@@ -58,11 +58,10 @@
 <?php foreach ($posts as $post) :?>
 	<tbody>
 		<tr>
-			
 			<td><?= htmlspecialchars ($post->getTitle()) ?></td>
 			<td><?= htmlspecialchars ($post->getContent()) ?></td>
 			<td><?= htmlspecialchars ($post->getAuthor()) ?></td>
-			<td><?= htmlspecialchars ($post->getCreation_date()) ?></td>
+			<td><?= htmlspecialchars ($post->getFormatted_creation_date()) ?></td>
 		</tr>
 	</tbody>
 <?php endforeach; ?>
