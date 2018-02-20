@@ -1,7 +1,7 @@
 <container>
     <nav class="navbar">
 	    <ul class="navbar-horizontale">
-	   		<li><a href="index.php?action=registerUser">Créer un compte</a></li>
+	   		<li><a href="index.php?action=registerUser">Devenir membre</a></li>
 	 		<li><a href="index.php?action=logUser">Espace membre</a></li>
 	    	<li><a href="index.php?action=logAdmin">Espace administrateur</a></li>	
 	    </ul>

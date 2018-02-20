@@ -29,7 +29,7 @@ class User_control
 			'username' => $username, 
 			'password' => $password,
 			'email' => $email,
-			'confirm_password' => $confirm_password
+			'confirm_password' => $confirm_password,
 		));
 
 		/** 
@@ -107,7 +107,7 @@ class User_control
 		
 			// si le username de l'admin correspond à $loginAdmin
 			if ($user->getUsername() == $loginAdmin){
-				$_SESSION['userUsername'] = $loginAdmin;
+				$_SESSION['adminUsername'] = $loginAdmin;
 				header('Location: index.php?action=adminProfile');
 
 			
@@ -118,16 +118,16 @@ class User_control
 
 	public function adminProfile()
 	{
-		$user = new User(array('username' => $_SESSION['userUsername']));
+		$user = new User(array('username' => $_SESSION['adminUsername']));
+
 		$user = $this->user_manager->getAdminByLogin($user);
+		//$postsList = $this->post_manager->getPosts();		
 
-		$posts = $this->post_manager->getPosts();
-
-		$view = new View('adminDashboard'); // plutot userProfile
-		$view ->setTitle('Mon compte administrateur');
+		$view = new View('adminProfile'); 
+		$view ->setTitle('Accueil administrateur');
 		$view->generate(array(
 				'user' => $user,
-				'posts'=> $posts
+				//'posts' => $postsList
 				));
 	}
 
@@ -141,13 +141,14 @@ class User_control
 	public function logout()
 	{	
 		// ecrase le tableau 
-		$_SESSION['userUsername'] = [];
+		$_SESSION['adminUsername'] = [];
 		// détruit les variables de la session en cours
 		session_unset();
 		// détruit la session en cours
 		session_destroy();
 		// redirection
 		header('Location: index.php');
+		exit();
 	}
 
 	

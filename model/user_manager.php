@@ -16,7 +16,6 @@ class User_manager extends Database
 				$user->getUsername(),
 				$user->getPassword(),
 				$user->getEmail(),
-				$user->getInscriptionDate()
 				));		
 			return $result; 
 		/**
@@ -27,7 +26,7 @@ class User_manager extends Database
 			if($e->getCode() == 23000){
 				$_SESSION['errors']['usernameDb'] = 'Déjà pris! Le pseudonyme '. $user->getUsername() .' est déjà utilisé. Veuillez choisir un autre pseudonyme.';
 			}else {
-				$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+				$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' et le code erreur est : '.$e->getCode() .'';
 			}
 		}
 	}
@@ -65,7 +64,7 @@ class User_manager extends Database
 	public function getUserByLogin($user)
 	{
 		try{
-		$sql = ('SELECT id, username, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS inscription_date FROM members WHERE username = ?');
+		$sql = ('SELECT id, username, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS formatted_inscription_date FROM members WHERE username = ?');
 		$userBdd = $this->executeQuery($sql, array($user->getUsername()));
 		
 		// fetch(PDO::FETCH_ASSOC) :Retourne la ligne suivante en tant qu'un tableau indexé par le nom des colonnes
@@ -89,17 +88,18 @@ class User_manager extends Database
 	public function verifyUserByPassword($user, $passwordAdmin)
 	{
 		try{
-		$sql = ('SELECT id, username, password, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS inscription_date FROM members WHERE username = ?');
+		$sql = ('SELECT id, username, password, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS formatted_inscription_date FROM members WHERE username = ?');
 		$userBdd = $this->executeQuery($sql, array($user->getUsername()));
 		
 		$result = $userBdd->fetch();	
 		//var_dump($result);
+			// si j'ai un $user et que passwordverify est ok -> je crée un admin avec les caractériqtiques du user
 			if($user AND password_verify($passwordAdmin, $result['password'])){
 
 				$user->setId($result['id']);
 				$user->setUsername($result['username']);
 				$user->setEmail($result['email']);
-				$user->setInscription_date($result['inscription_date']);
+				$user->setFormatted_inscription_date($result['formatted_inscription_date']);
 
 				return $user;
 			}else{
@@ -116,12 +116,12 @@ class User_manager extends Database
 	public function getAdminByLogin($user)
 	{
 		try{
-			$sql = ('SELECT id, username, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS inscription_date FROM members WHERE username = ?');
+			$sql = ('SELECT id, username, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS formatted_inscription_date FROM members WHERE username = ?');
 			$adminBdd = $this->executeQuery($sql, array($user->getUsername()));
 			
-			$result = $adminBdd->fetch(PDO::FETCH_ASSOC);	
+			$resultAdmin = $adminBdd->fetch(PDO::FETCH_ASSOC);	
 			//print_r($result);
-			$user = new User($result);
+			$user = new User($resultAdmin);
 			return $user;
 
 		}catch(Exception $e){

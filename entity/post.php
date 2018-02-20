@@ -45,6 +45,8 @@ class Post
     private $creation_date;
     private $post_amended_date; 
 
+
+
     /**
      * [getId]
      * @return [int] [id du post]
@@ -74,11 +76,13 @@ class Post
     	return $this->creation_date;
     }
 
-    public function getPost_amended_date() 
+    public function getFormatted_PAD() 
     {
     	return $this->post_amended_date;
     }
 
+
+   
     /**
      * [setId description]
      * @param [type] $id [description]
@@ -126,7 +130,7 @@ class Post
 
     }
 
-    public function setPost_amended_date($post_amended_date)
+    public function setFormatted_PAD($post_amended_date)
     {
     	return $this->post_amended_date = $post_amended_date;
     }

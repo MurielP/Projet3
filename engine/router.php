@@ -50,7 +50,7 @@ class Router
 						throw new Exception ('Le numéro du billet est incorrect.');
 					}
 
-				} elseif ($_GET['action'] == 'addComment'){
+				} elseif ($_GET['action'] == 'createComment'){
 					/*
 					* si les champs sont remplis correctement -> j'appelle la méthode pour enregistrer le comment(manager)
 					*/				
@@ -59,7 +59,7 @@ class Router
 					$comment = $this->getParam($_POST, 'comment');
 					$post_id = $this->getParam($_POST, 'id');
 
-					$this->post_control->addComment($author, $comment, $post_id);
+					$this->post_control->createComment($author, $comment, $post_id);
 					/**
 					 * si j'ai des erreurs j'affiche un msg et je renvoie vers la page du billet choisi avec ses commentaires
 					 */
@@ -127,7 +127,7 @@ class Router
 
 				} elseif ($_GET['action'] == 'logAdmin') {
 					// si ma session existe et n'est pas vide alors adminProfile
-					if(isset($_SESSION['userUsername']) AND !empty($_SESSION['userUsername'])) {
+					if(isset($_SESSION['adminUsername']) AND !empty($_SESSION['adminUsername'])) {
 						$this->user_control->adminProfile();
 					}
 					
@@ -156,18 +156,18 @@ class Router
 				// si insertion logAdmin ok -> j'affiche adminProfile	
 				}elseif ($_GET['action'] == 'adminProfile'){
 					
-					if(!empty($_SESSION['userUsername'])){
-						$username = $this->getParam($_SESSION,'userUsername');
+					if(!empty($_SESSION['adminUsername'])){
+						$username = $this->getParam($_SESSION,'adminUsername');
 						$this->user_control->adminProfile();
 					} else {
 						throw new Exception ('Vous ne pouvez pas accéder à la page d\'administration.');
 					}
 				} elseif ($_GET['action'] == 'logout') {
-					if(isset($_SESSION['userUsername']) AND !empty($_SESSION['userUsername'])){
+					if(isset($_SESSION['adminUsername']) AND !empty($_SESSION['adminUsername'])){
 						$this->user_control->logout();
 					}
 
-				} elseif ($_GET['action'] == 'addPost') {
+				} elseif ($_GET['action'] == 'createPost') {
 					//si tous les chps du form sont remplis -> méthode controleur createPost()
 					if(!empty($_POST['author']) AND !empty($_POST['title']) AND !empty($_POST['content'])){
 
@@ -175,7 +175,7 @@ class Router
 						$title = $this->getParam($_POST, 'title');
 						$content = $this->getParam($_POST, 'content');
 						
-						$this->admin_control->addPost($author, $title, $content);
+						$this->admin_control->createPost($author, $title, $content);
 					} else {
 					/**
 						 * si mon champ est vide j'envoie un msg d'erreur 
@@ -192,11 +192,38 @@ class Router
 						/*
 						* et je renvoie le visiteur sur la page de création d'article si les champs sont vides
 						*/
-						$this->admin_control->addPostPage();
+						$this->admin_control->createPostPage();
 					}
-				} elseif ($_GET['action'] == 'getPostsList') { //dashboard
+				} elseif ($_GET['action'] == 'adminDashboard') {
 					$this->admin_control->getPostsList();
-					
+
+				} elseif ($_GET['action'] == 'readPost'){
+					$post_id = intval($this->getParam($_GET, 'id'));
+					if ($post_id > 0) {
+
+						$this->admin_control->readPost($post_id);
+					}
+				} elseif ($_GET['action'] == 'modifyPost') {
+					//si tous les chps du form sont remplis -> méthode controleur modifyPost()
+					if(!empty($_POST['author']) AND !empty($_POST['title']) AND !empty($_POST['content'])){
+
+						$author = $this->getParam($_POST, 'author');
+						$title = $this->getParam($_POST, 'title');
+						$content = $this->getParam($_POST, 'content');
+
+						$post_id = intval($this->getParam($_GET, 'id'));
+						if ($post_id > 0) {
+							$this->admin_control->modifyPost($post_id);
+						}
+					}
+
+				} elseif ($_GET['action'] == 'cancelPost'){
+					$post_id = intval($this->getParam($_GET, 'id'));
+
+					if ($post_id > 0) {
+						$this->admin_control->deletePost($post_id);
+					}
+
 				} else {
 					throw New Exception ('Action inconnue.');
 				}

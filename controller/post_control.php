@@ -52,7 +52,7 @@ class Post_control
 	 * @param  [int] $post_id [id du billet concerné]
 	 * @return  page post actualisée
 	 */
-	public function addComment($author, $comment, $post_id)
+	public function createComment($author, $comment, $post_id)
 	{
 		$lastComment = new Comment(array(
 				'author' => $author, 
@@ -61,7 +61,7 @@ class Post_control
  		));
 
  		// si aucune erreur - enregistre le commentaire en bdd 
-		if (count($_SESSION['errors']) == 0){
+		if(count($_SESSION['errors']) == 0){
 			$insertComment = $this->comment_manager->saveComment($lastComment);	
 
 			/**
@@ -71,10 +71,13 @@ class Post_control
 				$_SESSION['success']['commentInserted'] = 'Votre commentaire a bien été enregistré';
 			}	
 		} 
-			// puis retour sur le billet et ses commentaires / si erreur mm page
-			header('Location: index.php?action=post&id=' .$post_id );
+		// puis retour sur le billet et ses commentaires / si erreur mm page
+		header('Location: index.php?action=post&id=' .$post_id );
 	}
 
+	
+
+	
 }
 
 

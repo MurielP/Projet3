@@ -67,6 +67,36 @@ class Post_manager extends Database
 		}
 	}
 
+	public function suppressPost($post_id)
+	{
+		try {
+			$sql = ('DELETE FROM posts WHERE id = ?');
+			$deletedPost = $this->executeQuery($sql, array($post_id));
+
+			return $deletedPost;
+
+		} catch (Exception $e) {
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+
+	public function updatePost($post_id)
+	{
+		try {
+			$sql = ('UPDATE posts SET author = ?, title = ?, content = ? WHERE id= ?');		
+			$updatedPost = $this->execute($sql, array(
+				$modifiedPost->getAuthor(),
+				$modifiedPost->getTitle(),
+				$modifiedPost->getContent(),
+       		 ));
+			return $updatedPost;
+  
+		} catch (Exception $e){
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+
+
     /*
     public function getPost($post_id) {
     	

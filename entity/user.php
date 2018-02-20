@@ -61,7 +61,7 @@ class User
 		return $this->email; 
 	}
 
-	public function getInscription_date() 
+	public function getFormatted_inscription_date() 
 	{ 
 		return $this->inscription_date; 
 	}
@@ -142,7 +142,7 @@ class User
 		}
 	}
 
-	public function setInscription_Date($inscription_date)
+	public function setFormatted_inscription_date($inscription_date)
 	{
 		$this->inscription_date = $inscription_date;
 	}

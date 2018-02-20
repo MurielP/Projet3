@@ -56,7 +56,7 @@
 	$_SESSION['success'] = [];
 ?>
 
-<form method="post" action="index.php?action=addComment">
+<form method="post" action="index.php?action=createComment">
 	<fieldset>
 	<legend>Partagez vos impressions</legend>
 	<p><label for="author">Auteur :</label><input type="text" name="author" id="author" value=""/></p>

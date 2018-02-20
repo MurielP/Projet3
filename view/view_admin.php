@@ -1,7 +1,6 @@
 <article>
     <header>
     	<a href="index.php">Retour à l'accueil</a>
-       
     </header>
 
 <?php

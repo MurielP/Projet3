@@ -1,5 +1,5 @@
 <?php
-echo '<pre>' . print_r($user,true) . '</pre>';
+ '<pre>' . print_r($user,true) . '</pre>';
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 		foreach ($_SESSION['errors'] as $type => $message) {
 ?>
@@ -25,7 +25,7 @@ echo '<pre>' . print_r($user,true) . '</pre>';
 		<h3>Bonjour <?= $_SESSION['userUsername']?> !</h3> <!-- méthode registerUser ds user_control--> 
 		<p>Votre identifiant est : <?= htmlspecialchars($user->getUsername()) ?><br/>
 		Votre email est : <?= htmlspecialchars($user->getEmail()) ?><br/>
-		Date d'inscription : <?= htmlspecialchars($user->getInscription_date())?><br />
+		Date d'inscription : <?= htmlspecialchars($user->getFormatted_inscription_date() )?><br />
 		</p>
 </article>
 	

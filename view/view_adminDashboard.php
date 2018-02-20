@@ -4,16 +4,12 @@
 	    	<ul class="navbar-horizontale">
 	    		<li ><a href="index.php">Retour à l'accueil</a></li>
 	    		<li><a href="index.php?action=logout">Me déconnecter</a></li>
-	    		<li><a href="index.php?action=getPostsList">Liste des articles</a></li>
+	    		<li><a href="index.php?action=adminProfile">Mes infos</a></li>
 	       </ul>
 	   	</nav>
     </container>
-
 		<h2>Mon tableau d'administration</h2>
-		<h3>Bonjour <?= htmlspecialchars($_SESSION['userUsername']) ?> !</h3>
-
-		<p>Votre identifiant est : <?= htmlspecialchars($user->getUsername()) ?><br/>
-		Date d'inscription : <?= htmlspecialchars($user->getInscription_date())?><br /></p>
+		<h3 class="welcomeAdmin">Bonjour <?= htmlspecialchars($_SESSION['adminUsername']) ?> !</h3>
 </article>
 
 <?php
@@ -33,7 +29,7 @@
 	$_SESSION['errors'] = [];
 ?>
 
-	<form class="form" method="post" action="index.php?action=addPost">
+	<form class="form" method="post" action="index.php?action=createPost">
 		<fieldset>
 			<legend>Rédiger un nouvel épisode</legend>
 				<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value="" /></p>
@@ -43,6 +39,23 @@
 				<p><input type="submit" name="submit" value="Publier l'article" /></p>
 		</fieldset>
 	</form>
+	
+<?php
+	var_dump($_SESSION['success']);
+	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
+		foreach ($_SESSION['success'] as $type => $message) {
+?>
+	<div class="successAlert">
+		<ul>
+			<li><?= $message ?></li>
+		</ul>
+	</div>
+<?php
+}
+}	
+	$_SESSION['success'] = [];
+?>
+
 <div class="tablePostList">
 <table>
 	<caption>Liste des billets</caption>
@@ -52,6 +65,7 @@
 			<th>Aperçu du contenu</th>
 			<th>Auteur</th>
 		  	<th>Date de création</th>
+		  	<th>Action</th>
 		</tr>
 	</thead>	  
 
@@ -62,6 +76,13 @@
 			<td><?= htmlspecialchars ($post->getContent()) ?></td>
 			<td><?= htmlspecialchars ($post->getAuthor()) ?></td>
 			<td><?= htmlspecialchars ($post->getFormatted_creation_date()) ?></td>
+			<td>
+				<ul>
+					<li><a href="index.php?action=readPost&id=<?= htmlspecialchars($post->getId()) ?>">Lire</li>
+					<li><a href="index.php?action=modifyPost&id=<?= htmlspecialchars($post->getId()) ?>">Modifier</li>
+					<li><a href="index.php?action=cancelPost&id=<?= htmlspecialchars($post->getId()) ?>">Supprimer</li>	
+				</ul>
+			</td>
 		</tr>
 	</tbody>
 <?php endforeach; ?>
