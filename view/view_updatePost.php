@@ -8,12 +8,14 @@
 	   	</nav>
     </container>
 
+
 <article>
 	<h2>Titre de l'article : <?=  htmlspecialchars($post->getTitle()) ?></h2>
 	<time>Date de création : <?= $post->getFormatted_creation_date()?></time></article></br>   
 	<time>Dernière modification : <?= $post->getFormatted_PAD() ?></time>
 	<p>Contenu : <br><?= htmlspecialchars($post->getContent()) ?></p>
 </article>
+
 
 <?php
 //echo '<pre>' . print_r($user,true) . '</pre>';
@@ -32,31 +34,12 @@
 	$_SESSION['errors'] = [];
 ?>
 
-<form class="form" method="post" action="index.php?action=modifyPost&id='.$post_id">
-	<fieldset>
-		<legend>Modifier l'article</legend>
-			<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value="" /></p>
-			<p><label for="title">Titre de l'épisode : </label><input type="text" name="title" id="title" value="" /></p>
-			<p><label for="content">Contenu : </label><textarea name="content" id="content" value=""></textarea></p>
-			
-			<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
 
-			<p><input type="submit" name="submit" value="Éditer l'article" /></p>
-	</fieldset>
-</form>
-
-<?php
-	var_dump($_SESSION['success']);
-	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
-		foreach ($_SESSION['success'] as $type => $message) {
-?>
-	<div class="successAlert">
-		<ul>
-			<li><?= $message ?></li>
-		</ul>
-	</div>
-<?php
-}
-}	
-	$_SESSION['success'] = [];
-?>
+	<form class="form" method="post" action="index.php?action=modifyPost">
+		<fieldset>
+			<legend>Modifier un nouvel article</legend>
+				<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value="" /></p>
+				<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
+				<p><input type="submit" name="submit" value="Éditer l'article" /></p>
+		</fieldset>
+	</form>

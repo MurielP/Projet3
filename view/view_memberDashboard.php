@@ -27,13 +27,25 @@
 		Votre email est : <?= htmlspecialchars($user->getEmail()) ?><br/>
 		Date d'inscription : <?= htmlspecialchars($user->getFormatted_inscription_date() )?><br />
 		</p>
-</article>
-	
+</article>	
+
+<hr/>
+
 <article>
-	<header>
-		<h3>Modifier mes informations</h3>
-	</header>
+	<h2>Mes commentaires</h2>
+	<p>Afficher liste des commentaires. </br>
+	Lien qui renvoie au billet et ses commentaires </br>
+	Lien qui permet de modifier le commentaire</p>
 </article>
 
-				
+<hr/>
+
+<article>
+	<p>Ajouter les fonctionnalités suivantes :</p>
+	<ul>
+		<li>Modifier mon email</li>
+		<li>Changer mon mot de passe</li>
+		<li>Ajouter un avatar</li>
+	</ul>
+</article>			
 				

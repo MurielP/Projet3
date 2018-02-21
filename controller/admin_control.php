@@ -86,29 +86,56 @@ class Admin_control
 		header('Location: index.php?action=adminDashboard');
 	}
 	
-	public function modifyPost($post_id)
+	public function modifyPost($author, $post_id)
 	{
+		$newPost = new Post(array(
+				'author' => $author, 
+				'post_id' => $post_id,
+ 		));
+
 		$post = $this->post_manager->getPost($post_id);
 
-		$modifiedPost = new Post(array(
-				'author' => $author, 
-				'title' => $title,
-				'content' => $content,
- 		));	
-
 		if(count($_SESSION['errors']) == 0){
-			$new = $this->post_manager->updatePost($post_id);
+			$postUpdate = $this->post_manager->updatePost($newPost);
 
-			if($new == true){
-				$_SESSION['success']['newPost'] = 'Votre article n°'. $post_id .' a bien été modifié';
-			}
-		}
+			/**
+			 * si $postUpdate est ok : je crée ma variable de session pour afficher msg success 
+			 */
+			if ($postUpdate == true) {
+				$_SESSION['success']['postUpdated'] = 'Votre article a bien été modifié';
+			}	
+		} 
 
 		$view = new View('updatePost');
-		$view->setTitle('Editer l\'article');
+		$view->setTitle('Modifier l\'article');
 		$view->generate(array(
 			'post' => $post,
+			'postUpdate' => $postUpdate,
 		));
 
+	}	
+
+	public function updatePostPage()
+	{
+		header('Location : index.php?action=modifyPost');
 	}
+
+	public function getCommentsList()
+	{
+		$commentsList = $this->comment_manager->getComments();
+		
+		$user = new User(array('username' => $_SESSION['adminUsername']));
+		$user = $this->user_manager->getAdminByLogin($user);
+
+		$view = new view('adminComments');
+		$view->setTitle('Les commentaires');
+		$view->generate(array(
+			'comments' => $commentsList,
+			 'user' => $user
+		));
+		
+	}
+
+
+	
 }

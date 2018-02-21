@@ -27,7 +27,7 @@
 <div id="dashboard">
 	<ul id="onglets">
 		<li class="active"><a href="index.php?action=adminDashboard">Articles</a></li>
-		<li class="active"><a href="">Commentaires</a></li>
+		<li class="active"><a href="index.php?action=adminComments">Commentaires</a></li>
 		<li class="active"><a href="">Membres</a></li>
 	</ul>
 </div>

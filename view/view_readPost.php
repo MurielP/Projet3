@@ -32,31 +32,3 @@
 	$_SESSION['errors'] = [];
 ?>
 
-<form class="form" method="post" action="index.php?action=modifyPost&id='.$post_id">
-	<fieldset>
-		<legend>Modifier l'article</legend>
-			<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value="" /></p>
-			<p><label for="title">Titre de l'épisode : </label><input type="text" name="title" id="title" value="" /></p>
-			<p><label for="content">Contenu : </label><textarea name="content" id="content" value=""></textarea></p>
-			
-			<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
-
-			<p><input type="submit" name="submit" value="Éditer l'article" /></p>
-	</fieldset>
-</form>
-
-<?php
-	var_dump($_SESSION['success']);
-	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
-		foreach ($_SESSION['success'] as $type => $message) {
-?>
-	<div class="successAlert">
-		<ul>
-			<li><?= $message ?></li>
-		</ul>
-	</div>
-<?php
-}
-}	
-	$_SESSION['success'] = [];
-?>

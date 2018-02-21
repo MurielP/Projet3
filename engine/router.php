@@ -203,19 +203,32 @@ class Router
 
 						$this->admin_control->readPost($post_id);
 					}
+
 				} elseif ($_GET['action'] == 'modifyPost') {
-					//si tous les chps du form sont remplis -> méthode controleur modifyPost()
-					if(!empty($_POST['author']) AND !empty($_POST['title']) AND !empty($_POST['content'])){
 
-						$author = $this->getParam($_POST, 'author');
-						$title = $this->getParam($_POST, 'title');
-						$content = $this->getParam($_POST, 'content');
+					if(!empty($_POST['author'])){
+					$author = $this->getParam($_POST, 'author');
+					$post_id = $this->getParam($_POST, 'id');
 
-						$post_id = intval($this->getParam($_GET, 'id'));
+					$this->admin_control->modifyPost($author, $post_id);
+					
+					} else {
+						if (empty($_POST['author'])){
+							$author = $this->getParam($_POST, 'author');
+							$_SESSION['errors']['emptyAuthor'] = 'Le champ Auteur doit être rempli';
+
+						} 
+						// vérifie si j'ai un id de billet 
+						$post_id = (int)$this->getParam($_POST, 'id');
+
+						// si id de billet mais des erreurs, je renvoie sur la page adminDashboard 
 						if ($post_id > 0) {
-							$this->admin_control->modifyPost($post_id);
+							header('Location: index.php?action=adminDashboard' ); // non traité $_POST
+						} else {
+							header('Location : index.php');
 						}
-					}
+					} 
+					
 
 				} elseif ($_GET['action'] == 'cancelPost'){
 					$post_id = intval($this->getParam($_GET, 'id'));
@@ -224,10 +237,13 @@ class Router
 						$this->admin_control->deletePost($post_id);
 					}
 
+				} elseif ($_GET['action'] == 'adminComments') {
+					$this->admin_control->getCommentsList();
+
 				} else {
 					throw New Exception ('Action inconnue.');
 				}
-				
+			
 				
 			} else {
 				// page par défaut

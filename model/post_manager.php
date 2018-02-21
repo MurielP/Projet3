@@ -80,22 +80,21 @@ class Post_manager extends Database
 		}
 	}
 
-	public function updatePost($post_id)
+	public function updatePost($newPost)
 	{
 		try {
-			$sql = ('UPDATE posts SET author = ?, title = ?, content = ? WHERE id= ?');		
-			$updatedPost = $this->execute($sql, array(
-				$modifiedPost->getAuthor(),
-				$modifiedPost->getTitle(),
-				$modifiedPost->getContent(),
-       		 ));
-			return $updatedPost;
-  
-		} catch (Exception $e){
+			$sql = ('UPDATE posts SET author = ? WHERE id = ?');
+			$createdPost = $this->executeQuery($sql, array(
+				$newPost->getId(),
+				$newPost->getAuthor(),
+			));
+			
+			return $createdPost; 
+
+		} catch (Exception $e) {
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
 		}
 	}
-
 
     /*
     public function getPost($post_id) {
