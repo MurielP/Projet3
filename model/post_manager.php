@@ -80,13 +80,14 @@ class Post_manager extends Database
 		}
 	}
 
-	public function updatePost($newPost)
+	public function updatePost($post)
 	{
 		try {
 			$sql = ('UPDATE posts SET author = ? WHERE id = ?');
 			$createdPost = $this->executeQuery($sql, array(
-				$newPost->getId(),
-				$newPost->getAuthor(),
+				$post->getAuthor(),
+				$post->getId(),
+				
 			));
 			
 			return $createdPost; 

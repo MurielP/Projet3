@@ -11,7 +11,7 @@ class Comment_manager extends Database
      * @return tous les commentaires liés à l'id du billet choisi     
 	 */
 	
-	public function getComments($post_id)
+	public function getCommentsByPostId($post_id)
 	{
 		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date FROM comments WHERE post_id = ? ORDER BY comment_date DESC');
 		$comments = $this->executeQuery($sql, array($post_id));
@@ -56,7 +56,7 @@ class Comment_manager extends Database
 		}
 	}
 
-	public function getCommments()
+	public function getComments()
 	{
 		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date  FROM comments ORDER BY comment_date DESC');
 		$comments = $this->executeQuery($sql);
@@ -74,6 +74,6 @@ class Comment_manager extends Database
              */
             array_push($commentsObj, $commentObj); 
         }
-        return $commentObj; 
+        return $commentsObj; 
 	}
 }	

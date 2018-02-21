@@ -206,24 +206,20 @@ class Router
 
 				} elseif ($_GET['action'] == 'modifyPost') {
 
-					if(!empty($_POST['author'])){
+					if(isset($_POST['author']) AND !empty($_POST['author'])){
 					$author = $this->getParam($_POST, 'author');
 					$post_id = $this->getParam($_POST, 'id');
 
-					$this->admin_control->modifyPost($author, $post_id);
+					$this->admin_control->modifyPost($post_id, $author);
 					
 					} else {
-						if (empty($_POST['author'])){
-							$author = $this->getParam($_POST, 'author');
-							$_SESSION['errors']['emptyAuthor'] = 'Le champ Auteur doit être rempli';
-
-						} 
+						
 						// vérifie si j'ai un id de billet 
-						$post_id = (int)$this->getParam($_POST, 'id');
+						$post_id = (int)$this->getParam($_GET, 'id');
 
 						// si id de billet mais des erreurs, je renvoie sur la page adminDashboard 
 						if ($post_id > 0) {
-							header('Location: index.php?action=adminDashboard' ); // non traité $_POST
+							$this->admin_control->modifyPost($post_id);
 						} else {
 							header('Location : index.php');
 						}

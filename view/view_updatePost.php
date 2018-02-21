@@ -34,7 +34,21 @@
 	$_SESSION['errors'] = [];
 ?>
 
-
+<?php
+	var_dump($_SESSION['success']);
+	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
+		foreach ($_SESSION['success'] as $type => $message) {
+?>
+	<div class="successAlert">
+		<ul>
+			<li><?= $message ?></li>
+		</ul>
+	</div>
+<?php
+}
+}	
+	$_SESSION['success'] = [];
+?>
 	<form class="form" method="post" action="index.php?action=modifyPost">
 		<fieldset>
 			<legend>Modifier un nouvel article</legend>

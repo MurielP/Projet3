@@ -4,11 +4,13 @@ class Admin_control
 {
 	private $post_manager;
 	private $user_manager;
+	private $comment_manager;
 
 	public function __construct()
 	{
 		$this->post_manager = new Post_manager();
 		$this->user_manager = new User_manager();
+		$this->comment_manager = new Comment_manager();
 
 	}
 
@@ -86,44 +88,38 @@ class Admin_control
 		header('Location: index.php?action=adminDashboard');
 	}
 	
-	public function modifyPost($author, $post_id)
+	public function modifyPost($post_id, $author = NULL)
 	{
-		$newPost = new Post(array(
-				'author' => $author, 
-				'post_id' => $post_id,
- 		));
-
 		$post = $this->post_manager->getPost($post_id);
 
-		if(count($_SESSION['errors']) == 0){
-			$postUpdate = $this->post_manager->updatePost($newPost);
-
+		if($author != NULL){
+			$post->setAuthor($author);
+		
+			$postUpdate = $this->post_manager->updatePost($post);
+			//var_dump($postUpdate);
 			/**
 			 * si $postUpdate est ok : je crée ma variable de session pour afficher msg success 
 			 */
 			if ($postUpdate == true) {
-				$_SESSION['success']['postUpdated'] = 'Votre article a bien été modifié';
+				$_SESSION['success']['postUpdated'] = 'Votre article n°'. $post_id .' a bien été modifié';
 			}	
-		} 
+			 
+		}
 
 		$view = new View('updatePost');
 		$view->setTitle('Modifier l\'article');
 		$view->generate(array(
 			'post' => $post,
-			'postUpdate' => $postUpdate,
+			
 		));
 
 	}	
 
-	public function updatePostPage()
-	{
-		header('Location : index.php?action=modifyPost');
-	}
 
 	public function getCommentsList()
 	{
 		$commentsList = $this->comment_manager->getComments();
-		
+		//var_dump($commentsList);
 		$user = new User(array('username' => $_SESSION['adminUsername']));
 		$user = $this->user_manager->getAdminByLogin($user);
 

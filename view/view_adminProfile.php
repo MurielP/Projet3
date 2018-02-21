@@ -31,3 +31,10 @@
 		<li class="active"><a href="">Membres</a></li>
 	</ul>
 </div>
+
+<div id="infoAdmin">
+	<h3>Mes infos</h3>
+		<p>Pseudonyme : <?= $user->getUsername() ?></p>
+		
+</div>
+</div>

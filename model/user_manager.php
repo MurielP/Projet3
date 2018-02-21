@@ -120,9 +120,10 @@ class User_manager extends Database
 			$adminBdd = $this->executeQuery($sql, array($user->getUsername()));
 			
 			$resultAdmin = $adminBdd->fetch(PDO::FETCH_ASSOC);	
-			//print_r($result);
-			$user = new User($resultAdmin);
-			return $user;
+			if($resultAdmin != false){
+				$user = new User($resultAdmin); 
+				return $user;
+			}
 
 		}catch(Exception $e){
 			$_SESSION['errors']['errorAdminBdd'] = 'Votre identifiant est erroné.';

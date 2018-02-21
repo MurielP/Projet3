@@ -27,6 +27,7 @@
 }	
 	// création d'un tableau vide pour vider les erreurs
 	$_SESSION['errors'] = [];
+	
 ?>
 
 
@@ -44,8 +45,9 @@
 		</tr>
 	</thead>	  
 
-<?php foreach ($comments as $comment) :?>
+
 	<tbody>
+<?php foreach ($comments as $comment) :?>
 		<tr>
 			<td><?= htmlspecialchars ($comment->getId()) ?></td>
 			<td><?= htmlspecialchars ($comment->getPost_id()) ?></td>
@@ -60,8 +62,9 @@
 				</ul>
 			</td>
 		</tr>
-	</tbody>
 <?php endforeach; ?>
+	</tbody>
+
 
 </table>
 </div>

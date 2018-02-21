@@ -100,25 +100,30 @@ class User_control
 		$user = new User(array(
 			'username' => $loginAdmin,
 			'password' => $passwordAdmin
+			
 		));
 
 			// création de la var $admin 
 			$admin = $this->user_manager->verifyUserByPassword($user, $passwordAdmin); 
 		
 			// si le username de l'admin correspond à $loginAdmin
-			if ($user->getUsername() == $loginAdmin){
-				$_SESSION['adminUsername'] = $loginAdmin;
+			if ($admin != false){
+				$_SESSION['adminUsername'] = $admin->getUsername();
 				header('Location: index.php?action=adminProfile');
 
 			
 		}else{
+			$_SESSION['errors']['errorLog'] = 'La MDP et le pseudo sont incorrects';
 			header('Location: index.php?action=logAdmin');
 		}
 	}
 
 	public function adminProfile()
 	{
-		$user = new User(array('username' => $_SESSION['adminUsername']));
+		$user = new User(array(
+			'username' => $_SESSION['adminUsername'],
+			
+		));
 
 		$user = $this->user_manager->getAdminByLogin($user);
 		//$postsList = $this->post_manager->getPosts();		
