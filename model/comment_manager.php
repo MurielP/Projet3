@@ -89,4 +89,25 @@ class Comment_manager extends Database
         }
         return $commentsObj; 
 	}
+
+	public function getCommentsByFlag()
+	{
+		$sql = ('SELECT id, post_id, author, comment,is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date  FROM comments ORDER BY is_flagged DESC');
+		$comments = $this->executeQuery($sql);
+		
+		// tableau vide
+		$commentsObj = array();
+        foreach ($comments as $comment){
+            $commentObj = new Comment($comment);
+
+            /**
+             * array_push ( array &$array , $value1 [, $... ] )
+             * array = tableau d'entrée (ici $postsObj = array() donc un tableau vide)
+             * $value1 = 1ère valeur à insérer à la fin du tableau (ici $postObj donc un nouvel objet Post($post))
+             * retourne nveau nb d'éléments ds le tableau
+             */
+            array_push($commentsObj, $commentObj); 
+        }
+        return $commentsObj; 	
+	}
 }	

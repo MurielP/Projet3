@@ -155,3 +155,7 @@ ul#onglets li{
   border-bottom : 1px solid #9EA0A1;
   padding-bottom : 125px;
 }
+
+.flagged {
+  background-color: #D63F2E;
+}

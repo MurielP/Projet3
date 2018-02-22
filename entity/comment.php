@@ -8,6 +8,7 @@ class Comment
 	 */
 	public function __construct(array $data)	
 	{
+        //var_dump($data);
 		$this->hydrate($data);
 	}
 
@@ -38,6 +39,7 @@ class Comment
     private $author;
     private $comment;
     private $comment_date;
+    private $is_flagged;
 
     public function getId() 
     {
@@ -63,6 +65,12 @@ class Comment
     {
     	return $this->comment_date;
     }
+
+    public function getIs_flagged()
+    {
+        return $this->is_flagged;
+    }
+
     /**
      * [setId description]
      * @param [type] $id [description]
@@ -113,4 +121,13 @@ class Comment
         return $this->comment_date = $comment_date;
 
     }  
+
+    public function setIs_flagged($is_flagged)
+    {
+        if($is_flagged == 1 OR $is_flagged){
+            return $this->is_flagged = true;
+        } else {
+            return $this->is_flagged = false;
+        }
+    }
 }

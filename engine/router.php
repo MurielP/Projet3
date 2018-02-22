@@ -221,17 +221,33 @@ class Router
 
 				} elseif ($_GET['action'] == 'modifyPost') {
 
-					if(!empty($_POST['author'])
-						AND !empty($_POST['title'])
-						AND  !empty($_POST['content'])){
+					if(isset($_POST['author']) AND !empty($_POST['author'])
+						AND isset($_POST['title']) AND !empty($_POST['title'])
+						AND  isset($_POST['content']) AND !empty($_POST['content'])){
+
 						$author = $this->getParam($_POST, 'author');
-					
-						$post_id = (int)$this->getParam($_POST, 'id');
-						// si id de billet mais des erreurs, je renvoie sur la page adminDashboard 
+						$title = $this->getParam($_POST, 'title');
+						$content = $this->getParam($_POST, 'content');
+						$id = $this->getParam($_POST, 'id');
+					 
 						
-						$this->admin_control->modifyPost($post_id, $author);
+						$this->admin_control->modifyPost($id, $author, $title, $content);
 					
 					} else {
+						if(isset($_POST['author']) AND empty($_POST['author'])){
+					
+							$_SESSION['errors']['emptyAuthor'] = 'Le champ Auteur est vide';
+						} 
+						if (isset($_POST['title']) AND empty($_POST['title'])){
+					
+							$_SESSION['errors']['emptyTitle'] = 'Le champ Titre est vide';
+
+						}
+						if (isset($_POST['content']) AND empty($_POST['content'])){
+					
+							$_SESSION['errors']['emptyContent'] = 'Le champ Contenu est vide';
+						}
+
 						// vérifie si j'ai un id de billet 
 						$post_id = (int)$this->getParam($_GET, 'id');
 
@@ -260,6 +276,10 @@ class Router
 					if ($post_id > 0) {
 						$this->admin_control->readComment($post_id);
 					}
+
+				} elseif($_GET['action'] == 'flag'){
+
+					
 
 				} else {
 					throw New Exception ('Action inconnue.');

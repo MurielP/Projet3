@@ -103,6 +103,7 @@ class Admin_control
 			$post->setAuthor($author);
 			$post->setTitle($title);
 			$post->setContent($content);
+			$post->setId($post_id);
 
 			$postUpdate = $this->post_manager->updatePost($post);
 			var_dump($postUpdate);
@@ -127,7 +128,7 @@ class Admin_control
 
 	public function getCommentsList()
 	{
-		$commentsList = $this->comment_manager->getComments();
+		$commentsList = $this->comment_manager->getCommentsByFlag();
 		//var_dump($commentsList);
 		$user = new User(array('username' => $_SESSION['adminUsername']));
 		$user = $this->user_manager->getAdminByLogin($user);
@@ -153,4 +154,5 @@ class Admin_control
 		));
 	}
 	
+
 }

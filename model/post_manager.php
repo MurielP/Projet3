@@ -81,15 +81,14 @@ class Post_manager extends Database
 
 	public function updatePost($post)
 	{
+		var_dump($post);
 		try {
 			$sql = ('UPDATE posts SET author = ?, title = ?, content = ? WHERE id = ?');
 			$createdPost = $this->executeQuery($sql, array(
-				$post->getId(),
 				$post->getAuthor(),
 				$post->getTitle(),
 				$post->getContent(),
-				
-				
+				$post->getId(),			
 			));
 			
 			return $createdPost; 
