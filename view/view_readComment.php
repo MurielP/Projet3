@@ -9,11 +9,14 @@
     </container>
 
 <article>
-	<h2>Titre de l'article : <?=  htmlspecialchars($post->getTitle()) ?></h2>
-	<time>Date de création : <?= $post->getFormatted_creation_date()?></time></article></br>   
-	<time>Dernière modification : <?= $post->getFormatted_PAD() ?></time>
-	<p>Contenu : <br><?= htmlspecialchars($post->getContent()) ?></p>
+<?php foreach ($posts as $post) : ?> 
+	<h2>Titre de l'article concerné: <?=  htmlspecialchars ($post->getTitle()) ?></h2>
+<?php endforeach; ?>
+	
+ 
+	<p>Contenu : <br><?= htmlspecialchars($comment->getComment()) ?></p>
 </article>
+
 
 <?php
 //echo '<pre>' . print_r($user,true) . '</pre>';

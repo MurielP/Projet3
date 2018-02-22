@@ -3,7 +3,7 @@
 	    	<ul class="navbar-horizontale">
 	    		<li ><a href="index.php">Retour à l'accueil</a></li>
 	    		<li><a href="index.php?action=logout">Me déconnecter</a></li>
-	    		<li><a href="index.php?action=adminDashboard">Tableau de bord</a></li>
+	    		<li><a href="index.php?action=adminProfile">Tableau de bord</a></li>
 	       </ul>
 	   	</nav>
     </container>
@@ -11,7 +11,8 @@
 
 <article>
 	<h2>Titre de l'article : <?=  htmlspecialchars($post->getTitle()) ?></h2>
-	<time>Date de création : <?= $post->getFormatted_creation_date()?></time></article></br>   
+	<p>Auteur :  <?=  htmlspecialchars($post->getAuthor()) ?></p>
+	<time>Date de création : <?= $post->getFormatted_creation_date()?></time></br>   
 	<time>Dernière modification : <?= $post->getFormatted_PAD() ?></time>
 	<p>Contenu : <br><?= htmlspecialchars($post->getContent()) ?></p>
 </article>
@@ -51,8 +52,10 @@
 ?>
 	<form class="form" method="post" action="index.php?action=modifyPost">
 		<fieldset>
-			<legend>Modifier un nouvel article</legend>
+			<legend>Modifier un article</legend>
 				<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value="" /></p>
+				<p><label for="title">Titre : </label><input type="text" name="title" id="title" value="" /></p>
+				<p><label for="content">Contenu : </label><textarea type="text" name="content" id="content" value=""></textarea></p>
 				<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
 				<p><input type="submit" name="submit" value="Éditer l'article" /></p>
 		</fieldset>

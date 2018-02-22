@@ -74,7 +74,7 @@ class Comment
     	if ($id > 0) {
     		return $this->id = $id;
     	} else {
-    		$_SESSION['errors']['errorId'] = 'L\'id du billet doit être de type integer et > 0.';
+    		$_SESSION['errors']['errorId'] = 'L\'id du commentaire doit être de type integer et > 0.';
     	}
     }
 

@@ -26,24 +26,31 @@ class Admin_control
 				'author' => $author, 
 				'title' => $title,
 				'content' => $content,
+
  		));	
 		/**
 		 * si la tableau d'erreur est vide alors j'appelle la fonction savePost du admin_manager pour enregistrer le nouveau billet en bdd, puis je l'affiche 
 		 */
 		if (count($_SESSION['errors']) == 0){
 			$insertPost = $this->post_manager->savePost($lastPost);		
-			$_SESSION['success']['addedPost'] = 'Votre article '. $title.' a bien été publié';
-			header('Location: index.php?action=adminDashboard');
 
-		// si il y a des erreurs dans le tableau alors je reste sur la page adminDasboard pour voir les erreurs
+			if($insertPost == true){
+				$_SESSION['success']['addedPost'] = 'Votre article '. $title.' a bien été publié';
+			} else {
+				$_SESSION['errors']['addedPostFail'] = 'Votre article '. $title.' n\'a pu être publié';
+			}
+
+		header('Location: index.php?action=adminPosts');
+
+		// si il y a des erreurs dans le tableau alors je reste sur la page adminPosts pour voir les erreurs
 		} elseif (count($_SESSION['errors']) > 0) {
-			header('Location: index.php?action=adminDashboard');
+			header('Location: index.php?action=adminPosts');
 		}
 	}
 
 	public function createPostPage()
 	{
-		header('Location: index.php?action=adminDashboard');
+		header('Location: index.php?action=adminPosts');
 	}
 
 	public function getPostsList()
@@ -54,7 +61,7 @@ class Admin_control
 		$user = $this->user_manager->getAdminByLogin($user);
 	
 
-		$view = new view('adminDashboard');
+		$view = new view('adminPosts');
 		$view->setTitle('Les billets');
 		$view->generate(array(
 			'posts' => $postsList,
@@ -85,18 +92,20 @@ class Admin_control
 			}
 		}
 		
-		header('Location: index.php?action=adminDashboard');
+		header('Location: index.php?action=adminPosts');
 	}
 	
-	public function modifyPost($post_id, $author = NULL)
+	public function modifyPost($post_id, $author = NULL, $title = NULL, $content = NULL)
 	{
 		$post = $this->post_manager->getPost($post_id);
 
-		if($author != NULL){
+		if($author != NULL AND $title != NULL AND $content != NULL){
 			$post->setAuthor($author);
-		
+			$post->setTitle($title);
+			$post->setContent($content);
+
 			$postUpdate = $this->post_manager->updatePost($post);
-			//var_dump($postUpdate);
+			var_dump($postUpdate);
 			/**
 			 * si $postUpdate est ok : je crée ma variable de session pour afficher msg success 
 			 */
@@ -128,10 +137,20 @@ class Admin_control
 		$view->generate(array(
 			'comments' => $commentsList,
 			 'user' => $user
-		));
-		
+		));		
 	}
 
+	public function readComment($post_id)
+	{
+		$post = $this->post_manager->getPost($post_id);
+		$comment = $this->comment_manager->getCommentByPostId($post_id);
 
+		$view = new View('readComment');
+		$view->setTitle('Lire le commentaire');
+		$view->generate(array(
+			'post' => $post,
+			'comment' => $comment,
+		));
+	}
 	
 }

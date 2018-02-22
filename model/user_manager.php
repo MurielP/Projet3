@@ -5,17 +5,17 @@ class User_manager extends Database
 	/**
 	 * [createUser] requête préparée qui insère le nouveau $user ds la table membres et prend en paramètre $user
 	 * @param  [type] $user [fait appel aux contrôles effectués dans l'entité user.php]
-	 * @return nouveau $user
+	 * @return [$result] le nouveau $user
 	 */
 	public function createUser($user) 
 	{
 
 		try {
-			$sql = ('INSERT INTO members (username, password, email, inscription_date) VALUES (?,?,?,NOW())');
+			$sql = ('INSERT INTO members (username, email, password, inscription_date) VALUES (?,?,?,NOW())');
 			$result = $this->executeQuery($sql, array(
 				$user->getUsername(),
-				$user->getPassword(),
 				$user->getEmail(),
+				$user->getPassword(),
 				));		
 			return $result; 
 		/**
@@ -32,8 +32,8 @@ class User_manager extends Database
 	}
 
 	/**
-	 * [alreadyExists($email)] vérifie si le mail existe déjà en base de données
-	 * @param  $email [mail à vérifier]
+	 * [emailExists] vérifie si le mail du $user existe déjà en base de données
+	 * @param  [str] $user []
 	 * @return [bool] retourne la 1ère colonne - fetchColumn() - depuis la ligne suivante d'un jeu de résultats ou FALSE s'il n'y a plus de ligne
 	 */
 	public function emailExists($user)
@@ -48,12 +48,10 @@ class User_manager extends Database
 			$resultMail = $req->fetchColumn(); 
 			//var_dump($resultMail); 
 
-			// si le mail existe en bdd -> je crée un tableau d'erreurs que je stocke ds une variable de session SESSION
+			// si le mail existe en bdd -> je crée un tableau d'erreurs que je stocke ds une variable de session $_SESSION
 			if ($resultMail == 1){
 				$_SESSION['errors']['existingEmail'] = 'L\'email  '. $user->getEmail() .' existe déjà en base données. Veuillez choisir un autre email.';
 			} 
-			
-
 	}
 	
 	/**
@@ -85,23 +83,23 @@ class User_manager extends Database
 	 * @param  [type] $password [description]
 	 * @return [type] $user     [description]
 	 */
-	public function verifyUserByPassword($user, $passwordAdmin)
+	public function verifyUserByPassword($adminCheck, $passwordAdmin)
 	{
 		try{
 		$sql = ('SELECT id, username, password, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS formatted_inscription_date FROM members WHERE username = ?');
-		$userBdd = $this->executeQuery($sql, array($user->getUsername()));
+		$userBdd = $this->executeQuery($sql, array($adminCheck->getUsername()));
 		
 		$result = $userBdd->fetch();	
 		//var_dump($result);
 			// si j'ai un $user et que passwordverify est ok -> je crée un admin avec les caractériqtiques du user
-			if($user AND password_verify($passwordAdmin, $result['password'])){
+			if($adminCheck AND password_verify($passwordAdmin, $result['password'])){
 
-				$user->setId($result['id']);
-				$user->setUsername($result['username']);
-				$user->setEmail($result['email']);
-				$user->setFormatted_inscription_date($result['formatted_inscription_date']);
+				$adminCheck->setId($result['id']);
+				$adminCheck->setUsername($result['username']);
+				$adminCheck->setEmail($result['email']);
+				$adminCheck->setFormatted_inscription_date($result['formatted_inscription_date']);
 
-				return $user;
+				return $adminCheck;
 			}else{
 				// si aucun retour = erreur
 				return false; 
@@ -113,16 +111,17 @@ class User_manager extends Database
 		}
 	}	
 
-	public function getAdminByLogin($user)
+	public function getAdminByLogin($admin1)
 	{
 		try{
 			$sql = ('SELECT id, username, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS formatted_inscription_date FROM members WHERE username = ?');
-			$adminBdd = $this->executeQuery($sql, array($user->getUsername()));
+			$adminBdd = $this->executeQuery($sql, array($admin1->getUsername()));
 			
 			$resultAdmin = $adminBdd->fetch(PDO::FETCH_ASSOC);	
+			
 			if($resultAdmin != false){
-				$user = new User($resultAdmin); 
-				return $user;
+				$admin2 = new User($resultAdmin); 
+				return $admin2;
 			}
 
 		}catch(Exception $e){

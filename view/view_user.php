@@ -1,8 +1,6 @@
-<article>
-    <header>
-    	<a href="index.php">Retour à l'accueil</a>
-       
-    </header>
+<header>
+	<a href="index.php">Retour à l'accueil</a>
+</header>
 
 <h2>Créer mon compte</h2>
 

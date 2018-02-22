@@ -33,7 +33,7 @@ class Router
 			if (isset($_GET['action'])) {
 				if ($_GET['action'] == 'post') {
 
-					// déclaration de la variable $post_id qui récupère l'id du billet
+					// déclaration de la variable $post_id qui récupère l'id du billet 
 					$post_id = intval($this->getParam($_GET, 'id'));
 
 					// si j'ai un id de billet, je vais chercher la méthode post($post_id) pour afficher le détail du billet choisi
@@ -55,60 +55,66 @@ class Router
 					* si les champs sont remplis correctement -> j'appelle la méthode pour enregistrer le comment(manager)
 					*/				
 					if(!empty($_POST['author']) AND !empty($_POST['comment'])){
-					$author = $this->getParam($_POST, 'author');
-					$comment = $this->getParam($_POST, 'comment');
-					$post_id = $this->getParam($_POST, 'id');
+						$author = $this->getParam($_POST, 'author'); // défini la variable $author
+						$comment = $this->getParam($_POST, 'comment');
+						$post_id = $this->getParam($_POST, 'id'); // champ hidden
 
-					$this->post_control->createComment($author, $comment, $post_id);
+						$this->post_control->createComment($author, $comment, $post_id);
 					/**
 					 * si j'ai des erreurs j'affiche un msg et je renvoie vers la page du billet choisi avec ses commentaires
 					 */
 					} else {
-						if (empty($_POST['author'])){
-							$author = $this->getParam($_POST, 'author');
+						if (isset($_POST['author']) AND empty($_POST['author'])){
+							$author = $this->getParam($_POST, 'author'); // si j'oublie le isset
 							$_SESSION['errors']['emptyAuthor'] = 'Le champ Auteur doit être rempli';
 
-						} if (empty($_POST['comment'])){
+						} if (isset($_POST['comment']) AND empty($_POST['comment'])){
 							$comment = $this->getParam($_POST, 'comment');
 							$_SESSION['errors']['emptyComment'] = 'Le champ Commentaire doit être rempli';
 						}
-						// vérifie si j'ai un id de billet 
+
+						// vérifie si j'ai un id de billet (champ hidden) 
 						$post_id = (int)$this->getParam($_POST, 'id');
 
-						// si id de billet mais des erreurs, je renvoie sur la page du billets et ses commentaires 
+						// si id de billet mais des erreurs, je reste sur la page du billets et ses commentaires 
 						if ($post_id > 0) {
-							header('Location: index.php?action=post&id=' .$post_id ); // non traité $_POST
+							header('Location: index.php?action=post&id='.$post_id.''); // non traité $_POST
 						} else {
 							header('Location : index.php');
 						}
 					} 
+
 				} elseif ($_GET['action'] == 'registerUser') {
 					/*
 					* si les champs sont remplis et que mon mdp de confirmation est ok -> j'appelle la méthode pour enregistrer le nouveau user(manager)
 					*/
-					if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['email']) AND!empty($_POST['confirm_password'])){
+					if(!empty($_POST['username']) AND !empty($_POST['email']) AND !empty($_POST['password']) AND!empty($_POST['confirm_password'])){
 
-						$username = $this->getParam($_POST, 'username');
-						$password = $this->getParam($_POST, 'password');
+						$username = $this->getParam($_POST, 'username'); 
 						$email = $this->getParam($_POST, 'email');
+						$password = $this->getParam($_POST, 'password');
 						$confirm_password = $this->getParam($_POST, 'confirm_password');
 
-						$this->user_control->registerUser($username, $password, $email, $confirm_password);
+						$this->user_control->registerUser($username, $email, $password, $confirm_password);
 						
 					} else {
 						/**
 						 * si mon champ est vide j'envoie un msg d'erreur 
 						 */
 						if (isset($_POST['username']) AND empty($_POST['username'])){
+							$username = $this->getParam($_POST, 'username'); 
 							$_SESSION['errors']['emptyUser'] = 'Le champ Pseudo doit être rempli';
 
 						} if (isset($_POST['email']) AND empty($_POST['email'])){
+							$email = $this->getParam($_POST,'email');
 							$_SESSION['errors']['emptyEmail'] = 'Le champ Email doit être rempli';
 							
 						} if (isset($_POST['password']) AND empty($_POST['password'])){
+							$password = $this->getParam($_POST, 'password');
 							$_SESSION['errors']['emptyPassword'] = 'Le champ Mot de passe doit être rempli';
 
 						} if (isset($_POST['confirm_password']) AND empty($_POST['confirm_password'])){
+							$confirm_password = $this->getParam($_POST, 'confirm_password');
 							$_SESSION['errors']['emptyConfirm_password'] = 'Le champ Confirmer votre mot de passe doit être rempli';
 						}
 						/*
@@ -122,12 +128,18 @@ class Router
 
 					if(!empty($_SESSION['userUsername'])){
 						$username = $this->getParam($_SESSION,'userUsername');
+						$_SESSION['success']['loggedUser'] ='Vous êtes maintenant connecté';
+
 						$this->user_control->userProfile();
 					}
 
 				} elseif ($_GET['action'] == 'logAdmin') {
 					// si ma session existe et n'est pas vide alors adminProfile
-					if(isset($_SESSION['adminUsername']) AND !empty($_SESSION['adminUsername'])) {
+					if(!empty($_SESSION['adminUsername'])) {
+						$username = $this->getParam($_SESSION,'adminUsername');
+
+						$_SESSION['success']['alreadyLoggedAdmin'] ='Vous êtes connecté';
+
 						$this->user_control->adminProfile();
 					}
 					
@@ -136,16 +148,17 @@ class Router
 						$loginAdmin = $this->getParam($_POST, 'username');
 						$passwordAdmin = $this->getParam($_POST, 'password');
 
+						$_SESSION['success']['loggedAdmin'] ='Vous êtes maintenant connecté';
+
 						$this->user_control->logAdmin($loginAdmin, $passwordAdmin);
 
 					} else {
 						/**
 						 * si mon champ est vide j'envoie un msg d'erreur 
 						 */
-						
-						if (isset($_POST['username']) AND empty($_POST['username'])){						
+						if (isset($_POST['username']) AND empty($_POST['username'])){					
 							$_SESSION['errors']['emptyloginAdmin'] = 'Le champ Identifiant doit être rempli';
-						} if (isset($_POST['password']) AND empty($_POST['password'])){					
+						} if (isset($_POST['password']) AND empty($_POST['password'])){			
 							$_SESSION['errors']['emptyPasswordAdmin'] = 'Le champ Mot de passe doit être rempli';
 						}
 						/*
@@ -162,9 +175,10 @@ class Router
 					} else {
 						throw new Exception ('Vous ne pouvez pas accéder à la page d\'administration.');
 					}
-				} elseif ($_GET['action'] == 'logout') {
+
+				} elseif ($_GET['action'] == 'logoutAdmin') {
 					if(isset($_SESSION['adminUsername']) AND !empty($_SESSION['adminUsername'])){
-						$this->user_control->logout();
+						$this->user_control->logoutAdmin();
 					}
 
 				} elseif ($_GET['action'] == 'createPost') {
@@ -194,26 +208,30 @@ class Router
 						*/
 						$this->admin_control->createPostPage();
 					}
-				} elseif ($_GET['action'] == 'adminDashboard') {
+
+				} elseif ($_GET['action'] == 'adminPosts') {
 					$this->admin_control->getPostsList();
 
 				} elseif ($_GET['action'] == 'readPost'){
 					$post_id = intval($this->getParam($_GET, 'id'));
-					if ($post_id > 0) {
 
+					if ($post_id > 0) {
 						$this->admin_control->readPost($post_id);
 					}
 
 				} elseif ($_GET['action'] == 'modifyPost') {
 
-					if(isset($_POST['author']) AND !empty($_POST['author'])){
-					$author = $this->getParam($_POST, 'author');
-					$post_id = $this->getParam($_POST, 'id');
-
-					$this->admin_control->modifyPost($post_id, $author);
+					if(!empty($_POST['author'])
+						AND !empty($_POST['title'])
+						AND  !empty($_POST['content'])){
+						$author = $this->getParam($_POST, 'author');
+					
+						$post_id = (int)$this->getParam($_POST, 'id');
+						// si id de billet mais des erreurs, je renvoie sur la page adminDashboard 
+						
+						$this->admin_control->modifyPost($post_id, $author);
 					
 					} else {
-						
 						// vérifie si j'ai un id de billet 
 						$post_id = (int)$this->getParam($_GET, 'id');
 
@@ -224,7 +242,7 @@ class Router
 							header('Location : index.php');
 						}
 					} 
-					
+
 
 				} elseif ($_GET['action'] == 'cancelPost'){
 					$post_id = intval($this->getParam($_GET, 'id'));
@@ -235,6 +253,13 @@ class Router
 
 				} elseif ($_GET['action'] == 'adminComments') {
 					$this->admin_control->getCommentsList();
+
+				} elseif($_GET['action'] == 'readComment') {
+					$post_id = intval($this->getParam($_GET, 'id'));
+
+					if ($post_id > 0) {
+						$this->admin_control->readComment($post_id);
+					}
 
 				} else {
 					throw New Exception ('Action inconnue.');

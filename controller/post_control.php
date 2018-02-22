@@ -35,21 +35,20 @@ class Post_control
 	public function post($post_id)
 	{
 		$post = $this->post_manager->getPost($post_id);
-		$comments = $this->comment_manager->getComments($post_id);
-		//$comments = $this->comments_manager->getCommentsNumber($post_id);
+		$comments = $this->comment_manager->getCommentsByPostId($post_id);
 
 		$view = new View('post');
-		$view->setTitle('Billet simple pour l\'Alaska');
+		$view->setTitle('Épisode : '.$post->getTitle().'');
 		$view->generate(array(
 			'post' => $post,
 			'comments' => $comments));
 	}
 
 	/**
-	 * [toComment laisser un commentaire]
+	 * [createComment] fonction pour laisser un commentaire
 	 * @param  [str] $author  [auteur]
 	 * @param  [str] $comment [commentaire]
-	 * @param  [int] $post_id [id du billet concerné]
+	 * @param  [int] $post_id [id du billet concerné] 
 	 * @return  page post actualisée
 	 */
 	public function createComment($author, $comment, $post_id)

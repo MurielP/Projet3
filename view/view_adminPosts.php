@@ -3,7 +3,7 @@
     	<nav class="navbar">
 	    	<ul class="navbar-horizontale">
 	    		<li ><a href="index.php">Retour à l'accueil</a></li>
-	    		<li><a href="index.php?action=logout">Me déconnecter</a></li>
+	    		<li><a href="index.php?action=logoutAdmin">Me déconnecter</a></li>
 	    		<li><a href="index.php?action=adminProfile">Mes infos</a></li>
 	       </ul>
 	   	</nav>
@@ -65,6 +65,7 @@
 			<th>Aperçu du contenu</th>
 			<th>Auteur</th>
 		  	<th>Date de création</th>
+		  	<th>Date de modification</th>
 		  	<th>Action</th>
 		</tr>
 	</thead>	  
@@ -76,6 +77,7 @@
 			<td><?= htmlspecialchars ($post->getContent()) ?></td>
 			<td><?= htmlspecialchars ($post->getAuthor()) ?></td>
 			<td><?= htmlspecialchars ($post->getFormatted_creation_date()) ?></td>
+			<td><?= htmlspecialchars ($post->getFormatted_PAD()) ?></td>
 			<td>
 				<ul>
 					<li><a href="index.php?action=readPost&id=<?= htmlspecialchars($post->getId()) ?>">Lire</li>

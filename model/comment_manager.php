@@ -34,11 +34,24 @@ class Comment_manager extends Database
         return $commentsObj; 
 	}
 
+	public function getCommentByPostId($post_id) {
+        $sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_creation_date FROM posts WHERE id = ?');
+		$comment = $this->executeQuery($sql, array($post_id));
+
+		// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le billet
+		if ($comment->rowCount() > 0) {
+			// fetch() = va chercher la 1ère ligne de résultat
+			$result = new Comment($comment->fetch());
+			return $result;
+		}
+		else 
+			throw new Exception('Aucun billet ne correspond au numéro ' .$post_id. '.');
+    } 
+
 	/**
-	 * saveComment traiter et insérer les données du formulaire dans la bdd
-	 * @param [string] $author  [auteur du commentaire]
-	 * @param [string] $comment [commentaire]
-	 * @param [int] $post_id [id du billet choisi]
+	 * [saveComment] traiter et insérer les données du formulaire dans la bdd
+	 * @param  $lastComment [objet créé]
+	 * @return $createdComment [le commentaire inséré en bdd]
 	 */
 	public function saveComment($lastComment)
 	{
@@ -47,7 +60,7 @@ class Comment_manager extends Database
 			$createdComment = $this->executeQuery($sql, array(
 				$lastComment->getAuthor(),
 				$lastComment->getComment(),
-				$lastComment->getPost_id()
+				$lastComment->getPost_id(),
 			));
 			
 			return $createdComment; 

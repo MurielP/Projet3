@@ -12,14 +12,14 @@ class User_control
 	}
 
 	/**
-	 * [registerUser] enregistre un nouvel utilisateur
-	 * @param  [str] $username [pseudo]
+	 * [registerUser] enregistre un nouveau membre
+	 * @param  [str] $username [pseudonyme]
 	 * @param  [str] $password [mot de passe]
 	 * @param  [str] $mail     [mail]
-	 * @param  [str] $confirm_password     [confirmation du mot de passe]
+	 * @param  [str] $confirm_password [confirmation du mot de passe]
 	 * @return [un nouvel utilisateur et renvoie vers page dashboard]
 	 */
-	public function registerUser($username, $password, $email, $confirm_password)
+	public function registerUser($username, $email, $password, $confirm_password)
 	{	
 		/**
 		 * [$user] création de l'objet User 
@@ -27,10 +27,10 @@ class User_control
 		 */
 		$user = new User(array(
 			'username' => $username, 
-			'password' => $password,
 			'email' => $email,
+			'password' => $password,
 			'confirm_password' => $confirm_password,
-		));
+			));
 
 		/** 
 		 * je vérifie si l'email du $user existe déjà en bdd 
@@ -49,8 +49,8 @@ class User_control
 			if ($insert == true) {
 				$_SESSION['userUsername'] = $user->getUsername();
 				header('Location: index.php?action=userProfile');
-				
 			}
+
 		/**
 		 * si mon tableau contient des erreurs alors je renvoie le visiteur sur la page d'inscription view_user.php
 		 */
@@ -72,10 +72,10 @@ class User_control
 		// 
 		$user = $this->user_manager->getUserByLogin($user);
 
-		$view = new View('memberDashboard');
+		$view = new View('userProfile');
 		$view ->setTitle('Mon compte membre');
 		$view->generate(array(
-				'user' => $user
+				'user' => $user,
 				));
 	}
 	/**
@@ -97,42 +97,40 @@ class User_control
 	 */
 	public function logAdmin($loginAdmin, $passwordAdmin)
 	{
-		$user = new User(array(
+		$adminCheck = new User(array(
 			'username' => $loginAdmin,
-			'password' => $passwordAdmin
+			'password' => $passwordAdmin,
 			
 		));
 
 			// création de la var $admin 
-			$admin = $this->user_manager->verifyUserByPassword($user, $passwordAdmin); 
+			$adminReqCheck = $this->user_manager->verifyUserByPassword($adminCheck, $passwordAdmin); 
 		
 			// si le username de l'admin correspond à $loginAdmin
-			if ($admin != false){
-				$_SESSION['adminUsername'] = $admin->getUsername();
+			if ($adminReqCheck != false){
+				$_SESSION['adminUsername'] = $adminReqCheck->getUsername();
 				header('Location: index.php?action=adminProfile');
 
 			
 		}else{
-			$_SESSION['errors']['errorLog'] = 'La MDP et le pseudo sont incorrects';
+			$_SESSION['errors']['errorLog'] = 'Le pseudonyme et le mot de passe ne correspondent pas. Veuillez vérifier vos identifiants.';
+
 			header('Location: index.php?action=logAdmin');
 		}
 	}
 
 	public function adminProfile()
 	{
-		$user = new User(array(
+		$admin1 = new User(array(
 			'username' => $_SESSION['adminUsername'],
-			
-		));
+			));
 
-		$user = $this->user_manager->getAdminByLogin($user);
-		//$postsList = $this->post_manager->getPosts();		
+		$adminReq = $this->user_manager->getAdminByLogin($admin1);
 
 		$view = new View('adminProfile'); 
 		$view ->setTitle('Accueil administrateur');
 		$view->generate(array(
-				'user' => $user,
-				//'posts' => $postsList
+				'adminReq' => $adminReq,
 				));
 	}
 
@@ -143,7 +141,7 @@ class User_control
 		$view->generate(array());
 	}
 	
-	public function logout()
+	public function logoutAdmin()
 	{	
 		// ecrase le tableau 
 		$_SESSION['adminUsername'] = [];

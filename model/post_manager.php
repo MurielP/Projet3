@@ -48,7 +48,6 @@ class Post_manager extends Database
 		}
 		else 
 			throw new Exception('Aucun billet ne correspond au numéro ' .$post_id. '.');
-
     } 
 
     public function savePost($lastPost)
@@ -56,12 +55,12 @@ class Post_manager extends Database
 		try {
 			$sql = ('INSERT INTO posts (author, title, content, creation_date) VALUES (?,?,?,NOW())');
 			$createdPost = $this->executeQuery($sql, array(
-				$lastPost->getAuthor(),
-				$lastPost->getTitle(),
-				$lastPost->getContent(),
-
-			));
+							$lastPost->getAuthor(),
+							$lastPost->getTitle(),
+							$lastPost->getContent(),
+							));
 			return $createdPost; 
+
 		} catch (Exception $e) {
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
 		}
@@ -83,10 +82,13 @@ class Post_manager extends Database
 	public function updatePost($post)
 	{
 		try {
-			$sql = ('UPDATE posts SET author = ? WHERE id = ?');
+			$sql = ('UPDATE posts SET author = ?, title = ?, content = ? WHERE id = ?');
 			$createdPost = $this->executeQuery($sql, array(
-				$post->getAuthor(),
 				$post->getId(),
+				$post->getAuthor(),
+				$post->getTitle(),
+				$post->getContent(),
+				
 				
 			));
 			

@@ -3,7 +3,7 @@
     	<nav class="navbar">
 	    	<ul class="navbar-horizontale">
 	    		<li ><a href="index.php">Retour à l'accueil</a></li>
-	    		<li><a href="index.php?action=logout">Me déconnecter</a></li>
+	    		<li><a href="index.php?action=logoutAdmin">Me déconnecter</a></li>
 	    		<li><a href="index.php?action=adminProfile">Mes infos</a></li>
 	       </ul>
 	   	</nav>
@@ -56,7 +56,7 @@
 			<td><?= htmlspecialchars ($comment->getFormatted_comment_date()) ?></td>
 			<td>
 				<ul>
-					<li><a href="">Lire</li>
+					<li><a href="index.php?action=readComment&id=<?= htmlspecialchars($comment->getId()) ?>">Lire</li>
 					<li><a href="">Modifier</li>
 					<li><a href="">Supprimer</li>	
 				</ul>
