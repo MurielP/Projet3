@@ -35,7 +35,7 @@ class Comment_manager extends Database
 	}
 
 	public function getCommentByPostId($post_id) {
-        $sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_creation_date FROM posts WHERE id = ?');
+        $sql = ('SELECT id, post_id, author, comment,DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date FROM comments WHERE id = ?');
 		$comment = $this->executeQuery($sql, array($post_id));
 
 		// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le billet
@@ -45,7 +45,8 @@ class Comment_manager extends Database
 			return $result;
 		}
 		else 
-			throw new Exception('Aucun billet ne correspond au numéro ' .$post_id. '.');
+			throw new Exception('Aucun commentaire ne correspond au numéro ' .$id. '.');
+		
     } 
 
 	/**

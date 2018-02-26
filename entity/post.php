@@ -44,6 +44,7 @@ class Post
     private $content;
     private $creation_date;
     private $post_amended_date; 
+    private $comment_id;
 
 
 
@@ -79,6 +80,11 @@ class Post
     public function getFormatted_PAD() 
     {
     	return $this->post_amended_date;
+    }
+
+    public function getComment_id()
+    {
+        return $this->comment_id;
     }
 
 
@@ -132,8 +138,17 @@ class Post
 
     public function setFormatted_PAD($post_amended_date)
     {
+        $post_amended_date = DateTime::createFromFormat('j-M-Y', $post_amended_date);
     	return $this->post_amended_date = $post_amended_date;
     }
 
-   
+   public function setComment_id($comment_id)
+   {
+        $comment_id = (int) $comment_id;
+        if ($comment_id > 0) {
+            return $this->comment_id = $comment_id;
+        }  else {
+            $_SESSION['errors']['errorCommentId'] = 'L\'id du commentaire doit être de type integer et > 0.';
+        }
+   }
 }

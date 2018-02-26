@@ -25,8 +25,7 @@ class Admin_control
 		$lastPost = new Post(array(
 				'author' => $author, 
 				'title' => $title,
-				'content' => $content,
-
+				'content' => $content,	
  		));	
 		/**
 		 * si la tableau d'erreur est vide alors j'appelle la fonction savePost du admin_manager pour enregistrer le nouveau billet en bdd, puis je l'affiche 
@@ -59,7 +58,6 @@ class Admin_control
 		
 		$user = new User(array('username' => $_SESSION['adminUsername']));
 		$user = $this->user_manager->getAdminByLogin($user);
-	
 
 		$view = new view('adminPosts');
 		$view->setTitle('Les billets');
@@ -91,7 +89,7 @@ class Admin_control
 				$_SESSION['success']['supprPost'] = 'Votre article n°'. $post_id .' a bien été supprimé';
 			}
 		}
-		
+				
 		header('Location: index.php?action=adminPosts');
 	}
 	
@@ -106,14 +104,13 @@ class Admin_control
 			$post->setId($post_id);
 
 			$postUpdate = $this->post_manager->updatePost($post);
-			var_dump($postUpdate);
+			//var_dump($postUpdate);
 			/**
 			 * si $postUpdate est ok : je crée ma variable de session pour afficher msg success 
 			 */
 			if ($postUpdate == true) {
 				$_SESSION['success']['postUpdated'] = 'Votre article n°'. $post_id .' a bien été modifié';
 			}	
-			 
 		}
 
 		$view = new View('updatePost');
@@ -122,9 +119,7 @@ class Admin_control
 			'post' => $post,
 			
 		));
-
 	}	
-
 
 	public function getCommentsList()
 	{
@@ -143,14 +138,14 @@ class Admin_control
 
 	public function readComment($post_id)
 	{
-		$post = $this->post_manager->getPost($post_id);
 		$comment = $this->comment_manager->getCommentByPostId($post_id);
+		$post = $this->post_manager->getPostByCommentId($post_id);
 
 		$view = new View('readComment');
 		$view->setTitle('Lire le commentaire');
-		$view->generate(array(
-			'post' => $post,
+		$view->generate(array(		
 			'comment' => $comment,
+			'post' => $post,
 		));
 	}
 	

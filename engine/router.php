@@ -181,6 +181,9 @@ class Router
 						$this->user_control->logoutAdmin();
 					}
 
+				} elseif ($_GET['action'] == 'adminPosts') {
+					$this->admin_control->getPostsList();
+
 				} elseif ($_GET['action'] == 'createPost') {
 					//si tous les chps du form sont remplis -> méthode controleur createPost()
 					if(!empty($_POST['author']) AND !empty($_POST['title']) AND !empty($_POST['content'])){
@@ -207,10 +210,7 @@ class Router
 						* et je renvoie le visiteur sur la page de création d'article si les champs sont vides
 						*/
 						$this->admin_control->createPostPage();
-					}
-
-				} elseif ($_GET['action'] == 'adminPosts') {
-					$this->admin_control->getPostsList();
+					}	
 
 				} elseif ($_GET['action'] == 'readPost'){
 					$post_id = intval($this->getParam($_GET, 'id'));
@@ -228,6 +228,7 @@ class Router
 						$author = $this->getParam($_POST, 'author');
 						$title = $this->getParam($_POST, 'title');
 						$content = $this->getParam($_POST, 'content');
+						
 						$id = $this->getParam($_POST, 'id');
 					 
 						
@@ -255,10 +256,9 @@ class Router
 						if ($post_id > 0) {
 							$this->admin_control->modifyPost($post_id);
 						} else {
-							header('Location : index.php');
+							header('Location : index.php?action=adminPosts');
 						}
 					} 
-
 
 				} elseif ($_GET['action'] == 'cancelPost'){
 					$post_id = intval($this->getParam($_GET, 'id'));
@@ -272,6 +272,15 @@ class Router
 
 				} elseif($_GET['action'] == 'readComment') {
 					$post_id = intval($this->getParam($_GET, 'id'));
+
+					if ($post_id > 0) {
+						$this->admin_control->readComment($post_id);
+					}
+
+
+				} elseif ($_GET['action'] == 'readComment'){
+					$post_id = intval($this->getParam($_GET, 'id'));
+					
 
 					if ($post_id > 0) {
 						$this->admin_control->readComment($post_id);

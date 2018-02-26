@@ -48,7 +48,11 @@
 
 	<tbody>
 <?php foreach ($comments as $comment) :?>
-		<tr class="<?php if($comment->getIs_flagged()){ echo 'flagged'; };?>">
+		<tr class="<?php 
+			if($comment->getIs_flagged()){ 
+				echo 'flagged'; 
+				};
+			?>">
 			<td><?= htmlspecialchars ($comment->getId()) ?></td>
 			<td><?= htmlspecialchars ($comment->getPost_id()) ?></td>
 			<td><?= htmlspecialchars ($comment->getComment()) ?></td>

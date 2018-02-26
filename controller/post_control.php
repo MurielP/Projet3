@@ -62,7 +62,6 @@ class Post_control
  		// si aucune erreur - enregistre le commentaire en bdd 
 		if(count($_SESSION['errors']) == 0){
 			$insertComment = $this->comment_manager->saveComment($lastComment);	
-
 			/**
 			 * si $insertComment est ok : je crée ma variable de session pour afficher msg success 
 			 */
@@ -73,10 +72,6 @@ class Post_control
 		// puis retour sur le billet et ses commentaires / si erreur mm page
 		header('Location: index.php?action=post&id=' .$post_id );
 	}
-
-	
-
-	
 }
 
 

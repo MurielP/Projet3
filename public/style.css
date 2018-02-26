@@ -49,7 +49,7 @@ html, body {
   background-color : #0D738F;
 }
 
-.tablePostList{
+.tablePostList, .tableCommentList{
   font-family: 'Futura-Medium', 'Futura', 'Trebuchet MS', sans-serif;
   margin: 25px auto;
   border-collapse: collapse;
