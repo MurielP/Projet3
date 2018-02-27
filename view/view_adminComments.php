@@ -30,6 +30,21 @@
 	
 ?>
 
+<?php
+//var_dump($_SESSION['success']);
+	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
+		foreach ($_SESSION['success'] as $type => $message) {
+?>
+	<div class="successAlert">
+		<ul>
+			<li><?= $message ?></li>
+		</ul>
+	</div>
+<?php
+}
+}	
+	$_SESSION['success'] = [];
+?>
 
 <div class="tableCommentList">
 <table>
@@ -60,9 +75,9 @@
 			<td><?= htmlspecialchars ($comment->getFormatted_comment_date()) ?></td>
 			<td>
 				<ul>
-					<li><a href="index.php?action=readComment&id=<?= htmlspecialchars($comment->getId()) ?>">Lire</li>
-					<li><a href="">Modifier</li>
-					<li><a href="">Supprimer</li>	
+					<li><a href="index.php?action=readComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Lire</li>
+					<li><a href="index.php?action=modifyComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Modifier</li>
+					<li><a href="index.php?action=cancelComment&id=<?= htmlspecialchars($comment->getId()) ?>">Supprimer</li>	
 				</ul>
 			</td>
 		</tr>

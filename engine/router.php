@@ -271,20 +271,60 @@ class Router
 					$this->admin_control->getCommentsList();
 
 				} elseif($_GET['action'] == 'readComment') {
-					$post_id = intval($this->getParam($_GET, 'id'));
-
-					if ($post_id > 0) {
-						$this->admin_control->readComment($post_id);
-					}
-
-
-				} elseif ($_GET['action'] == 'readComment'){
-					$post_id = intval($this->getParam($_GET, 'id'));
+					$comment_id = intval($this->getParam($_GET, 'id'));				
 					
-
-					if ($post_id > 0) {
-						$this->admin_control->readComment($post_id);
+					if ($comment_id > 0) {
+						if ($post_id = intval($this->getParam($_GET, 'id'))){
+						$this->admin_control->readComment($comment_id, $post_id);
+						}
+					} else {
+						throw new Exception ('Vous ne pouvez pas lire ce commentaire');
 					}
+
+				} elseif ($_GET['action'] == 'cancelComment'){
+					$comment_id = intval($this->getParam($_GET, 'id'));
+
+					if ($comment_id > 0) {
+						if ($post_id = intval($this->getParam($_GET, 'id'))){
+						$this->admin_control->deleteComment($comment_id, $post_id);
+						}
+					} else {
+						throw new Exception ('Vous ne pouvez pas supprimer ce commentaire');
+					}
+
+				} elseif ($_GET['action'] == 'modifyComment') {
+					if(isset($_POST['author']) AND !empty($_POST['author']) 
+						AND isset($_POST['comment']) AND !empty($_POST['comment'])){
+
+						$author = $this->getParam($_POST, 'author');
+						$comment = $this->getParam($_POST, 'comment');
+						$id = $this->getParam($_POST, 'id');
+
+						if ($id > 0){
+							if($post_id = $this->getParam($_POST, 'id')); {
+								$this->admin_control->modifyComment($id, $post_id, $author, $comment);
+							}	
+						}			 	
+					} else {
+						if(isset($_POST['author']) AND empty($_POST['author'])){
+					
+							$_SESSION['errors']['emptyAuthor'] = 'Le champ Auteur est vide';
+						} 
+						if (isset($_POST['comment']) AND empty($_POST['comment'])){
+					
+							$_SESSION['errors']['emptyComment'] = 'Le champ Commentaire est vide';
+						}
+						// vérifie si j'ai un id de commentaire 
+						$id = (int)$this->getParam($_GET, 'id');
+						// si id de commentaire mais des erreurs, je renvoie sur la page adminDashboard 
+						if ($id > 0) {
+							if ($post_id = intval($this->getParam($_GET, 'id'))){
+								$this->admin_control->modifyComment($id, $post_id);
+							}
+						} else {
+							header('Location : index.php?action=adminComments');
+						}
+					} 
 
 				} elseif($_GET['action'] == 'flag'){
 

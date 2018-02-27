@@ -6,7 +6,7 @@
 	    		<li><a href="index.php?action=adminProfile">Tableau de bord</a></li>
 	       </ul>
 	   	</nav>
-    </container>
+</container>
 
 <article>
 	<h2>Commentaire lié à l'article : <?= $post->getTitle()?></h2>
@@ -15,6 +15,7 @@
 	<p>Auteur du commentaire : <?= htmlspecialchars($comment->getAuthor()) ?></p>
  	<p>Commentaire : <br><?= htmlspecialchars($comment->getComment()) ?></p>
 </article>
+
 
 <?php
 //echo '<pre>' . print_r($user,true) . '</pre>';

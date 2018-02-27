@@ -35,17 +35,22 @@ class Comment_manager extends Database
 	}
 
 	public function getCommentByPostId($post_id) {
-        $sql = ('SELECT id, post_id, author, comment,DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date FROM comments WHERE id = ?');
-		$comment = $this->executeQuery($sql, array($post_id));
 
-		// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le billet
-		if ($comment->rowCount() > 0) {
-			// fetch() = va chercher la 1ère ligne de résultat
-			$result = new Comment($comment->fetch());
-			return $result;
+		try {
+        	$sql = ('SELECT id, post_id, author, comment,DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date FROM comments WHERE id = ?');
+			$comment = $this->executeQuery($sql, array($post_id));
+
+				// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le billet
+				if ($comment->rowCount() > 0) {
+					// fetch() = va chercher la 1ère ligne de résultat
+					$result = new Comment($comment->fetch());
+					return $result;
+				}
+		} catch (Exception $e){
+			//throw new Exception('Aucun commentaire ne correspond au billet numéro ' .$post_id. '.');
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
 		}
-		else 
-			throw new Exception('Aucun commentaire ne correspond au numéro ' .$id. '.');
+		 
 		
     } 
 
@@ -91,6 +96,7 @@ class Comment_manager extends Database
         return $commentsObj; 
 	}
 
+
 	public function getCommentsByFlag()
 	{
 		$sql = ('SELECT id, post_id, author, comment,is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date  FROM comments ORDER BY is_flagged DESC');
@@ -110,5 +116,36 @@ class Comment_manager extends Database
             array_push($commentsObj, $commentObj); 
         }
         return $commentsObj; 	
+	}
+
+	public function suppressComment($comment_id)
+	{
+		try {
+			$sql = ('DELETE FROM comments WHERE id = ?');
+			$deletedComment = $this->executeQuery($sql, array($comment_id));
+
+			return $deletedComment;
+
+		} catch (Exception $e) {
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+
+	public function updateComment($comment)
+	{
+		//var_dump($comment);
+		try {
+			$sql = ('UPDATE comments SET author = ?, comment = ?, post_id = ? WHERE id = ?');
+
+			$createdComment = $this->executeQuery($sql, array(
+				$comment->getAuthor(),
+				$comment->getComment(),
+				$comment->getId(),
+			));
+			return $createdComment; 
+
+		} catch (Exception $e) {
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
 	}
 }	

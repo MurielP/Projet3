@@ -99,7 +99,7 @@ class Post_manager extends Database
 		}
 	}
 
-	public function getPostByCommentId($post_id)
+	public function getPostByCommentId($comment_id)
     {
     	try {
 	    	$sql =('SELECT posts.id, posts.title, posts.content
@@ -107,13 +107,14 @@ class Post_manager extends Database
 	    			INNER JOIN comments
 	    				ON posts.id = comments.post_id
 	   				WHERE comments.id = ?');
-    		$jointure = $this->executeQuery($sql, array($post_id));
+    		$jointure = $this->executeQuery($sql, array($comment_id));
 
     		if($jointure->rowCount() > 0) {
     			$resultJointure = new Post($jointure->fetch());
     			return $resultJointure;
+    			
     		} else {
-				throw new Exception('Aucun commentaire ne correspond au numéro ' .$id. '.');
+				throw new Exception('Aucun commentaire ne correspond au numéro ' .$comment_id. '.');
     		}
     	} catch (Exception $e) {
     		$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';

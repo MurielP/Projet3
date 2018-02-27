@@ -1,12 +1,12 @@
 <container>
-    	<nav class="navbar">
-	    	<ul class="navbar-horizontale">
-	    		<li ><a href="index.php">Retour à l'accueil</a></li>
-	    		<li><a href="index.php?action=logout">Me déconnecter</a></li>
-	    		<li><a href="index.php?action=adminProfile">Tableau de bord</a></li>
-	       </ul>
-	   	</nav>
-    </container>
+    <nav class="navbar">
+	    <ul class="navbar-horizontale">
+	    	<li ><a href="index.php">Retour à l'accueil</a></li>
+	    	<li><a href="index.php?action=logout">Me déconnecter</a></li>
+	    	<li><a href="index.php?action=adminProfile">Tableau de bord</a></li>
+	      </ul>
+	</nav>
+</container>
 
 <article>
 	<h2>Titre de l'article : <?=  htmlspecialchars($post->getTitle()) ?></h2>

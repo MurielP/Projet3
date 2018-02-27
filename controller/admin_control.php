@@ -136,11 +136,12 @@ class Admin_control
 		));		
 	}
 
-	public function readComment($post_id)
+	public function readComment($comment_id, $post_id)
 	{
 		$comment = $this->comment_manager->getCommentByPostId($post_id);
-		$post = $this->post_manager->getPostByCommentId($post_id);
+		$post = $this->post_manager->getPostByCommentId($comment_id);
 
+		// var_dump($comment);
 		$view = new View('readComment');
 		$view->setTitle('Lire le commentaire');
 		$view->generate(array(		
@@ -149,5 +150,46 @@ class Admin_control
 		));
 	}
 	
+	public function deleteComment($comment_id, $post_id)
+	{
+		$comment = $this->comment_manager->getCommentByPostId($post_id);
 
+		if(count($_SESSION['errors']) == 0){
+			$suppr = $this->comment_manager->suppressComment($comment_id);
+
+			if($suppr == true){
+				$_SESSION['success']['supprComment'] = 'Le commentaire n°'. $comment_id .' a bien été supprimé';
+			}
+		}	
+		header('Location: index.php?action=adminComments');
+	}
+
+	public function modifyComment($id, $post_id, $author = NULL, $comment = NULL)
+	{
+		$comment = $this->comment_manager->getCommentByPostId($post_id);
+
+		if($author != NULL AND $comment != NULL){
+			$comment->setAuthor($author);
+			$comment->setComment($comment);
+			$comment->setId($id);		
+
+			if(count($_SESSION['errors']) == 0){
+				$commentUpdate = $this->comment_manager->updateComment($comment);
+				//var_dump($commentUpdate);
+				/**
+				 * si $commentUpdate est ok : je crée ma variable de session pour afficher msg success 
+				 */
+				if ($commentUpdate == true) {
+					$_SESSION['success']['commentUpdated'] = 'Le commentaire n°'. $id .' a bien été modifié';
+				} else {
+					$_SESSION['errors']['commentUpdatedFail'] = 'Le commentaire n°'. $id .' n\'a pas pu être modifié';
+				}
+			}
+		}
+		$view = new View('updateComment');
+		$view->setTitle('Modifier le commentaire');
+		$view->generate(array(
+			'comment' => $comment,		
+		));
+	}	
 }
