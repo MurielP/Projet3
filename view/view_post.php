@@ -1,5 +1,5 @@
 <header>
- <!-- <?=  '<pre>' . print_r($comments,true) . '</pre>'; ?> -->
+ <!-- <?=  '<pre>' . print_r($comment,true) . '</pre>'; ?> -->
 	<a href="index.php">Retour à la liste des billets</a>
 
 	<h2><?=  htmlspecialchars($post->getTitle()) ?></h2>
@@ -16,6 +16,7 @@
 		Le <?= $comment->getFormatted_comment_date() ?><br/>
 		<?= nl2br(htmlspecialchars($comment->getComment())) ?>
 		</p>
+		<a href="index.php?action=flag&idComment=<?= $comment->getId()?>">Signaler</a>
 	</article>
 		<hr/> 
 <?php endforeach; ?>
@@ -63,7 +64,7 @@
 	<p><label for="comment">Commentaire :</label><textarea name="comment" id="comment" value=""></textarea></p>
 	
 	<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
-
+	
 	<p><input type="submit" name="submitComment" value="Postez votre commentaire" /></p>
 	</fieldset>
 </form>

@@ -164,14 +164,15 @@ class Admin_control
 		header('Location: index.php?action=adminComments');
 	}
 
-	public function modifyComment($id, $post_id, $author = NULL, $comment = NULL)
+	public function modifyComment($id, $post_id, $author = NULL, $content = NULL)
 	{
 		$comment = $this->comment_manager->getCommentByPostId($post_id);
 
 		if($author != NULL AND $comment != NULL){
 			$comment->setAuthor($author);
-			$comment->setComment($comment);
-			$comment->setId($id);		
+			$comment->setComment($content);
+			$comment->setIs_flagged(0);
+			
 
 			if(count($_SESSION['errors']) == 0){
 				$commentUpdate = $this->comment_manager->updateComment($comment);
@@ -181,6 +182,7 @@ class Admin_control
 				 */
 				if ($commentUpdate == true) {
 					$_SESSION['success']['commentUpdated'] = 'Le commentaire n°'. $id .' a bien été modifié';
+
 				} else {
 					$_SESSION['errors']['commentUpdatedFail'] = 'Le commentaire n°'. $id .' n\'a pas pu être modifié';
 				}
@@ -192,4 +194,19 @@ class Admin_control
 			'comment' => $comment,		
 		));
 	}	
+
+	public function flagComment($id)
+	{
+		$commentUpdate = $this->comment_manager->flagComment($id);	
+		$comment = $this->comment_manager->getCommentById($id);
+
+		if ($commentUpdate == true) {
+				$_SESSION['success']['commentUpdated'] = 'Le commentaire n°'. $id .' a bien été signalé';	
+		} else {
+			$_SESSION['errors']['commentUpdatedFail'] = 'Le commentaire n°'. $id .' n\'a pas pu être signalé';
+		}
+
+		header('Location: index.php?action=post&id=' .$comment->getPost_id());
+
+	}
 }

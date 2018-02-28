@@ -57,6 +57,7 @@ class Post_control
 				'author' => $author, 
 				'comment' => $comment,
 				'post_id' => $post_id,
+			
  		));
 
  		// si aucune erreur - enregistre le commentaire en bdd 
@@ -67,6 +68,7 @@ class Post_control
 			 */
 			if ($insertComment == true) {
 				$_SESSION['success']['commentInserted'] = 'Votre commentaire a bien été enregistré';
+				
 			}	
 		} 
 		// puis retour sur le billet et ses commentaires / si erreur mm page

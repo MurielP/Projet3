@@ -58,6 +58,7 @@ class Router
 						$author = $this->getParam($_POST, 'author'); // défini la variable $author
 						$comment = $this->getParam($_POST, 'comment');
 						$post_id = $this->getParam($_POST, 'id'); // champ hidden
+						
 
 						$this->post_control->createComment($author, $comment, $post_id);
 					/**
@@ -228,11 +229,9 @@ class Router
 						$author = $this->getParam($_POST, 'author');
 						$title = $this->getParam($_POST, 'title');
 						$content = $this->getParam($_POST, 'content');
-						
-						$id = $this->getParam($_POST, 'id');
+						$post_id = $this->getParam($_POST, 'id');
 					 
-						
-						$this->admin_control->modifyPost($id, $author, $title, $content);
+						$this->admin_control->modifyPost($post_id, $author, $title, $content);
 					
 					} else {
 						if(isset($_POST['author']) AND empty($_POST['author'])){
@@ -272,11 +271,11 @@ class Router
 
 				} elseif($_GET['action'] == 'readComment') {
 					$comment_id = intval($this->getParam($_GET, 'id'));				
+					$post_id = intval($this->getParam($_GET, 'post_id'));
+						if ($comment_id > 0) {
+							
+							$this->admin_control->readComment($comment_id, $post_id);
 					
-					if ($comment_id > 0) {
-						if ($post_id = intval($this->getParam($_GET, 'id'))){
-						$this->admin_control->readComment($comment_id, $post_id);
-						}
 					} else {
 						throw new Exception ('Vous ne pouvez pas lire ce commentaire');
 					}
@@ -298,12 +297,14 @@ class Router
 
 						$author = $this->getParam($_POST, 'author');
 						$comment = $this->getParam($_POST, 'comment');
-						$id = $this->getParam($_POST, 'id');
+						$toto = $this->getParam($_POST, 'id');
 
-						if ($id > 0){
-							if($post_id = $this->getParam($_POST, 'id')); {
-								$this->admin_control->modifyComment($id, $post_id, $author, $comment);
-							}	
+						$post_id = $this->getParam($_POST, 'post_id');
+
+						if ($toto> 0 AND $post_id > 0){
+								 
+								$this->admin_control->modifyComment($toto, $post_id, $author, $comment);
+						
 						}			 	
 					} else {
 						if(isset($_POST['author']) AND empty($_POST['author'])){
@@ -316,25 +317,30 @@ class Router
 						}
 						// vérifie si j'ai un id de commentaire 
 						$id = (int)$this->getParam($_GET, 'id');
+						$post_id = intval($this->getParam($_GET, 'post_id'));
 						// si id de commentaire mais des erreurs, je renvoie sur la page adminDashboard 
 						if ($id > 0) {
-							if ($post_id = intval($this->getParam($_GET, 'id'))){
 								$this->admin_control->modifyComment($id, $post_id);
-							}
+							
 						} else {
 							header('Location : index.php?action=adminComments');
 						}
 					} 
 
 				} elseif($_GET['action'] == 'flag'){
+						$id = (int)$this->getParam($_GET, 'idComment');
 
-					
+						if($id > 0){
+							$this->admin_control->flagComment($id);
 
+					} else {
+						throw new Exception ('Une erreur s\'est produite dans le signalement du commentaire');
+					}
+									
 				} else {
 					throw New Exception ('Action inconnue.');
 				}
-			
-				
+							
 			} else {
 				// page par défaut
 				$this->home_control->homePage();

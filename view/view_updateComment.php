@@ -52,10 +52,10 @@
 	<form class="form" method="post" action="index.php?action=modifyComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">
 		<fieldset>
 			<legend>Modifier un commentaire</legend>
-				<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value="" /></p>
-				<p><label for="comment">Commentaire : </label><textarea type="text" name="comment" id="comment" value=""></textarea></p>
+				<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value=" <?=  htmlspecialchars($comment->getAuthor()) ?>" /></p>
+				<p><label for="comment">Commentaire : </label><textarea type="text" name="comment" id="comment" ><?= htmlspecialchars($comment->getComment()) ?></textarea></p>
 				<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($comment->getId()) ?>"/> 
 				<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($comment->getPost_id()) ?>"/> 
-				<p><input type="submit" name="submit" value="Éditer l'article" /></p>
+				<p><input type="submit" name="submit" value="Modifier le commentaire" /></p>
 		</fieldset>
 	</form>

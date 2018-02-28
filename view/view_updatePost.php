@@ -53,9 +53,9 @@
 	<form class="form" method="post" action="index.php?action=modifyPost&id=<?= $post->getId() ?>">
 		<fieldset>
 			<legend>Modifier un article</legend>
-				<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value="" /></p>
-				<p><label for="title">Titre : </label><input type="text" name="title" id="title" value="" /></p>
-				<p><label for="content">Contenu : </label><textarea type="text" name="content" id="content" value=""></textarea></p>
+				<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value="<?=  htmlspecialchars($post->getAuthor()) ?>" /></p>
+				<p><label for="title">Titre : </label><input type="text" name="title" id="title" value="<?=  htmlspecialchars($post->getTitle()) ?>" /></p>
+				<p><label for="content">Contenu : </label><textarea type="text" name="content" id="content" value=""><?= htmlspecialchars($post->getContent()) ?></textarea></p>
 				<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
 				<p><input type="submit" name="submit" value="Éditer l'article" /></p>
 		</fieldset>
