@@ -38,9 +38,7 @@ class Admin_control
 			} else {
 				$_SESSION['errors']['addedPostFail'] = 'Votre article '. $title.' n\'a pu être publié';
 			}
-
 		header('Location: index.php?action=adminPosts');
-
 		// si il y a des erreurs dans le tableau alors je reste sur la page adminPosts pour voir les erreurs
 		} elseif (count($_SESSION['errors']) > 0) {
 			header('Location: index.php?action=adminPosts');
@@ -116,8 +114,7 @@ class Admin_control
 		$view = new View('updatePost');
 		$view->setTitle('Modifier l\'article');
 		$view->generate(array(
-			'post' => $post,
-			
+			'post' => $post,			
 		));
 	}	
 
@@ -150,9 +147,9 @@ class Admin_control
 		));
 	}
 	
-	public function deleteComment($comment_id, $post_id)
+	public function deleteComment($comment_id)
 	{
-		$comment = $this->comment_manager->getCommentByPostId($post_id);
+		$comment = $this->comment_manager->getCommentById($comment_id);
 
 		if(count($_SESSION['errors']) == 0){
 			$suppr = $this->comment_manager->suppressComment($comment_id);
@@ -164,15 +161,14 @@ class Admin_control
 		header('Location: index.php?action=adminComments');
 	}
 
-	public function modifyComment($id, $post_id, $author = NULL, $content = NULL)
+	public function modifyComment($id, $post_id, $author = NULL, $commentModified = NULL)
 	{
 		$comment = $this->comment_manager->getCommentByPostId($post_id);
 
-		if($author != NULL AND $comment != NULL){
+		if($author != NULL AND $commentModified != NULL){
 			$comment->setAuthor($author);
-			$comment->setComment($content);
-			$comment->setIs_flagged(0);
-			
+			$comment->setComment($commentModified);
+			$comment->setIs_flagged(0);			
 
 			if(count($_SESSION['errors']) == 0){
 				$commentUpdate = $this->comment_manager->updateComment($comment);
@@ -197,10 +193,10 @@ class Admin_control
 
 	public function flagComment($id)
 	{
-		$commentUpdate = $this->comment_manager->flagComment($id);	
+		$commentAddFlag = $this->comment_manager->flaggedComment($id);	
 		$comment = $this->comment_manager->getCommentById($id);
 
-		if ($commentUpdate == true) {
+		if ($commentAddFlag == true) {
 				$_SESSION['success']['commentUpdated'] = 'Le commentaire n°'. $id .' a bien été signalé';	
 		} else {
 			$_SESSION['errors']['commentUpdatedFail'] = 'Le commentaire n°'. $id .' n\'a pas pu être signalé';

@@ -37,7 +37,7 @@ class Comment_manager extends Database
 	public function getCommentByPostId($post_id) {
 
 		try {
-        	$sql = ('SELECT id, post_id, author, comment,DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date FROM comments WHERE post_id = ?');
+        	$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date, is_flagged FROM comments WHERE post_id = ?');
 			$comment = $this->executeQuery($sql, array($post_id));
 
 				// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le billet
@@ -49,15 +49,13 @@ class Comment_manager extends Database
 		} catch (Exception $e){
 			//throw new Exception('Aucun commentaire ne correspond au billet numéro ' .$post_id. '.');
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
-		}
-		 
-		
+		}	 	
     } 
 
     public function getCommentById($id)
     {
     	try {
-        	$sql = ('SELECT id, post_id, author, comment,DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date FROM comments WHERE id = ?');
+        	$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date FROM comments WHERE id = ?');
 			$comment = $this->executeQuery($sql, array($id));
 
 				// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le billet
@@ -84,6 +82,7 @@ class Comment_manager extends Database
 				$lastComment->getAuthor(),
 				$lastComment->getComment(),
 				$lastComment->getPost_id(),
+			
 			));
 			
 			return $createdComment; 
@@ -150,7 +149,7 @@ class Comment_manager extends Database
 
 	public function updateComment($comment)
 	{
-		//var_dump($comment);
+		var_dump($comment);
 		try {
 			$sql = ('UPDATE comments SET author = ?, comment = ?, post_id = ?, is_flagged = ? WHERE id = ?');
 
@@ -169,13 +168,13 @@ class Comment_manager extends Database
 		}
 	}
 
-	public function flagComment($id)
+	public function flaggedComment($id)
 	{
 		try {
 			$sql = ('UPDATE comments SET is_flagged = 1 WHERE id = ?');
 
-			$createdComment = $this->executeQuery($sql, array($id));
-			return $createdComment; 
+			$flagComment = $this->executeQuery($sql, array($id));
+			return $flagComment; 
 
 		} catch (Exception $e) {
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';

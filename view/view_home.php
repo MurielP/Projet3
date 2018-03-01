@@ -8,8 +8,9 @@
 	</nav>
 </container>
 
+<p>Nombre de billets : <?= htmlspecialchars($posts_nb) ?></p>
+
 <?php foreach ($posts as $post) : ?> 
-	
 	<article>
 		<header>
 		

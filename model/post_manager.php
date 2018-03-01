@@ -11,7 +11,6 @@ class Post_manager extends Database
 	 */
 	public function getPosts()
 	{
-
 		$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_creation_date FROM posts ORDER BY creation_date DESC');
 		$posts = $this->executeQuery($sql);
 		
@@ -19,7 +18,6 @@ class Post_manager extends Database
 		$postsObj = array();
         foreach ($posts as $post){
             $postObj = new Post($post);
-
             /**
              * array_push ( array &$array , $value1 [, $... ] )
              * array = tableau d'entrée (ici $postsObj = array() donc un tableau vide)
@@ -29,6 +27,15 @@ class Post_manager extends Database
             array_push($postsObj, $postObj); 
         }
         return $postsObj; 
+	}
+
+	public function countPosts()
+	{
+		$sql =('SELECT COUNT(*) AS nb_posts FROM posts');
+		$req = $this->executeQuery($sql);
+		$result = $req->fetchColumn();
+		return $result;
+		
 	}
 	/**
 	 * [getPost récupère un billet selon son id avec une requête préparée]

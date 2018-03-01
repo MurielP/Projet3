@@ -272,21 +272,18 @@ class Router
 				} elseif($_GET['action'] == 'readComment') {
 					$comment_id = intval($this->getParam($_GET, 'id'));				
 					$post_id = intval($this->getParam($_GET, 'post_id'));
-						if ($comment_id > 0) {
-							
-							$this->admin_control->readComment($comment_id, $post_id);
-					
+						
+					if ($comment_id > 0 AND $post_id > 0) {							
+						$this->admin_control->readComment($comment_id, $post_id);
 					} else {
 						throw new Exception ('Vous ne pouvez pas lire ce commentaire');
 					}
 
 				} elseif ($_GET['action'] == 'cancelComment'){
-					$comment_id = intval($this->getParam($_GET, 'id'));
+					$comment_id = intval($this->getParam($_GET, 'id'));			
 
-					if ($comment_id > 0) {
-						if ($post_id = intval($this->getParam($_GET, 'id'))){
-						$this->admin_control->deleteComment($comment_id, $post_id);
-						}
+					if ($comment_id > 0) {						
+						$this->admin_control->deleteComment($comment_id);					
 					} else {
 						throw new Exception ('Vous ne pouvez pas supprimer ce commentaire');
 					}
@@ -297,14 +294,11 @@ class Router
 
 						$author = $this->getParam($_POST, 'author');
 						$comment = $this->getParam($_POST, 'comment');
-						$toto = $this->getParam($_POST, 'id');
-
+						$id = $this->getParam($_POST, 'id');
 						$post_id = $this->getParam($_POST, 'post_id');
 
-						if ($toto> 0 AND $post_id > 0){
-								 
-								$this->admin_control->modifyComment($toto, $post_id, $author, $comment);
-						
+						if ($id > 0 AND $post_id > 0){						 
+								$this->admin_control->modifyComment($id, $post_id, $author, $comment);					
 						}			 	
 					} else {
 						if(isset($_POST['author']) AND empty($_POST['author'])){
@@ -319,7 +313,7 @@ class Router
 						$id = (int)$this->getParam($_GET, 'id');
 						$post_id = intval($this->getParam($_GET, 'post_id'));
 						// si id de commentaire mais des erreurs, je renvoie sur la page adminDashboard 
-						if ($id > 0) {
+						if ($id > 0 AND $post_id > 0) {
 								$this->admin_control->modifyComment($id, $post_id);
 							
 						} else {

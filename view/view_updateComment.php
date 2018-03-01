@@ -59,3 +59,5 @@
 				<p><input type="submit" name="submit" value="Modifier le commentaire" /></p>
 		</fieldset>
 	</form>
+
+	<?=  '<pre>' . print_r($comment,true) . '</pre>'; ?>

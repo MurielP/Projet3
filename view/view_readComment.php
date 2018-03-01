@@ -34,3 +34,4 @@
 	$_SESSION['errors'] = [];
 ?>
 
+<?=  '<pre>' . print_r($comment,true) . '</pre>'; ?>

@@ -1,5 +1,5 @@
 <header>
- <!-- <?=  '<pre>' . print_r($comment,true) . '</pre>'; ?> -->
+ <!-- <?=  '<pre>' . print_r($comments,true) . '</pre>'; ?> -->
 	<a href="index.php">Retour à la liste des billets</a>
 
 	<h2><?=  htmlspecialchars($post->getTitle()) ?></h2>
