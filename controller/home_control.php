@@ -6,10 +6,12 @@
 class Home_control
 {
 	private $post_manager;
+	private $comment_manager;
 
 	public function __construct()
 	{
 		$this->post_manager = new Post_manager();
+		$this->comment_manager = new comment_manager();
 	}
 
 	/**
@@ -18,6 +20,7 @@ class Home_control
 	 */
 	public function homePage()
 	{
+
 		$posts = $this->post_manager->getPosts();
 		$posts_nb = $this->post_manager->countPosts();
 

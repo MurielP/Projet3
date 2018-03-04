@@ -29,6 +29,10 @@ class Post_manager extends Database
         return $postsObj; 
 	}
 
+	/**
+	 * [countPosts compte le nombre d'articles publiés]
+	 * @return [int] [nbr d'articles]
+	 */
 	public function countPosts()
 	{
 		$sql =('SELECT COUNT(*) AS nb_posts FROM posts');
@@ -106,27 +110,26 @@ class Post_manager extends Database
 		}
 	}
 
-	public function getPostByCommentId($comment_id)
+	public function getPostByCommentId($id)
     {
     	try {
 	    	$sql =('SELECT posts.id, posts.title, posts.content
 	    			FROM posts 
 	    			INNER JOIN comments
 	    				ON posts.id = comments.post_id
-	   				WHERE comments.id = ?');
-    		$jointure = $this->executeQuery($sql, array($comment_id));
-
+	   				WHERE comments.id = ? ');
+    		$jointure = $this->executeQuery($sql, array($id));
+    		
     		if($jointure->rowCount() > 0) {
     			$resultJointure = new Post($jointure->fetch());
-    			return $resultJointure;
-    			
-    		} else {
-				throw new Exception('Aucun commentaire ne correspond au numéro ' .$comment_id. '.');
-    		}
+    			return $resultJointure;	
+    		}		
     	} catch (Exception $e) {
-    		$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+    		$_SESSION['errors']['missingPost'] = 'Aucun article ne correspond au commentaire ' .$id .' ';
     	}
     }
+
+   
 
 	
     /*

@@ -133,12 +133,19 @@ class Admin_control
 		));		
 	}
 
-	public function readComment($comment_id, $post_id)
+	public function readComment($id)
 	{
-		$comment = $this->comment_manager->getCommentByPostId($post_id);
-		$post = $this->post_manager->getPostByCommentId($comment_id);
+		$comment = $this->comment_manager->getCommentById($id);
+		$post = $this->post_manager->getPostByCommentId($id);
 
-		// var_dump($comment);
+		if($id >0 AND count($_SESSION['errors']) == 0){
+			$noFlag = $this->comment_manager->supprFlag($id);
+			if($noFlag == true){
+				$_SESSION['success']['supprFlag'] = 'Le signalement du commentaire a été enlevé';
+			}
+		}
+		
+		//var_dump($comment);
 		$view = new View('readComment');
 		$view->setTitle('Lire le commentaire');
 		$view->generate(array(		
@@ -197,7 +204,7 @@ class Admin_control
 		$comment = $this->comment_manager->getCommentById($id);
 
 		if ($commentAddFlag == true) {
-				$_SESSION['success']['commentUpdated'] = 'Le commentaire n°'. $id .' a bien été signalé';	
+			$_SESSION['success']['commentUpdated'] = 'Le commentaire n°'. $id .' a bien été signalé';	
 		} else {
 			$_SESSION['errors']['commentUpdatedFail'] = 'Le commentaire n°'. $id .' n\'a pas pu être signalé';
 		}

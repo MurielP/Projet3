@@ -17,6 +17,7 @@
 			<a href="index.php?action=post&id=<?= htmlspecialchars($post->getId()) ?>">
 				<h1><?= htmlspecialchars($post->getTitle()) ?></h1>
 			</a>
+
 			<p>
 				De : <?= htmlspecialchars($post->getAuthor()) ?><br />
 				Le <time><?= htmlspecialchars($post->getFormatted_creation_date()) ?></time>

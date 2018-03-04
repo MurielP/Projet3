@@ -10,6 +10,9 @@
 </header>    
 
     <h2>Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h2>
+    
+    <p>Nombres de commentaires : <?= htmlspecialchars($comments_nb) ?></p>
+
 <?php foreach ($comments as $comment) : ?> 
 	<article class="comments">
 		<p>Commentaire de : <?= htmlspecialchars ($comment->getAuthor()) ?> <br/>
@@ -58,6 +61,7 @@
 ?>
 
 <form method="post" action="index.php?action=createComment">
+			
 	<fieldset>
 	<legend>Partagez vos impressions</legend>
 	<p><label for="author">Auteur :</label><input type="text" name="author" id="author" value=""/></p>

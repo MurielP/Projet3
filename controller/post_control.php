@@ -36,12 +36,15 @@ class Post_control
 	{
 		$post = $this->post_manager->getPost($post_id);
 		$comments = $this->comment_manager->getCommentsByPostId($post_id);
+		$comments_nb = $this->comment_manager->countComments($post_id);
 
 		$view = new View('post');
 		$view->setTitle('Épisode : '.$post->getTitle().'');
 		$view->generate(array(
 			'post' => $post,
-			'comments' => $comments));
+			'comments' => $comments,
+			'comments_nb' => $comments_nb,
+		));
 	}
 
 	/**
@@ -67,9 +70,8 @@ class Post_control
 			 */
 			if ($insertComment == true) {
 				$_SESSION['success']['commentInserted'] = 'Votre commentaire a bien été enregistré';
-					
-			}	
-		} 
+			} 
+		}
 		// puis retour sur le billet et ses commentaires / si erreur mm page
 		header('Location: index.php?action=post&id=' .$post_id );
 	}

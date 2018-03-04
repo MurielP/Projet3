@@ -270,11 +270,11 @@ class Router
 					$this->admin_control->getCommentsList();
 
 				} elseif($_GET['action'] == 'readComment') {
-					$comment_id = intval($this->getParam($_GET, 'id'));				
-					$post_id = intval($this->getParam($_GET, 'post_id'));
+					$id = intval($this->getParam($_GET, 'id'));	
+					$post_id = intval($this->getParam($_GET, 'post_id'));			
 						
-					if ($comment_id > 0 AND $post_id > 0) {							
-						$this->admin_control->readComment($comment_id, $post_id);
+					if ($id > 0 AND $post_id > 0) {							
+						$this->admin_control->readComment($id);
 					} else {
 						throw new Exception ('Vous ne pouvez pas lire ce commentaire');
 					}
@@ -335,9 +335,10 @@ class Router
 					throw New Exception ('Action inconnue.');
 				}
 							
-			} else {
-				// page par défaut
-				$this->home_control->homePage();
+			} else {	
+
+					// page par défaut
+				$this->home_control->homePage();			
 			}
 		// attrape les exceptions "Exception" si existantes avec la varivable $e qui représente l'exception lancée	
 		} catch (Exception $e) {

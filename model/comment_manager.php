@@ -37,10 +37,10 @@ class Comment_manager extends Database
 	public function getCommentByPostId($post_id) {
 
 		try {
-        	$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date, is_flagged FROM comments WHERE post_id = ?');
+        	$sql = ('SELECT id, post_id, author, comment, is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date, is_flagged FROM comments WHERE post_id = ?');
 			$comment = $this->executeQuery($sql, array($post_id));
 
-				// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le billet
+				// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le commentaire
 				if ($comment->rowCount() > 0) {
 					// fetch() = va chercher la 1ère ligne de résultat
 					$result = new Comment($comment->fetch());
@@ -55,10 +55,10 @@ class Comment_manager extends Database
     public function getCommentById($id)
     {
     	try {
-        	$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date FROM comments WHERE id = ?');
+        	$sql = ('SELECT id, post_id, author, comment, is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date FROM comments WHERE id = ?');
 			$comment = $this->executeQuery($sql, array($id));
 
-				// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le billet
+				// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un $id alors je vais afficher le commentaire
 				if ($comment->rowCount() > 0) {
 					// fetch() = va chercher la 1ère ligne de résultat
 					$result = new Comment($comment->fetch());
@@ -77,11 +77,12 @@ class Comment_manager extends Database
 	public function saveComment($lastComment)
 	{
 		try {
-			$sql = ('INSERT INTO comments (author, comment, post_id, comment_date) VALUES (?,?,?,NOW())');
+			$sql = ('INSERT INTO comments (author, comment, post_id, comment_date, is_flagged) VALUES (?,?,?,NOW(), ?)');
 			$createdComment = $this->executeQuery($sql, array(
 				$lastComment->getAuthor(),
 				$lastComment->getComment(),
 				$lastComment->getPost_id(),
+				$lastComment->setIs_flagged(1),
 			
 			));
 			
@@ -149,7 +150,7 @@ class Comment_manager extends Database
 
 	public function updateComment($comment)
 	{
-		var_dump($comment);
+		//var_dump($comment);
 		try {
 			$sql = ('UPDATE comments SET author = ?, comment = ?, post_id = ?, is_flagged = ? WHERE id = ?');
 
@@ -175,6 +176,37 @@ class Comment_manager extends Database
 
 			$flagComment = $this->executeQuery($sql, array($id));
 			return $flagComment; 
+
+		} catch (Exception $e) {
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+
+	/**
+	 * [countPosts compte le nombre d'articles publiés]
+	 * @return [int] [nbr d'articles]
+	 */
+	public function countComments($post_id)
+	{
+		try {
+		$sql =('SELECT COUNT(*) AS nb_comments FROM comments WHERE post_id = ?');
+		$req = $this->executeQuery($sql, array($post_id));
+		$result = $req->fetchColumn();
+		return $result;
+	
+
+		} catch (Exception $e) {
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+
+	public function supprFlag($id)
+	{
+		try {
+			$sql = ('UPDATE comments SET is_flagged = 0 WHERE id = ?');
+
+			$cancelledFlag = $this->executeQuery($sql, array($id));
+			return $cancelledFlag; 
 
 		} catch (Exception $e) {
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';

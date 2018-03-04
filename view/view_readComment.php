@@ -8,15 +8,6 @@
 	   	</nav>
 </container>
 
-<article>
-	<h2>Commentaire lié à l'article : <?= $post->getTitle()?></h2>
-
-	<time>Date de création : <?= $comment->getFormatted_comment_date() ?></time></br>   
-	<p>Auteur du commentaire : <?= htmlspecialchars($comment->getAuthor()) ?></p>
- 	<p>Commentaire : <br><?= htmlspecialchars($comment->getComment()) ?></p>
-</article>
-
-
 <?php
 //echo '<pre>' . print_r($user,true) . '</pre>';
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
@@ -33,5 +24,13 @@
 	// création d'un tableau vide pour vider les erreurs
 	$_SESSION['errors'] = [];
 ?>
+
+<article>
+	<h2>Commentaire lié à l'article : <?= $post->getTitle()?></h2>
+
+	<time>Date de création : <?= $comment->getFormatted_comment_date() ?></time></br>   
+	<p>Auteur du commentaire : <?= htmlspecialchars($comment->getAuthor()) ?></p>
+ 	<p>Commentaire : <br><?= htmlspecialchars($comment->getComment()) ?></p>
+</article>
 
 <?=  '<pre>' . print_r($comment,true) . '</pre>'; ?>
