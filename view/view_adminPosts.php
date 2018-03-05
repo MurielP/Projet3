@@ -80,9 +80,9 @@
 			<td><?= htmlspecialchars ($post->getFormatted_PAD()) ?></td>
 			<td>
 				<ul>
-					<li><a href="index.php?action=readPost&id=<?= htmlspecialchars($post->getId()) ?>">Lire</li>
-					<li><a href="index.php?action=modifyPost&id=<?= htmlspecialchars($post->getId()) ?>">Modifier</li>
-					<li><a href="index.php?action=cancelPost&id=<?= htmlspecialchars($post->getId()) ?>">Supprimer</li>	
+					<li><a href="index.php?action=readPost&post_id=<?= htmlspecialchars($post->getId()) ?>">Lire</li>
+					<li><a href="index.php?action=modifyPost&post_id=<?= htmlspecialchars($post->getId()) ?>">Modifier</li>
+					<li><a href="index.php?action=cancelPost&post_id=<?= htmlspecialchars($post->getId()) ?>">Supprimer</li>	
 				</ul>
 			</td>
 		</tr>

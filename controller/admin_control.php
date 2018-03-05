@@ -143,8 +143,7 @@ class Admin_control
 			if($noFlag == true){
 				$_SESSION['success']['supprFlag'] = 'Le signalement du commentaire a été enlevé';
 			}
-		}
-		
+		}		
 		//var_dump($comment);
 		$view = new View('readComment');
 		$view->setTitle('Lire le commentaire');
@@ -170,7 +169,7 @@ class Admin_control
 
 	public function modifyComment($id, $post_id, $author = NULL, $commentModified = NULL)
 	{
-		$comment = $this->comment_manager->getCommentByPostId($post_id);
+		$comment = $this->comment_manager->getCommentById($id);
 
 		if($author != NULL AND $commentModified != NULL){
 			$comment->setAuthor($author);
@@ -209,7 +208,7 @@ class Admin_control
 			$_SESSION['errors']['commentUpdatedFail'] = 'Le commentaire n°'. $id .' n\'a pas pu être signalé';
 		}
 
-		header('Location: index.php?action=post&id=' .$comment->getPost_id());
+		header('Location: index.php?action=post&post_id=' .$comment->getPost_id());
 
 	}
 }

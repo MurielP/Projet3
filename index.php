@@ -27,5 +27,3 @@ $autoloader->registerAutoload();
 
 $router = new Router(); 
 $router->routeQuery(); 
-
-

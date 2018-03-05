@@ -7,7 +7,7 @@ class Comment_manager extends Database
 {
 	/**
 	 * [getComments renvoie la liste des commentaires associés à 1 billet
-     * @param  $postId soit l'Id du billet sélectionné
+     * @param  $post_id soit l'Id du billet sélectionné
      * @return tous les commentaires liés à l'id du billet choisi     
 	 */
 	
@@ -189,12 +189,10 @@ class Comment_manager extends Database
 	public function countComments($post_id)
 	{
 		try {
-		$sql =('SELECT COUNT(*) AS nb_comments FROM comments WHERE post_id = ?');
-		$req = $this->executeQuery($sql, array($post_id));
-		$result = $req->fetchColumn();
-		return $result;
-	
-
+			$sql =('SELECT COUNT(*) AS nb_comments FROM comments WHERE post_id = ?');
+			$req = $this->executeQuery($sql, array($post_id));
+			$result = $req->fetchColumn();
+			return $result;
 		} catch (Exception $e) {
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
 		}

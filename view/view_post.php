@@ -10,7 +10,6 @@
 </header>    
 
     <h2>Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h2>
-    
     <p>Nombres de commentaires : <?= htmlspecialchars($comments_nb) ?></p>
 
 <?php foreach ($comments as $comment) : ?> 
@@ -67,7 +66,7 @@
 	<p><label for="author">Auteur :</label><input type="text" name="author" id="author" value=""/></p>
 	<p><label for="comment">Commentaire :</label><textarea name="comment" id="comment" value=""></textarea></p>
 	
-	<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
+	<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
 	
 	<p><input type="submit" name="submitComment" value="Postez votre commentaire" /></p>
 	</fieldset>

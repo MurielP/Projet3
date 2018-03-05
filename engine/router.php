@@ -34,7 +34,7 @@ class Router
 				if ($_GET['action'] == 'post') {
 
 					// déclaration de la variable $post_id qui récupère l'id du billet 
-					$post_id = intval($this->getParam($_GET, 'id'));
+					$post_id = intval($this->getParam($_GET, 'post_id'));
 
 					// si j'ai un id de billet, je vais chercher la méthode post($post_id) pour afficher le détail du billet choisi
 					if ($post_id > 0) {
@@ -57,7 +57,7 @@ class Router
 					if(!empty($_POST['author']) AND !empty($_POST['comment'])){
 						$author = $this->getParam($_POST, 'author'); // défini la variable $author
 						$comment = $this->getParam($_POST, 'comment');
-						$post_id = $this->getParam($_POST, 'id'); // champ hidden
+						$post_id = $this->getParam($_POST, 'post_id'); // champ hidden
 						
 
 						$this->post_control->createComment($author, $comment, $post_id);
@@ -75,11 +75,11 @@ class Router
 						}
 
 						// vérifie si j'ai un id de billet (champ hidden) 
-						$post_id = (int)$this->getParam($_POST, 'id');
+						$post_id = (int)$this->getParam($_POST, 'post_id');
 
 						// si id de billet mais des erreurs, je reste sur la page du billets et ses commentaires 
 						if ($post_id > 0) {
-							header('Location: index.php?action=post&id='.$post_id.''); // non traité $_POST
+							header('Location: index.php?action=post&post_id='.$post_id.''); // non traité $_POST
 						} else {
 							header('Location : index.php');
 						}
@@ -214,7 +214,7 @@ class Router
 					}	
 
 				} elseif ($_GET['action'] == 'readPost'){
-					$post_id = intval($this->getParam($_GET, 'id'));
+					$post_id = intval($this->getParam($_GET, 'post_id'));
 
 					if ($post_id > 0) {
 						$this->admin_control->readPost($post_id);
@@ -229,7 +229,7 @@ class Router
 						$author = $this->getParam($_POST, 'author');
 						$title = $this->getParam($_POST, 'title');
 						$content = $this->getParam($_POST, 'content');
-						$post_id = $this->getParam($_POST, 'id');
+						$post_id = $this->getParam($_POST, 'post_id');
 					 
 						$this->admin_control->modifyPost($post_id, $author, $title, $content);
 					
@@ -249,7 +249,7 @@ class Router
 						}
 
 						// vérifie si j'ai un id de billet 
-						$post_id = (int)$this->getParam($_GET, 'id');
+						$post_id = (int)$this->getParam($_GET, 'post_id');
 
 						// si id de billet mais des erreurs, je renvoie sur la page adminDashboard 
 						if ($post_id > 0) {
@@ -260,7 +260,7 @@ class Router
 					} 
 
 				} elseif ($_GET['action'] == 'cancelPost'){
-					$post_id = intval($this->getParam($_GET, 'id'));
+					$post_id = intval($this->getParam($_GET, 'post_id'));
 
 					if ($post_id > 0) {
 						$this->admin_control->deletePost($post_id);
@@ -336,7 +336,6 @@ class Router
 				}
 							
 			} else {	
-
 					// page par défaut
 				$this->home_control->homePage();			
 			}
