@@ -82,9 +82,12 @@ class Admin_control
 
 		if(count($_SESSION['errors']) == 0){
 			$suppr = $this->post_manager->suppressPost($post_id);
-
 			if($suppr == true){
-				$_SESSION['success']['supprPost'] = 'Votre article n°'. $post_id .' a bien été supprimé';
+				$commentsToDelete = $this->comment_manager->suppressCommentByPostId($post_id);
+				if($commentsToDelete == true){
+					$_SESSION['success']['supprPost'] = 'Votre article n°'. $post_id .' a bien été supprimé ainsi que ses commentaires';			
+				}
+			
 			}
 		}
 				
@@ -102,13 +105,12 @@ class Admin_control
 			$post->setId($post_id);
 
 			$postUpdate = $this->post_manager->updatePost($post);
-			//var_dump($postUpdate);
 			/**
 			 * si $postUpdate est ok : je crée ma variable de session pour afficher msg success 
 			 */
 			if ($postUpdate == true) {
 				$_SESSION['success']['postUpdated'] = 'Votre article n°'. $post_id .' a bien été modifié';
-			}	
+			}
 		}
 
 		$view = new View('updatePost');
@@ -176,7 +178,7 @@ class Admin_control
 			$comment->setComment($commentModified);
 			$comment->setIs_flagged(0);			
 
-			if(count($_SESSION['errors']) == 0){
+			if(count($_SESSION['errors']) == 0 ){
 				$commentUpdate = $this->comment_manager->updateComment($comment);
 				//var_dump($commentUpdate);
 				/**
