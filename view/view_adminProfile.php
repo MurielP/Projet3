@@ -55,3 +55,44 @@
 	</ul>
 </div>
 
+<div class="tableCommentList">
+<table>
+	<caption>Liste des commentaires</caption>
+	<thead> <!-- en-tête du tableau -->
+		<tr> <!-- Ligne du tabelau -->
+			<th>Id du commentaire</th>
+			<th>Id de l'article concerné</th>
+			<th>Commentaire</th>
+			<th>Auteur</th>
+		  	<th>Date de création</th>
+		  	<th>Action</th>
+		</tr>
+	</thead>	  
+
+
+	<tbody>
+<?php foreach ($comments as $comment) :?>
+		<tr class="<?php 
+			if($comment->getIs_flagged()){ 
+				echo 'flagged'; 
+				};
+			?>">
+			<td><?= htmlspecialchars ($comment->getId()) ?></td>
+			<td><?= htmlspecialchars ($comment->getPost_id()) ?></td>
+			<td><?= htmlspecialchars ($comment->getComment()) ?></td>
+			<td><?= htmlspecialchars ($comment->getAuthor()) ?></td>
+			<td><?= htmlspecialchars ($comment->getFormatted_comment_date()) ?></td>
+			<td>
+				<ul>
+					<li><a href="index.php?action=readComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Lire</li>
+					<li><a href="index.php?action=modifyComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Modifier</li>
+					<li><a href="index.php?action=cancelComment&id=<?= htmlspecialchars($comment->getId()) ?>">Supprimer</li>	
+				</ul>
+			</td>
+		</tr>
+<?php endforeach; ?>
+	</tbody>
+
+
+</table>
+</div>

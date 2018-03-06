@@ -77,15 +77,14 @@ class Comment_manager extends Database
 	public function saveComment($lastComment)
 	{
 		try {
-			$sql = ('INSERT INTO comments (author, comment, post_id, comment_date, is_flagged) VALUES (?,?,?,NOW(), ?)');
+			$sql = ('INSERT INTO comments (author, comment, post_id, comment_date, is_flagged) VALUES (?,?,?,NOW(),?)');
 			$createdComment = $this->executeQuery($sql, array(
 				$lastComment->getAuthor(),
 				$lastComment->getComment(),
 				$lastComment->getPost_id(),
-				$lastComment->setIs_flagged(1),
+				$lastComment->getIs_flagged(),
 			
-			));
-			
+			));			
 			return $createdComment; 
 		} catch (Exception $e) {
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
@@ -116,30 +115,48 @@ class Comment_manager extends Database
 
 	public function getCommentsByFlag()
 	{
-		$sql = ('SELECT id, post_id, author, comment,is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date  FROM comments ORDER BY is_flagged DESC');
-		$comments = $this->executeQuery($sql);
-		
-		// tableau vide
-		$commentsObj = array();
-        foreach ($comments as $comment){
-            $commentObj = new Comment($comment);
+		try {
+			$sql = ('SELECT id, post_id, author, comment,is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date  FROM comments ORDER BY is_flagged DESC');
+			$comments = $this->executeQuery($sql);
+			
+			// tableau vide
+			$commentsObj = array();
+	        foreach ($comments as $comment){
+	            $commentObj = new Comment($comment);
 
-            /**
-             * array_push ( array &$array , $value1 [, $... ] )
-             * array = tableau d'entrée (ici $postsObj = array() donc un tableau vide)
-             * $value1 = 1ère valeur à insérer à la fin du tableau (ici $postObj donc un nouvel objet Post($post))
-             * retourne nveau nb d'éléments ds le tableau
-             */
-            array_push($commentsObj, $commentObj); 
-        }
-        return $commentsObj; 	
+	            /**
+	             * array_push ( array &$array , $value1 [, $... ] )
+	             * array = tableau d'entrée (ici $postsObj = array() donc un tableau vide)
+	             * $value1 = 1ère valeur à insérer à la fin du tableau (ici $postObj donc un nouvel objet Post($post))
+	             * retourne nveau nb d'éléments ds le tableau
+	             */
+	            array_push($commentsObj, $commentObj); 
+	        }
+	        return $commentsObj; 	
+        } catch (Exception $e) {
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
 	}
+
 
 	public function suppressComment($comment_id)
 	{
 		try {
 			$sql = ('DELETE FROM comments WHERE id = ?');
 			$deletedComment = $this->executeQuery($sql, array($comment_id));
+
+			return $deletedComment;
+
+		} catch (Exception $e) {
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+
+	public function suppressCommentByPostId($post_id)
+	{
+		try {
+			$sql = ('DELETE FROM comments WHERE post_id = ?');
+			$deletedComment = $this->executeQuery($sql, array($post_id));
 
 			return $deletedComment;
 

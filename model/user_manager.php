@@ -9,7 +9,6 @@ class User_manager extends Database
 	 */
 	public function createUser($user) 
 	{
-
 		try {
 			$sql = ('INSERT INTO members (username, email, password, inscription_date) VALUES (?,?,?,NOW())');
 			$result = $this->executeQuery($sql, array(
@@ -38,12 +37,12 @@ class User_manager extends Database
 	 */
 	public function emailExists($user)
 	{		
+		try {
 			// COUNT(*)  --counts all values including null
 			$sql = ('SELECT COUNT(*) AS nb_resultat FROM members WHERE email = ?');
 			$req = $this->executeQuery($sql, array(
 				$user->getEmail()
 			));
-
 			// récupère la 1ère colonne ici colonne email
 			$resultMail = $req->fetchColumn(); 
 			//var_dump($resultMail); 
@@ -52,6 +51,9 @@ class User_manager extends Database
 			if ($resultMail == 1){
 				$_SESSION['errors']['existingEmail'] = 'L\'email  '. $user->getEmail() .' existe déjà en base données. Veuillez choisir un autre email.';
 			} 
+		} catch (Exception $e){
+				$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' et le code erreur est : '.$e->getCode() .'';
+			}
 	}
 	
 	/**
@@ -86,25 +88,23 @@ class User_manager extends Database
 	public function verifyUserByPassword($adminCheck, $passwordAdmin)
 	{
 		try{
-		$sql = ('SELECT id, username, password, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS formatted_inscription_date FROM members WHERE username = ?');
-		$userBdd = $this->executeQuery($sql, array($adminCheck->getUsername()));
-		
-		$result = $userBdd->fetch();	
-		//var_dump($result);
-			// si j'ai un $user et que passwordverify est ok -> je crée un admin avec les caractériqtiques du user
-			if($adminCheck AND password_verify($passwordAdmin, $result['password'])){
+			$sql = ('SELECT id, username, password, email, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS formatted_inscription_date FROM members WHERE username = ?');
+			$userBdd = $this->executeQuery($sql, array($adminCheck->getUsername()));
+			
+			$result = $userBdd->fetch();	
+			//var_dump($result);
+				// si j'ai un $user et que passwordverify est ok -> je crée un admin avec les caractériqtiques du user
+				if($adminCheck AND password_verify($passwordAdmin, $result['password'])){
 
-				$adminCheck->setId($result['id']);
-				$adminCheck->setUsername($result['username']);
-				$adminCheck->setEmail($result['email']);
-				$adminCheck->setFormatted_inscription_date($result['formatted_inscription_date']);
-
-				return $adminCheck;
-			}else{
-				// si aucun retour = erreur
-				return false; 
-			}
-
+					$adminCheck->setId($result['id']);
+					$adminCheck->setUsername($result['username']);
+					$adminCheck->setEmail($result['email']);
+					$adminCheck->setFormatted_inscription_date($result['formatted_inscription_date']);
+					return $adminCheck;
+				}else{
+					// si aucun retour = erreur
+					return false; 
+				}
 		}catch(Exception $e){
 			$_SESSION['errors']['errorUserBdd'] = 'Votre identifiant est erroné.';
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
@@ -123,7 +123,6 @@ class User_manager extends Database
 				$admin2 = new User($resultAdmin); 
 				return $admin2;
 			}
-
 		}catch(Exception $e){
 			$_SESSION['errors']['errorAdminBdd'] = 'Votre identifiant est erroné.';
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';

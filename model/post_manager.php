@@ -138,6 +138,7 @@ class Post_manager extends Database
 
 /*
     /**
+     * ANCIENNE requête
 	 * [getPost récupère un billet selon son id avec une requête préparée]
 	 * @param  [int] $post_id [id du billet]
 	 * @return  un billet 

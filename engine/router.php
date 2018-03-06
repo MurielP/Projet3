@@ -59,7 +59,6 @@ class Router
 						$comment = $this->getParam($_POST, 'comment');
 						$post_id = $this->getParam($_POST, 'post_id'); // champ hidden
 						
-
 						$this->post_control->createComment($author, $comment, $post_id);
 					/**
 					 * si j'ai des erreurs j'affiche un msg et je renvoie vers la page du billet choisi avec ses commentaires
@@ -73,7 +72,6 @@ class Router
 							$comment = $this->getParam($_POST, 'comment');
 							$_SESSION['errors']['emptyComment'] = 'Le champ Commentaire doit être rempli';
 						}
-
 						// vérifie si j'ai un id de billet (champ hidden) 
 						$post_id = (int)$this->getParam($_POST, 'post_id');
 
@@ -126,7 +124,6 @@ class Router
 
 				// si insertion registerUser ok -> j'affiche userProfile 
 				} elseif ($_GET['action'] == 'userProfile'){
-
 					if(!empty($_SESSION['userUsername'])){
 						$username = $this->getParam($_SESSION,'userUsername');
 						$_SESSION['success']['loggedUser'] ='Vous êtes maintenant connecté';
@@ -157,21 +154,21 @@ class Router
 						/**
 						 * si mon champ est vide j'envoie un msg d'erreur 
 						 */
-						if (isset($_POST['username']) AND empty($_POST['username'])){					
+						if(isset($_POST['username']) AND empty($_POST['username'])){
 							$_SESSION['errors']['emptyloginAdmin'] = 'Le champ Identifiant doit être rempli';
-						} if (isset($_POST['password']) AND empty($_POST['password'])){			
+						} if(isset($_POST['password']) AND empty($_POST['password'])){			
 							$_SESSION['errors']['emptyPasswordAdmin'] = 'Le champ Mot de passe doit être rempli';
 						}
 						/*
 						* et je renvoie l'admin sur la page de connexion  si les champs sont vides
 						*/
-						$this->user_control->tryLogAdmin();
+						$this->user_control->logAdminPage();
 					}
 				// si insertion logAdmin ok -> j'affiche adminProfile	
 				}elseif ($_GET['action'] == 'adminProfile'){
-					
 					if(!empty($_SESSION['adminUsername'])){
 						$username = $this->getParam($_SESSION,'adminUsername');
+
 						$this->user_control->adminProfile();
 					} else {
 						throw new Exception ('Vous ne pouvez pas accéder à la page d\'administration.');
@@ -261,7 +258,7 @@ class Router
 
 				} elseif ($_GET['action'] == 'cancelPost'){
 					$post_id = intval($this->getParam($_GET, 'post_id'));
-
+				
 					if ($post_id > 0) {
 						$this->admin_control->deletePost($post_id);
 					}

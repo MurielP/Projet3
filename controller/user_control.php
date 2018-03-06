@@ -4,11 +4,13 @@ class User_control
 {
 	private $user_manager;
 	private $post_manager;
+	private $comment_manager;
 
 	public function __construct()
 	{
 		$this->user_manager = new User_manager();
 		$this->post_manager = new Post_manager();
+		$this->comment_manager = new Comment_manager();
 	}
 
 	/**
@@ -50,7 +52,6 @@ class User_control
 				$_SESSION['userUsername'] = $user->getUsername();
 				header('Location: index.php?action=userProfile');
 			}
-
 		/**
 		 * si mon tableau contient des erreurs alors je renvoie le visiteur sur la page d'inscription view_user.php
 		 */
@@ -62,23 +63,6 @@ class User_control
 	}
 
 	/**
-	 * [userProfile] création d'un new User en fonction de son username et récupère es infos liées
-	 * @return affiche le dashboard du user créé
-	 */
-	public function userProfile()
-	{	
-		// création d'un new User
-		$user = new User(array('username' => $_SESSION['userUsername']));
-		// 
-		$user = $this->user_manager->getUserByLogin($user);
-
-		$view = new View('userProfile');
-		$view ->setTitle('Mon compte membre');
-		$view->generate(array(
-				'user' => $user,
-				));
-	}
-	/**
 	 * [registerUserPage]  si les champs sont vides 
 	 * @return vue de la page d'inscription view_user.php
 	 */
@@ -88,6 +72,25 @@ class User_control
 		$view ->setTitle('S\'inscrire');
 		$view->generate(array());
 	}
+
+	/**
+	 * [userProfile] création d'un new User en fonction de son username et récupère les infos liées
+	 * @return affiche le dashboard du user créé
+	 */
+	public function userProfile()
+	{	
+		// création d'un new User
+		$user = new User(array('username' => $_SESSION['userUsername']));
+
+		$user = $this->user_manager->getUserByLogin($user);
+
+		$view = new View('userProfile');
+		$view ->setTitle('Mon compte membre');
+		$view->generate(array(
+				'user' => $user,
+				));
+	}
+
 
 	/**
 	 * [logAdmin description] récupère les identifiants de l'admin
@@ -102,39 +105,40 @@ class User_control
 			'password' => $passwordAdmin,
 			
 		));
-
-			// création de la var $admin 
-			$adminReqCheck = $this->user_manager->verifyUserByPassword($adminCheck, $passwordAdmin); 
-		
+			// création de la var $adminReqCheck 
+			$adminReqCheck = $this->user_manager->verifyUserByPassword($adminCheck, $passwordAdmin);
 			// si le username de l'admin correspond à $loginAdmin
 			if ($adminReqCheck != false){
 				$_SESSION['adminUsername'] = $adminReqCheck->getUsername();
-				header('Location: index.php?action=adminProfile');
-
-			
+				header('Location: index.php?action=adminProfile');		
 		}else{
 			$_SESSION['errors']['errorLog'] = 'Le pseudonyme et le mot de passe ne correspondent pas. Veuillez vérifier vos identifiants.';
 
 			header('Location: index.php?action=logAdmin');
 		}
 	}
-
+	/**
+	 * [adminProfile] page de profil de l'admin
+	 * @return [array] affiche les infos de l'admin et les commentaires avec flag
+	 */
 	public function adminProfile()
 	{
 		$admin1 = new User(array(
 			'username' => $_SESSION['adminUsername'],
 			));
-
 		$adminReq = $this->user_manager->getAdminByLogin($admin1);
 
+		$commentsList = $this->comment_manager->getCommentsByFlag();
+		
 		$view = new View('adminProfile'); 
 		$view ->setTitle('Accueil administrateur');
 		$view->generate(array(
 				'adminReq' => $adminReq,
+				'comments' => $commentsList,
 				));
 	}
 
-	public function tryLogAdmin()
+	public function logAdminPage()
 	{
 		$view = new View('admin');
 		$view->setTitle('Accès administrateur');

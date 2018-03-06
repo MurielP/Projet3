@@ -1,29 +1,3 @@
-<header>
- <!-- <?=  '<pre>' . print_r($comments,true) . '</pre>'; ?> -->
-	<a href="index.php">Retour à la liste des billets</a>
-
-	<h2><?=  htmlspecialchars($post->getTitle()) ?></h2>
-    	<time>Le <?= $post->getFormatted_creation_date()?></time>   
-
-    	<p><?= htmlspecialchars($post->getContent()) ?></p>
-    	<hr />
-</header>    
-
-    <h2>Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h2>
-    <p>Nombres de commentaires : <?= htmlspecialchars($comments_nb) ?></p>
-
-<?php foreach ($comments as $comment) : ?> 
-	<article class="comments">
-		<p>Commentaire de : <?= htmlspecialchars ($comment->getAuthor()) ?> <br/>
-		Le <?= $comment->getFormatted_comment_date() ?><br/>
-		<?= nl2br(htmlspecialchars($comment->getComment())) ?>
-		</p>
-		<a href="index.php?action=flag&idComment=<?= $comment->getId()?>">Signaler</a>
-	</article>
-		<hr/> 
-<?php endforeach; ?>
-
-	<h3>Laissez-nous votre commentaire</h3>
 <?php
 	var_dump($_SESSION['errors']);
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
@@ -58,6 +32,35 @@
 }	
 	$_SESSION['success'] = [];
 ?>
+
+
+
+<header>
+ <!-- <?=  '<pre>' . print_r($comments,true) . '</pre>'; ?> -->
+	<a href="index.php">Retour à la liste des billets</a>
+
+	<h2><?=  htmlspecialchars($post->getTitle()) ?></h2>
+    	<time>Le <?= $post->getFormatted_creation_date()?></time>   
+
+    	<p><?= htmlspecialchars($post->getContent()) ?></p>
+    	<hr />
+</header>    
+
+    <h2>Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h2>
+    <p>Nombres de commentaires : <?= htmlspecialchars($comments_nb) ?></p>
+
+<?php foreach ($comments as $comment) : ?> 
+	<article class="comments">
+		<p>Commentaire de : <?= htmlspecialchars ($comment->getAuthor()) ?> <br/>
+		Le <?= $comment->getFormatted_comment_date() ?><br/>
+		<?= nl2br(htmlspecialchars($comment->getComment())) ?>
+		</p>
+		<a href="index.php?action=flag&idComment=<?= $comment->getId()?>">Signaler</a>
+	</article>
+		<hr/> 
+<?php endforeach; ?>
+
+	<h3>Laissez-nous votre commentaire</h3>
 
 <form method="post" action="index.php?action=createComment">
 			

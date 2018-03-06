@@ -1,13 +1,3 @@
-<article>
-    <header>
-    	<ul>
-    		<a href="index.php">Retour à l'accueil</a>
-   	 </ul>
-    </header>
-		<h2>Mon compte</h2>
-
-		<h3>Bonjour <?= $_SESSION['userUsername']?> !</h3> <!-- méthode registerUser ds user_control--> 
-
 <?php
 	var_dump($_SESSION['success']);
 	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
@@ -23,7 +13,14 @@
 }	
 	$_SESSION['success'] = [];
 ?>
-
+<article>
+    <header>
+    	<ul>
+    		<a href="index.php">Retour à l'accueil</a>
+   	 </ul>
+    </header>
+		<h2>Mon compte</h2>
+		<h3>Bonjour <?= $_SESSION['userUsername']?> !</h3> <!-- méthode registerUser ds user_control--> 
 		<p>Votre identifiant est : <?= htmlspecialchars($user->getUsername()) ?><br/>
 		Votre email est : <?= htmlspecialchars($user->getEmail()) ?><br/>
 		Date d'inscription : <?= htmlspecialchars($user->getFormatted_inscription_date() )?><br />

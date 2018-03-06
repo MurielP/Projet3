@@ -62,15 +62,20 @@ class Post_control
 				'post_id' => $post_id,
  		));
 
- 		// si aucune erreur - enregistre le commentaire en bdd 
-		if(count($_SESSION['errors']) == 0){
-			$insertComment = $this->comment_manager->saveComment($lastComment);	
-			/**
-			 * si $insertComment est ok : je crée ma variable de session pour afficher msg success 
-			 */
-			if ($insertComment == true) {
-				$_SESSION['success']['commentInserted'] = 'Votre commentaire a bien été enregistré';
-			} 
+		// signel le commentaire dès sa création
+		if($lastComment != NULL){
+			$lastComment->setIs_flagged(1);	
+
+	 		// si aucune erreur - enregistre le commentaire en bdd 
+			if(count($_SESSION['errors']) == 0){
+				$insertComment = $this->comment_manager->saveComment($lastComment);	
+				/**
+				 * si $insertComment est ok : je crée ma variable de session pour afficher msg success 
+				 */
+				if ($insertComment == true) {
+					$_SESSION['success']['commentInserted'] = 'Votre commentaire a bien été enregistré';
+				} 
+			}
 		}
 		// puis retour sur le billet et ses commentaires / si erreur mm page
 		header('Location: index.php?action=post&post_id=' .$post_id );

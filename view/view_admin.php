@@ -34,7 +34,7 @@ var_dump($_SESSION['errors']);
 		<p><label for="password">Votre mot de passe</label> : 
 			<input type="password" name="password" id="password" value="">
 		</p>
-
+		
 		<p><button type="submit" value="" />Se connecter</button></p>
 
 	</fieldset>
