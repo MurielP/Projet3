@@ -24,12 +24,15 @@ class Home_control
 		$posts = $this->post_manager->getPosts();
 		$posts_nb = $this->post_manager->countPosts();
 
+		$nb_comments = $this->comment_manager->countComments2();
+
 		// appel du fichier qui génère la vue 
 		$view = new view('home');
-		$view->setTitle('Accueil - Jean Forteroche');
+		$view->setTitle('Accueil - Blog de Jean Forteroche');
 		$view->generate(array(
 			'posts' => $posts,
 			'posts_nb' => $posts_nb,
+			'nb_comments' => $nb_comments,
 		));
 	}
 }

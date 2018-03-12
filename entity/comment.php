@@ -40,6 +40,7 @@ class Comment
     private $comment;
     private $comment_date;
     private $is_flagged;
+    private $updated_comment;
 
     public function getId() 
     {
@@ -71,6 +72,10 @@ class Comment
         return $this->is_flagged;
     }
 
+    public function getUpdated_comment()
+    {
+        return $this->updated_comment;
+    }
     /**
      * [setId description]
      * @param [type] $id [description]
@@ -129,5 +134,10 @@ class Comment
         } else {
             return $this->is_flagged = false;
         }
+    }
+
+    public function setUpdated_comment($updated_comment)
+    {
+        return $this->updated_comment;
     }
 }

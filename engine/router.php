@@ -139,10 +139,9 @@ class Router
 						$_SESSION['success']['alreadyLoggedAdmin'] ='Vous êtes connecté';
 
 						$this->user_control->adminProfile();
-					}
 					
 					// si mes champs sont correctement remplis,je logAdmin
-					if(!empty($_POST['username']) AND !empty($_POST['password'])) {
+					} elseif(!empty($_POST['username']) AND !empty($_POST['password'])) {
 						$loginAdmin = $this->getParam($_POST, 'username');
 						$passwordAdmin = $this->getParam($_POST, 'password');
 
@@ -327,6 +326,7 @@ class Router
 					} else {
 						throw new Exception ('Une erreur s\'est produite dans le signalement du commentaire');
 					}
+				
 									
 				} else {
 					throw New Exception ('Action inconnue.');
@@ -334,6 +334,7 @@ class Router
 							
 			} else {	
 					// page par défaut
+				
 				$this->home_control->homePage();			
 			}
 		// attrape les exceptions "Exception" si existantes avec la varivable $e qui représente l'exception lancée	

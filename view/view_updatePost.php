@@ -50,7 +50,7 @@
 }	
 	$_SESSION['success'] = [];
 ?>
-	<form class="form" method="post" action="index.php?action=modifyPost&id=<?= $post->getId() ?>">
+	<form class="form" method="post" action="index.php?action=modifyPost&post_id=<?= $post->getId() ?>">
 		<fieldset>
 			<legend>Modifier un article</legend>
 				<p><label for="author">Auteur : </label><input type="text" name="author" id="author" value="<?=  htmlspecialchars($post->getAuthor()) ?>" /></p>

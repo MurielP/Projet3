@@ -82,13 +82,16 @@ class Admin_control
 
 		if(count($_SESSION['errors']) == 0){
 			$suppr = $this->post_manager->suppressPost($post_id);
+
+			// suppression des commentaires liés à l'article effectuée en bdd - foreign_key ON DELETE CASCADE (structure bdd et vue relationnelle)
+			/** supprime les commentaires liés au billet 
 			if($suppr == true){
 				$commentsToDelete = $this->comment_manager->suppressCommentByPostId($post_id);
 				if($commentsToDelete == true){
 					$_SESSION['success']['supprPost'] = 'Votre article n°'. $post_id .' a bien été supprimé ainsi que ses commentaires';			
-				}
-			
+				}			
 			}
+			**/
 		}
 				
 		header('Location: index.php?action=adminPosts');
@@ -142,9 +145,6 @@ class Admin_control
 
 		if($id >0 AND count($_SESSION['errors']) == 0){
 			$noFlag = $this->comment_manager->supprFlag($id);
-			if($noFlag == true){
-				$_SESSION['success']['supprFlag'] = 'Le signalement du commentaire a été enlevé';
-			}
 		}		
 		//var_dump($comment);
 		$view = new View('readComment');
@@ -179,17 +179,19 @@ class Admin_control
 			$comment->setIs_flagged(0);			
 
 			if(count($_SESSION['errors']) == 0 ){
-				$commentUpdate = $this->comment_manager->updateComment($comment);
-				//var_dump($commentUpdate);
-				/**
-				 * si $commentUpdate est ok : je crée ma variable de session pour afficher msg success 
-				 */
-				if ($commentUpdate == true) {
-					$_SESSION['success']['commentUpdated'] = 'Le commentaire n°'. $id .' a bien été modifié';
+				
+					$commentUpdate = $this->comment_manager->updateComment($comment);
+					//var_dump($commentUpdate);
+					/**
+					 * si $commentUpdate est ok : je crée ma variable de session pour afficher msg success 
+					 */
+					if ($commentUpdate == true) {
+						$_SESSION['success']['commentUpdated'] = 'Le commentaire n°'. $id .' a bien été modifié';
 
-				} else {
-					$_SESSION['errors']['commentUpdatedFail'] = 'Le commentaire n°'. $id .' n\'a pas pu être modifié';
-				}
+					} else {
+						$_SESSION['errors']['commentUpdatedFail'] = 'Le commentaire n°'. $id .' n\'a pas pu être modifié';
+					}
+
 			}
 		}
 		$view = new View('updateComment');

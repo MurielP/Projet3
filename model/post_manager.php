@@ -11,7 +11,7 @@ class Post_manager extends Database
 	 */
 	public function getPosts()
 	{
-		$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_creation_date FROM posts ORDER BY creation_date DESC');
+		$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin\') AS formatted_creation_date FROM posts ORDER BY creation_date DESC');
 		$posts = $this->executeQuery($sql);
 		
 		// tableau vide de tout billet
@@ -44,7 +44,7 @@ class Post_manager extends Database
 				if($req->fetchColumn() > 0){
 
 					 /* Effectue la vraie requête SELECT et travaille sur le résultat */
-					$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_creation_date FROM posts WHERE id = ?');
+					$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin\') AS formatted_creation_date FROM posts WHERE id = ?');
 					foreach ($req = $this->executeQuery($sql, array($post_id)) as $row){
 						$result = new Post($row);
 						return $result;	
@@ -108,8 +108,8 @@ class Post_manager extends Database
 				$post->getTitle(),
 				$post->getContent(),
 				$post->getId(),			
-			));
-			
+			));		
+
 			return $createdPost; 
 
 		} catch (Exception $e) {
@@ -137,6 +137,8 @@ class Post_manager extends Database
     }
 
 /*
+
+ */
     /**
      * ANCIENNE requête
 	 * [getPost récupère un billet selon son id avec une requête préparée]

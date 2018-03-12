@@ -186,6 +186,8 @@ class Comment_manager extends Database
 		}
 	}
 
+
+
 	public function flaggedComment($id)
 	{
 		try {
@@ -214,6 +216,35 @@ class Comment_manager extends Database
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
 		}
 	}
+
+	public function countComments2()
+	{
+		try {
+			$sql =('SELECT posts.id, posts.title, posts.content,
+					COUNT(comments.id) AS nb_comments 
+					FROM posts 
+					JOIN comments 
+					WHERE posts.id = comments.post_id 
+					GROUP BY posts.id');
+
+			$req = $this->executeQuery($sql);
+			
+			$result = $req->fetchColumn();
+			return $result;		
+
+		} catch (Exception $e) {
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+/**
+
+	SELECT posts.id, posts.title, COUNT(comments.id) AS nb_comment FROM `posts` INNER JOIN comments WHERE posts.id = comments.post_id GROUP BY posts.id
+
+OU 
+
+	SELECT posts.id, posts.title, COUNT(posts.id) AS nb_comment FROM `posts` JOIN comments WHERE posts.id = comments.post_id GROUP BY posts.id
+
+**/
 
 	public function supprFlag($id)
 	{
