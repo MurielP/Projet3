@@ -50,22 +50,21 @@
     </nav>
 
 
-<div class="containe">
-	<p class="mb-0 px-4 py-3 bg-secondary text-white">Nombre d'épisodes publiés : <?= htmlspecialchars($posts_nb) ?></p>			
+<article id="homePageContainer" class="container pt-sm-2 pt-md-1 pt-lg-0">		
 <?php foreach ($posts as $post) : ?> 
-	<div class="card">
-		<div class="card-header">
-			<a href="index.php?action=post&post_id=<?= htmlspecialchars($post->getId()) ?>">
-				<h3 class="card-title"><?= htmlspecialchars($post->getTitle()) ?></h3>
-			</a>
-			<p class="card-text"><small class="text-muted">Nombre de commentaires pour cet article : <?= htmlspecialchars($nb_comments) ?></small></p>
-			<p class="card-text">Posté le <time><?= htmlspecialchars($post->getFormatted_creation_date()) ?></time> par <?= htmlspecialchars($post->getAuthor()) ?>
-			</p>
-		</div>
-		<div class="card-body">			
-			<p class="card-text"><?=  htmlspecialchars($post->getContent()) ?></p>
+	<div class="card-deck">
+		<div class="card my-3">
+			<div class="card-header">
+				<a class="card-title" href="index.php?action=post&post_id=<?= htmlspecialchars($post->getId()) ?>">
+					<h3 class="card-title"><?= htmlspecialchars($post->getTitle()) ?></h3>
+				</a>
+				<p class="card-text">Posté le <time><?= htmlspecialchars($post->getFormatted_creation_date()) ?></time> par <?= htmlspecialchars($post->getAuthor()) ?>
+				</p>
+			</div>
+			<div class="card-body h-5">			
+				<p class="card-text"><?=  htmlspecialchars($post->getContent()) ?></p>
+			</div>
 		</div>
 	</div>
 <?php endforeach; ?>
-
-</div>
+</article> 

@@ -18,27 +18,27 @@
 
     <body>
         <!-- Header -->
-    <header class="masthead bg-ltgrey text-white text-center">
-      <div class="container">
-        <img class="img-fluid mb-5 d-block mx-auto rounded-circle" src="public/img/begins_Simon_Migaj_pexels.jpg" alt="Let's begin image d'accueil" title="Que l'aventure commence !">
-        <h1 class="mb-0" id="blogTitle">Billet simple pour l'Alaska</h1>
-        <hr>
-        <h2 class="font-weight-light mb-0">Blog de Jean Forteroche</h2>
-      </div>
+    <header class="masthead text-center">
+        <div class="carousel-item">
+            <img class="img-fluid w-100 d-none d-sm-block mx-auto" src="public/img/snow.jpg" alt="Let's begin image d'accueil" title="Que l'aventure commence !">
+            <div class="carousel-caption">
+                <h1 class="mb-0" id="blogTitle">Billet simple pour l'Alaska</h1>
+                <hr>
+                <h2 class="font-weight-light mb-0">Blog de Jean Forteroche</h2>
+            </div>
+        </div>
     </header>
 
-        <div class="container">
-
-            
-                <?= $content ?>
-            
-
-
-            <footer id="footer">
-                <p>Jean Forteroche vous livre ses aventures.</p>
-            </footer>   
-
+        <div id="mainContainer" class="container">      
+                <?= $content ?>                      
         </div>
+
+        <footer id="footer" class="footer py-4 text-center text-white">
+            <div class="container">
+                <p>Jean Forteroche vous livre ses aventures.</br>
+                <small>Copyright © Your Website 2018</small></p>
+            </div>
+        </footer>  
         <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

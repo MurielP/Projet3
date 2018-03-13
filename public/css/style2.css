@@ -20,21 +20,19 @@ body, .content {
     color:#333; 
 }
 
-.bg-ltgrey {
-    background-color: #BBC2C4;
-}
+
 
 /********************************************************/
 /*                 Navbar                    */
 /********************************************************/
 #mainNav {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     font-weight: 400;
 }
 
 #mainNav .navbar-brand {
-    color: #D1D9DB
+    color: #E6E7E8
 }
 
 #mainNav .navbar-nav {
@@ -43,15 +41,15 @@ body, .content {
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link {
-    color: #D1D9DB
+    color: #E6E7E8
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:hover {
-    color: #E00B27
+    color: #B2091F
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus {
-    color: #D1D9DB
+    color: #E6E7E8
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link.active {
@@ -65,8 +63,8 @@ body, .content {
 
 @media (min-width:992px) {
     #mainNav {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
         -webkit-transition: padding-top .3s, padding-bottom .3s;
         -moz-transition: padding-top .3s, padding-bottom .3s;
         transition: padding-top .3s, padding-bottom .3s
@@ -84,13 +82,13 @@ body, .content {
     }
 
     #mainNav .navbar-nav > li.nav-item > a.nav-link.active {
-        color: #D1D9DB;
+        color: #E6E7E8;
         background: #B2091F
     }
 
     #mainNav .navbar-nav > li.nav-item > a.nav-link.active:active, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:focus,
     #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover {
-        color: #D1D9DB;
+        color: #E6E7E8;
         background: #B2091F
     }
 
@@ -110,16 +108,7 @@ body, .content {
 /********************************************************/
 /**Template**/
 hr {
-    background-color: #1A2A40;
-}
-
- a:hover{
-    text-decoration: none;
-  }
-
-header.masthead {
-    padding-top: calc(3rem + 72px);
-    padding-bottom: 3rem
+    background-color: #092140;
 }
 
 header.masthead h1 {
@@ -132,43 +121,72 @@ header.masthead h1 {
 header.masthead h2 {
     font-size: 1.3rem;
     font-family: 'dejavu_serifcondensed_bold';
-    color: #E00B27;
+    color: #B2091F;
 }
 
 @media (min-width:992px) {
-    header.masthead {
-        padding-top: calc(3rem + 106px);
-        padding-bottom: 3rem
-    }
-
     header.masthead h1 {
         font-size: 4.75em;
-        line-height: 4rem
+        line-height: 4rem; 
+        color: #B2091F;
     }
 
     header.masthead h2 {
         font-size: 1.75em;
         font-family: 'dejavu_serifcondensed_bold';
-        color: #E00B27;
+        color: #B2091F;
     }
+}
+
+.carousel-item {
+  display: block;
 }
 
 /********************************************************/
 /*            Posts -  Homepage                         */
 /********************************************************/
+#homePageContainer.container {
+     padding-top: 5rem;
+}
+
+h3.card-title:hover{
+    color: #B2091F ;
+    
+}
+
+a.card-title {
+    text-decoration: none;
+}
+
 .card h3 {
     font-size: 2.25rem;
     line-height: 2rem; 
-    color: #2474A6;
+    color: #092140;
 }
 
 @media (min-width:992px) {
     .card h3 {
         font-size: 3rem;
         line-height: 2.5rem;
-        color: #2474A6;
+        color: #092140;
     }
 }
+
+.card-header, .card-body {
+    background-color: #EFF5FB;
+}
+
+/********************************************************/
+/*            Posts -  Homepage                         */
+/********************************************************/
+#commentsPostPage.card {
+    display: block;
+}
+
+h4.card-title {
+    color: #B2091F
+}
+
 
 .btn-xl {
     padding: 1rem 1.75rem;
@@ -339,7 +357,6 @@ form .row:first-child .floating-label-form-group {
 
 a {
     color: #18bc9c;
-
 }
 
 a:active, a:focus{

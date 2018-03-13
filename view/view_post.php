@@ -1,4 +1,5 @@
 <?php
+/**
 	var_dump($_SESSION['errors']);
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 		foreach ($_SESSION['errors'] as $type => $message) {
@@ -31,49 +32,63 @@
 }
 }	
 	$_SESSION['success'] = [];
+**/
 ?>
 
+<nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
+    <div class="container">
+    	<a class="navbar-brand js-scroll-trigger" href="index.php">
+        <img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30px"  height="30px" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Accueil</a>
+    </div>
+</nav>
 
+<article id="postAndComments" class="container pt-sm-2 pt-md-1 pt-lg-0">
+	<div class="card-deck">
+		<div class="card my-3">
+			<div class="card-header">
+				<h3 class="card-title"><?=  htmlspecialchars($post->getTitle()) ?></h3>
+    			<p class="card-text"><time>Le <?= $post->getFormatted_creation_date()?></time>par <?= htmlspecialchars($post->getAuthor()) ?></p>   
+				
+				<div class="card-body h-5">		
+		    		<p class="card-text"><?= htmlspecialchars($post->getContent()) ?></p>
+		    	</div>
+		    </div>
+		</div>
+	</div>
+</article>    
 
-<header>
- <!-- <?=  '<pre>' . print_r($comments,true) . '</pre>'; ?> -->
-	<a href="index.php">Retour à la liste des billets</a>
-
-	<h2><?=  htmlspecialchars($post->getTitle()) ?></h2>
-    	<time>Le <?= $post->getFormatted_creation_date()?></time>   
-
-    	<p><?= htmlspecialchars($post->getContent()) ?></p>
-    	<hr />
-</header>    
-
-    <h2>Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h2>
-    <p>Nombres de commentaires : <?= htmlspecialchars($comments_nb) ?></p>
-
+<div id="commentsPostPage" class="card w-75 my-4 mx-auto">
+	<div class="card-header">
+	    <h4 class="card-title">Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h4>
+	    <small>Nombres de commentaires : <?= htmlspecialchars($comments_nb) ?></small>
+	</div>
 <?php foreach ($comments as $comment) : ?> 
-	<article class="comments">
-		<p>Commentaire de : <?= htmlspecialchars ($comment->getAuthor()) ?> <br/>
-		Le <?= $comment->getFormatted_comment_date() ?><br/>
-		<?= nl2br(htmlspecialchars($comment->getComment())) ?>
-		</p>
-		<a href="index.php?action=flag&idComment=<?= $comment->getId()?>">Signaler</a>
-	</article>
-		<hr/> 
+		<div class="card-body">
+			<p>Commentaire de : <?= htmlspecialchars ($comment->getAuthor()) ?> <br/>
+			Le <?= $comment->getFormatted_comment_date() ?><br/>
+			<?= nl2br(htmlspecialchars($comment->getComment())) ?>
+			</p>
+			<a href="index.php?action=flag&idComment=<?= $comment->getId()?>" class="btn btn-info btn-sm"><small>Signaler</small></a>
+			<hr>
+		</div>
 <?php endforeach; ?>
 
-	<h3>Laissez-nous votre commentaire</h3>
-
-<form method="post" action="index.php?action=createComment">
-			
-	<fieldset>
-	<legend>Partagez vos impressions</legend>
-	<p><label for="author">Auteur :</label><input type="text" name="author" id="author" value=""/></p>
-	<p><label for="comment">Commentaire :</label><textarea name="comment" id="comment" value=""></textarea></p>
-	
-	<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
-	
-	<p><input type="submit" name="submitComment" value="Postez votre commentaire" /></p>
-	</fieldset>
-</form>
+	<form method="post" action="index.php?action=createComment">
+				
+		<fieldset>
+		<legend>Partagez vos impressions</legend>
+		<p><label for="author">Auteur :</label><input type="text" name="author" id="author" value=""/></p>
+		<p><label for="comment">Commentaire :</label><textarea name="comment" id="comment" value=""></textarea></p>
+		
+		<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
+		
+		<p><input type="submit" name="submitComment" value="Postez votre commentaire" /></p>
+		</fieldset>
+	</form>
 </div>
+
+
+
+
 
 
