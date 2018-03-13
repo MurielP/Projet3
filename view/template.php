@@ -17,8 +17,8 @@
     </head>
 
     <body>
-        <!-- Header -->
-    <header class="masthead text-center">
+            <!-- Header -->
+    <header id="header" class="masthead text-center">
         <div class="carousel-item">
             <img class="img-fluid w-100 d-none d-sm-block mx-auto" src="public/img/snow.jpg" alt="Let's begin image d'accueil" title="Que l'aventure commence !">
             <div class="carousel-caption">
@@ -28,7 +28,7 @@
             </div>
         </div>
     </header>
-
+    
         <div id="mainContainer" class="container">      
                 <?= $content ?>                      
         </div>
