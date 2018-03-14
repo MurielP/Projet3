@@ -16,7 +16,7 @@
         </div>
     </div>
 </nav>
-		<h2>Bonjour <?= htmlspecialchars($_SESSION['adminUsername']) ?> !</h2>
+		
 
 <?php
 //var_dump($_SESSION['success']);
@@ -51,24 +51,30 @@
 	$_SESSION['errors'] = [];
 ?>
 
-<div id="infoAdmin">
-	<h3>Mes infos</h3>
-	<p>Pseudonyme : <?= $adminReq->getUsername() ?></p>	
-</div>
+<div class="container">
+	<div class="row my-3">
+		<div class="col-md-4">
+			<h2>Bonjour <?= htmlspecialchars($_SESSION['adminUsername']) ?> !</h2>
+		</div>
+		<div class="col-md-8">
+			<div id="dashboard" class="d-flex align-items-end flex-column">			
+				<ul class="list-inline" id="onglets">
+					<li class="btn btn-primary btn-lg active list-inline-item"" role="button" aria-pressed="true"><a href="index.php?action=adminPosts">Articles</a></li>
+					<li class="btn btn-primary btn-lg active list-inline-item" role="button" aria-pressed="true"><a href="index.php?action=adminComments">Commentaires</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>	
 
-<div id="dashboard">
-	<ul id="onglets">
-		<li class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><a href="index.php?action=adminPosts">Articles</a></li>
-		<li class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><a href="index.php?action=adminComments">Commentaires</a></li>
-		<li class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><a href="">Membres</a></li>
-	</ul>
-</div>
+
+
 <div class="container">
 	<div class="row">
 		<div class="table-responsive-lg-12 table-responsive-md-6 table-responsive-sm-4">
 			<table class="table table-bordered table-hover">
-				<caption>Liste des commentaires</caption>
-				<thead class="thead-navy"> <!-- en-tête du tableau -->
+				<caption class="text-uppercase">Liste des commentaires</caption>
+				<thead class="text-uppercase text-center"> <!-- en-tête du tableau -->
 					<tr> <!-- Ligne du tabelau -->
 						<th scope="col">Id du commentaire</th>
 						<th scope="col">Id de l'article concerné</th>
@@ -88,10 +94,9 @@
 								<td><?= htmlspecialchars ($comment->getFormatted_comment_date()) ?></td>
 								<td>
 									<ul>
-										<li><button class="button"><a href="index.php?action=readComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Lire</a></button></li>
-										<li><button class="button"><a href="index.php?action=modifyComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Modifier</a></button></li>
-										<li><button class="button"><a href="index.php?action=cancelComment&id=<?= htmlspecialchars($comment->getId()) ?>">Supprimer</a></button></li>	
-									</ul>
+										<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=readComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Lire</a></li>
+										<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=modifyComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Modifier</a></li>
+										<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=cancelComment&id=<?= htmlspecialchars($comment->getId()) ?>">Supprimer</a></li>	
 									</ul>
 								</td>
 							</tr>

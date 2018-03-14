@@ -1,15 +1,27 @@
-<article>
-    <container>
-    	<nav class="navbar">
-	    	<ul class="navbar-horizontale">
-	    		<li ><a href="index.php">Retour à l'accueil</a></li>
-	    		<li><a href="index.php?action=logoutAdmin">Me déconnecter</a></li>
-	    		<li><a href="index.php?action=adminProfile">Mes infos</a></li>
-	       </ul>
-	   	</nav>
-    </container>
-		<h2>Mon tableau d'administration</h2>
-		<h3 class="welcomeAdmin">Bonjour <?= htmlspecialchars($_SESSION['adminUsername']) ?> !</h3>
+<nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="index.php">
+        	<img src="public/img/begins_Simon_Migaj_pexels.jpg" width="30" class="rounded" height="30" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Accueil</a>
+
+			<button class="navbar-toggler navbar-toggler-right text-uppercase bg-secondary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu
+				<i class="fa fa-bars"></i>
+        	</button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+            	<li class="nav-item mx-0 mx-lg-1">
+              		<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?action=adminProfile">Tableau de bord</a>
+              	</li>
+            	<li class="nav-item mx-0 mx-lg-1">
+              		<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?action=logoutAdmin">Me déconnecter</a>
+              	</li>         	
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h3>Mon tableau d'administration</h3>
+
 </article>
 
 <?php
@@ -17,7 +29,7 @@
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 		foreach ($_SESSION['errors'] as $type => $message) {
 ?>
-	<div class="alert">
+	<div class="btn btn-warning btn-block mt-3">
 		<ul>
 			<li><?= $message ?></li>
 		</ul>
@@ -41,11 +53,11 @@
 	</form>
 	
 <?php
-	var_dump($_SESSION['success']);
+	//var_dump($_SESSION['success']);
 	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
 		foreach ($_SESSION['success'] as $type => $message) {
 ?>
-	<div class="successAlert">
+	<div class="btn btn-info btn-block mt-3">
 		<ul>
 			<li><?= $message ?></li>
 		</ul>

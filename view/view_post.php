@@ -59,6 +59,8 @@
 	    <h4 class="card-title">Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h4>
 	    <small>Nombres de commentaires : <?= htmlspecialchars($comments_nb) ?></small>
 	</div>
+
+
 <?php foreach ($comments as $comment) : ?> 
 		<div class="card-body">
 			<p>Commentaire de : <?= htmlspecialchars ($comment->getAuthor()) ?> <br/>
@@ -69,28 +71,31 @@
 			<hr>
 		</div>
 <?php endforeach; ?>
-<div class="row">
-	<div class="col-lg-8 pt-2 mx-auto my-2">
-		<form method="post" action="index.php?action=createComment">
-			<fieldset>
-				<legend>Partagez vos impressions</legend>
-					<div class="control-group">
-						<div class="form-group floating-label-form-group mb-0 pb-2">
-							<label for="author">Auteur</label>
-							<input type="text" name="author" id="author" class="form-control w-75" value="" placeholder="Pseudonyme"/>
+
+
+	<div class="row">
+		<div class="col-lg-8 pt-2 mx-auto my-2">
+			<form method="post" action="index.php?action=createComment">
+				<fieldset>
+					<legend>Partagez vos impressions</legend>
+						<div class="control-group">
+							<div class="form-group floating-label-form-group mb-0 pb-2">
+								<label for="author">Auteur</label>
+								<input type="text" name="author" id="author" class="form-control w-75" value="" placeholder="Pseudonyme"/>
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<div class="form-group floating-label-form-group mb-0 pb-2">
-							<label for="comment">Commentaire</label>
-							<textarea name="comment" id="comment" class="form-control w-75" value="" placeholder="Message"></textarea>
+						<div class="control-group">
+							<div class="form-group floating-label-form-group mb-0 pb-2">
+								<label for="comment">Commentaire</label>
+								<textarea name="comment" id="comment" class="form-control w-75" value="" placeholder="Message"></textarea>
+							</div>
 						</div>
-					</div>
-				<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
-			
-				<input type="submit" name="submitComment" class="btn btn-info" value="Postez votre commentaire" />
-			</fieldset>
-		</form>
+					<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
+				
+					<input type="submit" name="submitComment" class="btn btn-info" value="Postez votre commentaire" />
+				</fieldset>
+			</form>
+		</div>
 	</div>
 </div>
 

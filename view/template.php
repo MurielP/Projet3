@@ -27,22 +27,23 @@
                 <h2 class="font-weight-light mb-0">Blog de Jean Forteroche</h2>
             </div>
         </div>
-    </header>
-    
+    </header>    
         <div id="mainContainer" class="container">      
                 <?= $content ?>                      
         </div>
+   
+  
+    <footer id="footer" class="footer w-100 py-2 text-center text-white fixed-bottom">
+        <div class="container ">
+            <p>Jean Forteroche vous livre ses aventures.</br>
+            <small>Copyright © Your Website 2018</small></p>
+        </div>
+    </footer>  
 
-        <footer id="footer" class="footer py-4 text-center text-white">
-            <div class="container">
-                <p>Jean Forteroche vous livre ses aventures.</br>
-                <small>Copyright © Your Website 2018</small></p>
-            </div>
-        </footer>  
-        <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     
     </body>
 </html>

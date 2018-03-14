@@ -13,7 +13,7 @@ class Comment_manager extends Database
 	
 	public function getCommentsByPostId($post_id)
 	{
-		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date FROM comments WHERE post_id = ? ORDER BY comment_date DESC');
+		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin\')  AS formatted_comment_date FROM comments WHERE post_id = ? ORDER BY comment_date DESC');
 		$comments = $this->executeQuery($sql, array($post_id));
 		
 		// création d'un tableau vide 
@@ -37,7 +37,7 @@ class Comment_manager extends Database
 	public function getCommentByPostId($post_id) {
 
 		try {
-        	$sql = ('SELECT id, post_id, author, comment, is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date, is_flagged FROM comments WHERE post_id = ?');
+        	$sql = ('SELECT id, post_id, author, comment, is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin\') AS formatted_comment_date, is_flagged FROM comments WHERE post_id = ?');
 			$comment = $this->executeQuery($sql, array($post_id));
 
 				// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un post_id alors je vais afficher le commentaire
@@ -55,7 +55,7 @@ class Comment_manager extends Database
     public function getCommentById($id)
     {
     	try {
-        	$sql = ('SELECT id, post_id, author, comment, is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\') AS formatted_comment_date FROM comments WHERE id = ?');
+        	$sql = ('SELECT id, post_id, author, comment, is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin\') AS formatted_comment_date FROM comments WHERE id = ?');
 			$comment = $this->executeQuery($sql, array($id));
 
 				// rowCount() retourne le nbr de ligne affectées par le dernier appel à la fonction execute() -> si ds $post j'ai un $id alors je vais afficher le commentaire
@@ -93,7 +93,7 @@ class Comment_manager extends Database
 
 	public function getComments()
 	{
-		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date  FROM comments ORDER BY comment_date DESC');
+		$sql = ('SELECT id, post_id, author, comment, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin\')  AS formatted_comment_date  FROM comments ORDER BY comment_date DESC');
 		$comments = $this->executeQuery($sql);
 		
 		// tableau vide
@@ -116,7 +116,7 @@ class Comment_manager extends Database
 	public function getCommentsByFlag()
 	{
 		try {
-			$sql = ('SELECT id, post_id, author, comment,is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin%ss\')  AS formatted_comment_date  FROM comments ORDER BY is_flagged DESC');
+			$sql = ('SELECT id, post_id, author, comment,is_flagged, DATE_FORMAT(comment_date,\'%d/%m/%Y à %Hh%imin\')  AS formatted_comment_date  FROM comments ORDER BY is_flagged DESC');
 			$comments = $this->executeQuery($sql);
 			
 			// tableau vide
