@@ -40,6 +40,7 @@ class Post_control
 
 		$view = new View('post');
 		$view->setTitle('Épisode : '.$post->getTitle().'');
+		$view->setAdmin(false);
 		$view->generate(array(
 			'post' => $post,
 			'comments' => $comments,

@@ -29,6 +29,7 @@ class Home_control
 		// appel du fichier qui génère la vue 
 		$view = new view('home');
 		$view->setTitle('Accueil - Blog de Jean Forteroche');
+		$view->setAdmin(false);
 		$view->generate(array(
 			'posts' => $posts,
 			'posts_nb' => $posts_nb,

@@ -58,6 +58,7 @@ class User_control
 		} else {
 			$view = new View('user');
 			$view ->setTitle('S\'inscrire');
+			$view->setAdmin(false);
 			$view->generate(array());
 		}
 	}
@@ -70,6 +71,7 @@ class User_control
 	{
 		$view = new View('user');
 		$view ->setTitle('S\'inscrire');
+		$view->setAdmin(false);
 		$view->generate(array());
 	}
 
@@ -86,6 +88,7 @@ class User_control
 
 		$view = new View('userProfile');
 		$view ->setTitle('Mon compte membre');
+		$view->setAdmin(false);
 		$view->generate(array(
 				'user' => $user,
 				));
@@ -132,6 +135,7 @@ class User_control
 		
 		$view = new View('adminProfile'); 
 		$view ->setTitle('Accueil administrateur');
+		$view->setAdmin(true);
 		$view->generate(array(
 				'adminReq' => $adminReq,
 				'comments' => $commentsList,
@@ -142,6 +146,7 @@ class User_control
 	{
 		$view = new View('admin');
 		$view->setTitle('Accès administrateur');
+		$view->setAdmin(false);
 		$view->generate(array());
 	}
 	

@@ -326,7 +326,6 @@ class Router
 					} else {
 						throw new Exception ('Une erreur s\'est produite dans le signalement du commentaire');
 					}
-				
 									
 				} else {
 					throw New Exception ('Action inconnue.');

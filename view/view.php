@@ -8,7 +8,7 @@ class View
 	private $file;
 	// Nom du titre associé à la vue
 	private $title;
-
+	private $admin;
 /**
  * @param $action qui détermine le fichier vue utilisé
  */
@@ -35,6 +35,14 @@ public function getFile()
     }
 
 /**
+ * [getAdmin]
+ * @return [bool] [admin]
+ */
+public function getAdmin()
+{
+	return $this->admin;
+}
+/**
  * permet de générer le titre de l'onglet
  * @param $title 
  */
@@ -52,6 +60,14 @@ public function getFile()
 		$this->file = $file;
 	}
 /**
+ * permet de générer si vue côté admin ou côté visiteur
+ * @param $admin 
+ */
+public function setAdmin($admin)
+{
+	$this->admin = $admin;
+}
+/**
  * méthode qui génère la vue 
  * @param  $data (titre et vue)
  * @return $view 
@@ -62,7 +78,9 @@ public function getFile()
 		$content = $this->generateFile($this->file, $data);
 		$view = $this->generateFile('view/template.php', array(
 			'title' => $this->title, 
-			'content' => $content));
+			'content' => $content, 
+			'admin' => $this->getAdmin(),
+		));
 
 		echo $view;
 	}

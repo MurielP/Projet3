@@ -1,5 +1,5 @@
 <?php
-	var_dump($_SESSION['success']);
+	//var_dump($_SESSION['success']);
 	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
 		foreach ($_SESSION['success'] as $type => $message) {
 ?>

@@ -18,15 +18,14 @@
 body, .content { 
     background: #fff; 
     color:#333; 
+
 }
 
 /********************************************************/
 /*                 Navbar                    */
 /********************************************************/
 #mainNav {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    font-weight: 400;
+    background-color: rgba(26, 42, 64, .9)
 }
 
 #mainNav .navbar-brand {
@@ -61,15 +60,14 @@ body, .content {
 
 @media (min-width:992px) {
     #mainNav {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        
         -webkit-transition: padding-top .3s, padding-bottom .3s;
         -moz-transition: padding-top .3s, padding-bottom .3s;
         transition: padding-top .3s, padding-bottom .3s
     }
 
     #mainNav .navbar-brand {
-        font-size: 2em;
+        font-size: 1.5em;
         -webkit-transition: font-size .3s;
         -moz-transition: font-size .3s;
         transition: font-size .3s;
@@ -83,6 +81,10 @@ body, .content {
         color: #E6E7E8;
         background: #B2091F
     }
+
+#mainNav a.navbar-brand:hover {
+    color: ##B2091F
+}
 
     #mainNav .navbar-nav > li.nav-item > a.nav-link.active:active, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:focus,
     #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover {
@@ -129,7 +131,7 @@ header.masthead h2 {
         color: #B2091F;
     }
 
-    header.masthead h2 {
+    header.masthead h2{
         font-size: 1.75em;
         font-family: 'dejavu_serifcondensed_bold';
         color: #B2091F;
@@ -143,9 +145,13 @@ header.masthead h2 {
 /********************************************************/
 /*            Posts -  Homepage                         */
 /********************************************************/
+#mainContainer {
+    min-height: 90%;
+    margin-bottom: 3rem;
+}
+
 h3.card-title:hover{
-    color: #B2091F ;
-    
+    color: #B2091F ;   
 }
 
 a.card-title {
@@ -184,10 +190,6 @@ a.card-title {
 #commentsPostPage h4.card-title {
     color: #B2091F
 }
-
-/********************************************************/
-/*            adminProfile                                    */
-/********************************************************/
 
 
 /********************************************************/
@@ -256,15 +258,15 @@ form .row:first-child .floating-label-form-group {
 /*            Footer                                      */
 /********************************************************/
 .footer {
-
-    padding-top: 5rem;
-    padding-bottom: 5rem;
     background-color: #2c3e50;
     color: #fff
 }
+ .footer p {
+    margin-bottom: 0;
+ }
 
 .copyright {
-    background-color: #1a252f
+    background-color: #1a252f;
 }
 
 /********************************************************/
@@ -285,6 +287,10 @@ caption {
     display: table;
 }
 
+.table-hover :hover > td,
+{
+  background-color: blue;
+}
 
 /********************************************************/
 /*            Links                                     */
@@ -297,7 +303,7 @@ a:active, a:focus{
 /*            Button                                    */
 /********************************************************/
 .btn {
-    border-width: 2px
+    border-width: 2px;
 }
 
 .bg-secondary {
@@ -365,9 +371,29 @@ li.btn.btn-primary > a {
 /********************************************************/
 .flagged {
     background-color: #18ADF4;
-    color: #fff;
+    color: #E6E7E8;
 }
 
+.admin #header .carousel-item {
+    display: none;
+}
+
+.admin #mainContainer {
+    margin-top: 100px;
+}
+
+/********************************************************/
+/*            Transition                               */
+/********************************************************/
+.card {
+    position: relative;
+    top: 0;
+    transition: all .1s ease-in;
+}
+.card:hover {
+  top: -2px;
+  box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+}
 /********************************************************/
 /*            Small                                      */
 /********************************************************/

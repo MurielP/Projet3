@@ -57,7 +57,7 @@
 <div id="commentsPostPage" class="card w-75 mx-auto mb-3">
 	<div class="card-header">
 	    <h4 class="card-title">Commentaires liés à # <?= htmlspecialchars($post->getTitle()) ?></h4>
-	    <small>Nombres de commentaires : <?= htmlspecialchars($comments_nb) ?></small>
+	    <p><span class="badge badge-pill badge-secondary"><?= htmlspecialchars($comments_nb) ?></span> commentaires :</p>
 	</div>
 
 

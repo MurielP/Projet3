@@ -41,6 +41,8 @@
 	$_SESSION['errors'] = [];
 ?>
 
+
+<div id="adminPosts">
 	<form class="form" method="post" action="index.php?action=createPost">
 		<fieldset>
 			<legend>Rédiger un nouvel épisode</legend>
@@ -51,6 +53,7 @@
 				<p><input type="submit" name="submit" value="Publier l'article" /></p>
 		</fieldset>
 	</form>
+</div>
 	
 <?php
 	//var_dump($_SESSION['success']);

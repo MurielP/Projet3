@@ -59,6 +59,7 @@ class Admin_control
 
 		$view = new view('adminPosts');
 		$view->setTitle('Les billets');
+		$view->setAdmin(true);
 		$view->generate(array(
 			'posts' => $postsList,
 			'user' => $user
@@ -71,6 +72,7 @@ class Admin_control
 
 		$view = new View('readPost');
 		$view->setTitle('Lire l\'article');
+		$view->setAdmin(false);
 		$view->generate(array(
 			'post' => $post,
 		));
@@ -118,6 +120,7 @@ class Admin_control
 
 		$view = new View('updatePost');
 		$view->setTitle('Modifier l\'article');
+		$view->setAdmin(true);
 		$view->generate(array(
 			'post' => $post,			
 		));
@@ -132,6 +135,7 @@ class Admin_control
 
 		$view = new view('adminComments');
 		$view->setTitle('Les commentaires');
+		$view->setAdmin(true);
 		$view->generate(array(
 			'comments' => $commentsList,
 			 'user' => $user
@@ -149,6 +153,7 @@ class Admin_control
 		//var_dump($comment);
 		$view = new View('readComment');
 		$view->setTitle('Lire le commentaire');
+		$view->setAdmin(false);
 		$view->generate(array(		
 			'comment' => $comment,
 			'post' => $post,
@@ -196,6 +201,7 @@ class Admin_control
 		}
 		$view = new View('updateComment');
 		$view->setTitle('Modifier le commentaire');
+		$view->setAdmin(true);
 		$view->generate(array(
 			'comment' => $comment,		
 		));
