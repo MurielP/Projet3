@@ -25,10 +25,12 @@
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 		foreach ($_SESSION['errors'] as $type => $message) {
 ?>
-	<div class="btn btn-warning btn-block mt-3">
-		<ul>
-			<li><?= $message ?></li>
-		</ul>
+	<div class="msg container mt-xs-4">
+		<div id="errors" class="overflow-visible">
+			<ul class="list-group mt-2 mt-sm-6">
+				<li class="list-group-item list-group-item-warning">Une erreur s'est produite dans le formulaire :</br><?= $message ?></li>
+			</ul>
+		</div>
 	</div>
 <?php
 }

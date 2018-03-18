@@ -17,9 +17,9 @@
         <title><?= $this->title ?></title>
     </head>
 
-    <body class="<?php if($this->admin) { echo 'admin';} ;?>">
+    <body class="<?php if($this->getAdmin()) { echo 'admin';} ;?>">
 <!-- Header -->
-    <header class="masthead text-center">
+    <header id="header" class="masthead text-center">
         <div class="carousel-item">
             <img class="img-fluid w-100 d-none d-sm-block mx-auto" src="public/img/snow_pexels.jpg" alt="Let's begin image d'accueil" title="Que l'aventure commence !">
             <div class="carousel-caption">
@@ -30,7 +30,7 @@
         </div>
     </header>  
 
-        <div>      
+        <div class="template">      
             <?= $content ?>                      
         </div>
    

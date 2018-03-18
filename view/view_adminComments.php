@@ -1,27 +1,51 @@
-<nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg bg-secondary fixed-top navbar-shrink" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.php">
-        	<img src="public/img/begins_Simon_Migaj_pexels.jpg" width="30" class="rounded" height="30" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Accueil</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30px"  height="30px" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
 
-			<button class="navbar-toggler navbar-toggler-right text-uppercase bg-secondary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu
-				<i class="fa fa-bars"></i>
-        	</button>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav ml-auto">
+          	<li class="nav-item mx-0 mx-lg-1">
+              	<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?action=adminProfile">Tableau de bord</a>
+              </li>
+
+          	<li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?action=logoutAdmin">Me déconnecter</a>
+            </li>    
+            		
+    		 <!--
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded " href="index.php?action=registerUser">Devenir membre</a>
+            </li>
             	<li class="nav-item mx-0 mx-lg-1">
-              		<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?action=adminProfile">Tableau de bord</a>
-              	</li>
-            	<li class="nav-item mx-0 mx-lg-1">
-              		<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?action=logoutAdmin">Me déconnecter</a>
-              	</li>         	
+              <a class="nav-link py-3 px-0 px-lg-3 rounded " href="#index.php?action=logUser">Espace membre</a>
+            </li>
+     		-->
             </ul>
         </div>
     </div>
 </nav>
 
-<h3 class="">Modération des commentaires</h3>
+<div id="dashboard" class="container">
+		<div class="row my-3">
+			<div class="col-md-4">
+				<h3 class="">Modération des commentaires</h3>
+			</div>
 
+			<div class="col-md-8">
+				<div id="dashboard" class="d-flex align-items-end flex-column">	
+					<ul class="list-inline" id="onglets">
+						<li class="btn btn-primary btn-lg active list-inline-item"" role="button" aria-pressed="true"><a href="index.php?action=adminPosts">Articles</a></li>
+						<li class="btn btn-primary btn-lg active list-inline-item" role="button" aria-pressed="true"><a href="index.php?action=adminComments">Commentaires</a></li>
+					</ul>
+				</div>
+			</div>	
+		</div>
+	</div>	
 
 
 <?php

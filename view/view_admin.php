@@ -1,10 +1,3 @@
-<nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
-    <div class="container">
-    	<a class="navbar-brand js-scroll-trigger" href="index.php">
-        <img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30px"  height="30px" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Accueil</a>
-    </div>
-</nav>
-
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top navbar-shrink" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30px"  height="30px" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
