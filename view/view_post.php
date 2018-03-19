@@ -70,11 +70,11 @@
 	<div class="card-deck">
 		<div class="card my-3">
 			<div class="card-header">
-				<h3 class="card-title"><?=  htmlspecialchars($post->getTitle()) ?></h3>
-    			<p class="card-text"><time>Le <?= $post->getFormatted_creation_date()?></time>par <?= htmlspecialchars($post->getAuthor()) ?></p>   
+				<h3 class="card-title"><?=  $post->getTitle() ?></h3>
+    			<p class="card-text"><time>Le <?= $post->getFormatted_creation_date()?></time>par <?= $post->getAuthor() ?></p>   
 				
 				<div class="card-body h-5">		
-		    		<p class="card-text"><?= htmlspecialchars($post->getContent()) ?></p>
+		    		<p class="card-text"><?= $post->getContent() ?></p>
 		    	</div>
 		    </div>
 		</div>

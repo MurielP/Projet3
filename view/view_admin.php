@@ -26,7 +26,6 @@
     </div>
 </nav>
 
-
 <div id="mainContainer" class="container">
 <?php
 //var_dump($_SESSION['errors']);

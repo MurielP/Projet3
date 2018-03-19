@@ -116,10 +116,10 @@ class Post
 
     public function setContent($content)
     {
-    	if(is_string($content) AND ($content = trim($content))) {
+    	if(isset($content) AND is_string($content) AND strlen($content) >= 15 AND strlen($content) <= 3000 AND ($content = trim($content))) {
     		return $this->content = $content;
     	} else {
-            $_SESSION['errors']['contentPost'] = 'Le contenu de l\'article est invalide. Il doit être composé d\'une chaîne de caractères .' ;
+            $_SESSION['errors']['contentPost'] = 'Le contenu de l\'article est invalide. Il doit être composé d\'une chaîne de caractères comprise entre 25 et 30000 caratères.' ;
         }
     }
     

@@ -114,10 +114,10 @@ class Comment
 
     public function setComment($comment)
     {
-    	if(isset($comment) AND is_string($comment) AND ($comment = trim($comment))) {
+    	if(isset($comment) AND is_string($comment) AND strlen($comment) >= 5 AND strlen($comment) <= 1500 AND ($comment = trim($comment))) {
     		return $this->comment = $comment;
     	} else {
-            $_SESSION['errors']['errorComment'] = 'Le commentaire doit être une chaîne de caractères.';
+            $_SESSION['errors']['errorComment'] = 'Le commentaire doit être une chaîne de caractères comprise entre 5 et 1500 caractères.';
         }
     }
 

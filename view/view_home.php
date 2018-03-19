@@ -56,14 +56,14 @@
 		<div class="card-deck">
 			<div class="card my-2 md-mt-1">
 				<div class="card-header">
-					<a class="card-title" href="index.php?action=post&post_id=<?= htmlspecialchars($post->getId()) ?>">
+					<a class="card-title" href="index.php?action=post&post_id=<?= $post->getId() ?>">
 						<h3 class="card-title"><?= htmlspecialchars($post->getTitle()) ?></h3>
 					</a>
-					<p class="card-text">Posté le <time><?= htmlspecialchars($post->getFormatted_creation_date()) ?></time> par <?= htmlspecialchars($post->getAuthor()) ?>
+					<p class="card-text">Posté le <time><?= htmlspecialchars($post->getFormatted_creation_date()) ?></time> par <?= $post->getAuthor() ?>
 					</p>
 				</div>
 				<div class="card-body h-5">			
-					<p class="card-text"><?=  htmlspecialchars($post->getContent()) ?></p>
+					<p class="card-text"><?= htmlspecialchars($post->getContent()) ?></p>
 				</div>
 			</div>
 		</div>

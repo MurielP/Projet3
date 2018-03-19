@@ -84,6 +84,12 @@ class Admin_control
 
 		if(count($_SESSION['errors']) == 0){
 			$suppr = $this->post_manager->suppressPost($post_id);
+			if($suppr == true){
+				$_SESSION['success']['deletedPost'] = 'Votre article n° '. $post_id.' a bien été supprimé ainsi que ses commentaires.';
+			} else {
+				$_SESSION['errors']['deletedPostFail'] = 'Votre article n°'. $post_id.' n\'a pu être suprrimé.';
+			}
+			
 
 			// suppression des commentaires liés à l'article effectuée en bdd - foreign_key ON DELETE CASCADE (structure bdd et vue relationnelle)
 			/** supprime les commentaires liés au billet 

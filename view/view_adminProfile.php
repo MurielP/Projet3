@@ -44,43 +44,42 @@
 		</div>
 	</div>	
 
-<?php
-//var_dump($_SESSION['success']);
-	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
-		foreach ($_SESSION['success'] as $type => $message) {
-?>
-	<div class="container mt-xs-4">
-		<div id="errors" class="overflow-visible">
-			<ul class="list-group mt-2 mt-sm-6">
-				<li class="list-group-item list-group-item-success"><?= $message ?></li>
-			</ul>
+	<?php
+	//var_dump($_SESSION['success']);
+		if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
+			foreach ($_SESSION['success'] as $type => $message) {
+	?>
+		<div class="container mt-xs-4">
+			<div id="errors" class="overflow-visible">
+				<ul class="list-group mt-2 mt-sm-6">
+					<li class="list-group-item list-group-item-success"><?= $message ?></li>
+				</ul>
+			</div>
 		</div>
-	</div>
-<?php
-}
-}	
-	$_SESSION['success'] = [];
-?>
+	<?php
+	}
+	}	
+		$_SESSION['success'] = [];
+	?>
 
-<?php
-//echo '<pre>' . print_r($user,true) . '</pre>';
-	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
-		foreach ($_SESSION['errors'] as $type => $message) {
-?>
-	<div class="msg container mt-xs-4">
-		<div id="errors" class="overflow-visible">
-			<ul class="list-group mt-2 mt-sm-6">
-				<li class="list-group-item list-group-item-warning">Une erreur s'est produite dans le formulaire :</br><?= $message ?></li>
-			</ul>
+	<?php
+	//echo '<pre>' . print_r($user,true) . '</pre>';
+		if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
+			foreach ($_SESSION['errors'] as $type => $message) {
+	?>
+		<div class="msg container mt-xs-4">
+			<div id="errors" class="overflow-visible">
+				<ul class="list-group mt-2 mt-sm-6">
+					<li class="list-group-item list-group-item-warning">Une erreur s'est produite dans le formulaire :</br><?= $message ?></li>
+				</ul>
+			</div>
 		</div>
-	</div>
-<?php
-}
-}	
-	// création d'un tableau vide pour vider les erreurs
-	$_SESSION['errors'] = [];
-?>
-
+	<?php
+	}
+	}	
+		// création d'un tableau vide pour vider les erreurs
+		$_SESSION['errors'] = [];
+	?>
 
 	<div class="container">
 		<div class="row">
@@ -100,11 +99,11 @@
 					<tbody>
 						<?php foreach ($comments as $comment) :?>
 								<tr class="<?php if($comment->getIs_flagged()){ echo 'flagged'; };?>">
-									<td><?= htmlspecialchars ($comment->getId()) ?></td>
-									<td><?= htmlspecialchars ($comment->getPost_id()) ?></td>
-									<td><?= htmlspecialchars ($comment->getComment()) ?></td>
-									<td><?= htmlspecialchars ($comment->getAuthor()) ?></td>
-									<td><?= htmlspecialchars ($comment->getFormatted_comment_date()) ?></td>
+									<td><?= $comment->getId() ?></td>
+									<td><?= $comment->getPost_id() ?></td>
+									<td><?= $comment->getComment() ?></td>
+									<td><?= $comment->getAuthor() ?></td>
+									<td><?= $comment->getFormatted_comment_date() ?></td>
 									<td>
 										<ul>
 											<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=readComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Lire</a></li>
