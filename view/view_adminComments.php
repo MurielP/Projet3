@@ -30,7 +30,8 @@
     </div>
 </nav>
 
-<div id="dashboard" class="container">
+<div id="mainContainer" class="container">
+	<div id="dashboard" class="container">
 		<div class="row my-3">
 			<div class="col-md-4">
 				<h3 class="">Modération des commentaires</h3>
@@ -48,38 +49,42 @@
 	</div>	
 
 
-<?php
-//echo '<pre>' . print_r($user,true) . '</pre>';
-	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
-		foreach ($_SESSION['errors'] as $type => $message) {
-?>
-	<div class="btn btn-warning btn-block mt-3">
-		<ul>
-			<li><?= $message ?></li>
-		</ul>
-	</div>
-<?php
-}
-}	
-	// création d'un tableau vide pour vider les erreurs
-	$_SESSION['errors'] = [];
-	
-?>
 
 <?php
 //var_dump($_SESSION['success']);
 	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
 		foreach ($_SESSION['success'] as $type => $message) {
 ?>
-	<div class="successAlert">
-		<ul>
-			<li><?= $message ?></li>
-		</ul>
+	<div class="container mt-xs-4">
+		<div id="errors" class="overflow-visible">
+			<ul class="list-group mt-2 mt-sm-6">
+				<li class="list-group-item list-group-item-success"><?= $message ?></li>
+			</ul>
+		</div>
 	</div>
 <?php
 }
 }	
-	$_SESSION['btn btn-info btn-block mt-3'] = [];
+	$_SESSION['success'] = [];
+?>
+
+<?php
+//echo '<pre>' . print_r($user,true) . '</pre>';
+	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
+		foreach ($_SESSION['errors'] as $type => $message) {
+?>
+	<div class="msg container mt-xs-4">
+		<div id="errors" class="overflow-visible">
+			<ul class="list-group mt-2 mt-sm-6">
+				<li class="list-group-item list-group-item-warning">Une erreur s'est produite dans le formulaire :</br><?= $message ?></li>
+			</ul>
+		</div>
+	</div>
+<?php
+}
+}	
+	// création d'un tableau vide pour vider les erreurs
+	$_SESSION['errors'] = [];
 ?>
 
 <div class="container">
@@ -87,7 +92,7 @@
 		<div class="table-responsive-lg-12 table-responsive-md-6 table-responsive-sm-4">
 			<table class="table table-bordered table-hover">
 				<caption class="text-uppercase">Liste des commentaires</caption>
-				<thead class="text-uppercase text-center"> <!-- en-tête du tableau -->
+				<thead class="text-uppercase text-center thead-dark"> <!-- en-tête du tableau -->
 					<tr> <!-- Ligne du tabelau -->
 						<th scope="col">Id du commentaire</th>
 						<th scope="col">Id de l'article concerné</th>

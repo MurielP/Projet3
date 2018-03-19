@@ -72,29 +72,31 @@
 ?>
 
 <div id="updateComment">
-		<div class="row">
-			<div class="pt-2 mx-auto my-2">
-				<form class="form" method="post" action="index.php?action=modifyPost&post_id=<?= $post->getId() ?>">
-					<fieldset>
-						<legend>Modifier un article</legend>
-							<div class="form-group">
-								<label for="author">Auteur </label>
-								<input type="text" name="author" id="author" class="form-control" value="<?=  htmlspecialchars($post->getAuthor()) ?>" />
-							</div>
+	<div class="row">
+		<div class="pt-2 mx-auto my-2">
+			<form class="form" method="post" action="index.php?action=modifyPost&post_id=<?= $post->getId() ?>">
+				<fieldset>
+					<legend>Modifier un article</legend>
+						<div class="form-group">
+							<label for="author">Auteur </label>
+							<input type="text" name="author" id="author" class="form-control" value="<?=  htmlspecialchars($post->getAuthor()) ?>" />
+						</div>
 
-							<div class="form-group">
-								<label for="title">Titre </label>
-								<input type="text" name="title" id="title" class="form-control" value="<?=  htmlspecialchars($post->getTitle()) ?>" />
-							</div>
+						<div class="form-group">
+							<label for="title">Titre </label>
+							<input type="text" name="title" id="title" class="form-control" value="<?=  htmlspecialchars($post->getTitle()) ?>" />
+						</div>
 
-							<div class="form-group">
-								<label for="content">Contenu </label>
-								<textarea type="text" name="content" id="content" class="form-control"value=""><?= htmlspecialchars($post->getContent()) ?></textarea>
-							</div>
+						<div class="form-group">
+							<label for="content">Contenu </label>
+							<textarea type="text" name="content" id="content" class="form-control"value=""><?= htmlspecialchars($post->getContent()) ?></textarea>
+						</div>
 
-							<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
+						<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($post->getId()) ?>"/> 
 							
-							<input type="submit" name="submit" class="btn btn-info mt-1" value="Éditer l'article" />
-					</fieldset>
-				</form>
-</div>
+						<input type="submit" name="submit" class="btn btn-info mt-1" value="Éditer l'article" />
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>	
