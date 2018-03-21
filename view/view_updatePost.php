@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top navbar-shrink" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30px"  height="30px" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" wwidth="30"  height="30" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
 
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
@@ -83,22 +83,22 @@
 	<div id="updatePost">
 		<div class="row">
 			<div class="pt-2 mx-auto my-2">
-				<form class="form" method="post" action="index.php?action=modifyPost&post_id=<?= $post->getId() ?>">
+				<form class="form" method="post" action="index.php?action=modifyPost&post_id=<?= htmlspecialchars($post->getId()) ?>">
 					<fieldset>
 						<legend>Modifier un article</legend>
 							<div class="form-group">
 								<label for="author">Auteur </label>
-								<input type="text" name="author" id="author" class="form-control" value="<?= $post->getAuthor() ?>" />
+								<input type="text" name="author" id="author" class="form-control" value="<?= htmlspecialchars($post->getAuthor()) ?>" />
 							</div>
 
 							<div class="form-group">
 								<label for="title">Titre </label>
-								<input type="text" name="title" id="title" class="form-control" value="<?=  $post->getTitle() ?>" />
+								<input type="text" name="title" id="title" class="form-control" value="<?=  htmlspecialchars($post->getTitle()) ?>" />
 							</div>
 
 							<div class="form-group">
 								<label for="content">Contenu </label>
-								<textarea type="text" name="content" id="content" class="form-control tiny" value=""><?= $post->getContent() ?></textarea>
+								<input type="text" name="content" id="content" class="form-control tiny" value="<?= $post->getContent() ?>" />
 							</div>
 
 							<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($post->getId()) ?>"/> 

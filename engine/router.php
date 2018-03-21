@@ -32,10 +32,8 @@ class Router
 		try {
 			if (isset($_GET['action'])) {
 				if ($_GET['action'] == 'post') {
-
 					// déclaration de la variable $post_id qui récupère l'id du billet 
 					$post_id = intval($this->getParam($_GET, 'post_id'));
-
 					// si j'ai un id de billet, je vais chercher la méthode post($post_id) pour afficher le détail du billet choisi
 					if ($post_id > 0) {
 						$this->post_control->post($post_id);
@@ -74,62 +72,13 @@ class Router
 						}
 						// vérifie si j'ai un id de billet (champ hidden) 
 						$post_id = (int)$this->getParam($_POST, 'post_id');
-
 						// si id de billet mais des erreurs, je reste sur la page du billets et ses commentaires 
 						if ($post_id > 0) {
-							header('Location: index.php?action=post&post_id='.$post_id.''); // non traité $_POST
+							header('Location: index.php?action=post&post_id='.$post_id.''); 
 						} else {
 							header('Location : index.php');
 						}
 					} 
-
-				} elseif ($_GET['action'] == 'registerUser') {
-					/*
-					* si les champs sont remplis et que mon mdp de confirmation est ok -> j'appelle la méthode pour enregistrer le nouveau user(manager)
-					*/
-					if(!empty($_POST['username']) AND !empty($_POST['email']) AND !empty($_POST['password']) AND!empty($_POST['confirm_password'])){
-
-						$username = $this->getParam($_POST, 'username'); 
-						$email = $this->getParam($_POST, 'email');
-						$password = $this->getParam($_POST, 'password');
-						$confirm_password = $this->getParam($_POST, 'confirm_password');
-
-						$this->user_control->registerUser($username, $email, $password, $confirm_password);
-						
-					} else {
-						/**
-						 * si mon champ est vide j'envoie un msg d'erreur 
-						 */
-						if (isset($_POST['username']) AND empty($_POST['username'])){
-							$username = $this->getParam($_POST, 'username'); 
-							$_SESSION['errors']['emptyUser'] = 'Le champ Pseudo doit être rempli';
-
-						} if (isset($_POST['email']) AND empty($_POST['email'])){
-							$email = $this->getParam($_POST,'email');
-							$_SESSION['errors']['emptyEmail'] = 'Le champ Email doit être rempli';
-							
-						} if (isset($_POST['password']) AND empty($_POST['password'])){
-							$password = $this->getParam($_POST, 'password');
-							$_SESSION['errors']['emptyPassword'] = 'Le champ Mot de passe doit être rempli';
-
-						} if (isset($_POST['confirm_password']) AND empty($_POST['confirm_password'])){
-							$confirm_password = $this->getParam($_POST, 'confirm_password');
-							$_SESSION['errors']['emptyConfirm_password'] = 'Le champ Confirmer votre mot de passe doit être rempli';
-						}
-						/*
-						* et je renvoie le visiteur sur la page de création de compte si les champs sont vides
-						*/
-						$this->user_control->registerUserPage();
-					}
-
-				// si insertion registerUser ok -> j'affiche userProfile 
-				} elseif ($_GET['action'] == 'userProfile'){
-					if(!empty($_SESSION['userUsername'])){
-						$username = $this->getParam($_SESSION,'userUsername');
-						$_SESSION['success']['loggedUser'] ='Vous êtes maintenant connecté';
-
-						$this->user_control->userProfile();
-					}
 
 				} elseif ($_GET['action'] == 'logAdmin') {
 					// si ma session existe et n'est pas vide alors adminProfile
@@ -204,7 +153,7 @@ class Router
 							$_SESSION['errors']['emptyContent'] = 'Le champ Contenu doit être rempli';
 						}
 						/*
-						* et je renvoie le visiteur sur la page de création d'article si les champs sont vides
+						* et je renvoie l'admin sur la page de création d'article si les champs sont vides
 						*/
 						$this->admin_control->createPostPage();
 					}	
@@ -324,9 +273,57 @@ class Router
 							$this->admin_control->flagComment($id);
 
 					} else {
-						throw new Exception ('Une erreur s\'est produite dans le signalement du commentaire');
+						throw new Exception ('Une erreur inconnue s\'est produite dans le signalement du commentaire');
 					}
-									
+				
+				} elseif ($_GET['action'] == 'registerUser') {
+					/*
+					* si les champs sont remplis et que mon mdp de confirmation est ok -> j'appelle la méthode pour enregistrer le nouveau user(manager)
+					*/
+					if(!empty($_POST['username']) AND !empty($_POST['email']) AND !empty($_POST['password']) AND!empty($_POST['confirm_password'])){
+
+						$username = $this->getParam($_POST, 'username'); 
+						$email = $this->getParam($_POST, 'email');
+						$password = $this->getParam($_POST, 'password');
+						$confirm_password = $this->getParam($_POST, 'confirm_password');
+
+						$this->user_control->registerUser($username, $email, $password, $confirm_password);
+						
+					} else {
+						/**
+						 * si mon champ est vide j'envoie un msg d'erreur 
+						 */
+						if (isset($_POST['username']) AND empty($_POST['username'])){
+							$username = $this->getParam($_POST, 'username'); 
+							$_SESSION['errors']['emptyUser'] = 'Le champ Pseudo doit être rempli';
+
+						} if (isset($_POST['email']) AND empty($_POST['email'])){
+							$email = $this->getParam($_POST,'email');
+							$_SESSION['errors']['emptyEmail'] = 'Le champ Email doit être rempli';
+							
+						} if (isset($_POST['password']) AND empty($_POST['password'])){
+							$password = $this->getParam($_POST, 'password');
+							$_SESSION['errors']['emptyPassword'] = 'Le champ Mot de passe doit être rempli';
+
+						} if (isset($_POST['confirm_password']) AND empty($_POST['confirm_password'])){
+							$confirm_password = $this->getParam($_POST, 'confirm_password');
+							$_SESSION['errors']['emptyConfirm_password'] = 'Le champ Confirmer votre mot de passe doit être rempli';
+						}
+						/*
+						* et je renvoie le visiteur sur la page de création de compte si les champs sont vides
+						*/
+						$this->user_control->registerUserPage();
+					}
+
+				// si insertion registerUser ok -> j'affiche userProfile 
+				} elseif ($_GET['action'] == 'userProfile'){
+					if(!empty($_SESSION['userUsername'])){
+						$username = $this->getParam($_SESSION,'userUsername');
+						$_SESSION['success']['loggedUser'] ='Vous êtes maintenant connecté';
+
+						$this->user_control->userProfile();
+					}
+
 				} else {
 					throw New Exception ('Action inconnue.');
 				}

@@ -101,6 +101,7 @@ header.masthead h2 {
     font-family: Lato
 }
 
+
 @media (min-width:992px) {
  
     header.masthead h1 {
@@ -178,9 +179,20 @@ ul > li > a:hover, ul > li > a:active, ul > li > a:focus {
     border-color: #1a252f
 }
 
+h3.card-title {
+    color: #FF5A4A;
+}
+
+h3.card-title:hover {
+    color: #0062cc;
+}
+
+h4.card-title {
+    color: #0062cc;
+}
 
 div#errors {
-    white-space: wrap;
+    white-space: pre-line;
     overflow: hidden;
 }
 
@@ -270,3 +282,5 @@ table > caption {
     margin-top: 4rem;
     margin-bottom: 4rem;
 }
+
+

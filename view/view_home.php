@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top navbar-shrink" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30px"  height="30px" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30"  height="30" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
 
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
@@ -9,9 +9,6 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-          	<li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Accueil</a>
-            </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?action=logAdmin">Espace administrateur</a>
             </li>
@@ -29,7 +26,7 @@
     </div>
 </nav>
  
- <div id="mainContainer" class="container"">
+ <div id="mainContainer" class="container">
 <?php
 	//var_dump($_SESSION['errors']);
 
@@ -59,11 +56,11 @@
 					<a class="card-title" href="index.php?action=post&post_id=<?= $post->getId() ?>">
 						<h3 class="card-title"><?= htmlspecialchars($post->getTitle()) ?></h3>
 					</a>
-					<p class="card-text">Posté le <time><?= htmlspecialchars($post->getFormatted_creation_date()) ?></time> par <?= $post->getAuthor() ?>
+					<p class="card-text">Posté le <?= htmlspecialchars($post->getFormatted_creation_date()) ?> par <?= htmlspecialchars($post->getAuthor()) ?>
 					</p>
 				</div>
 				<div class="card-body h-5">			
-					<p class="card-text"><?= htmlspecialchars($post->getContent()) ?></p>
+					<p class="card-text"><?= $post->getContent() ?></p>
 				</div>
 			</div>
 		</div>

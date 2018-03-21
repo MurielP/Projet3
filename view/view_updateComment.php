@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top navbar-shrink" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30px"  height="30px" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30"  height="30" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
 
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
@@ -36,7 +36,7 @@
 			<article class="col-l-8 col-md-10 mx-auto my-3">
 				<time>Date de publication : <?= $comment->getFormatted_comment_date() ?></time></br>   
 				<p>Auteur du commentaire : <?= htmlspecialchars($comment->getAuthor()) ?></p>
-			 	<p><strong>Commentaire</strong><br><?= htmlspecialchars($comment->getComment()) ?></p>
+			 	<p><strong>Commentaire</strong><br><?= $comment->getComment() ?></p>
 			</article>
 		</div>
 	</div>
@@ -86,12 +86,12 @@
 						<legend>Modérer le commentaire</legend>
 							<div class="form-group">
 								<label for="author">Auteur </label>
-								<input type="text" name="author" id="author" class="form-control" value=" <?=  htmlspecialchars($comment->getAuthor()) ?>" />
+								<input type="text" name="author" id="author" class="form-control" value="<?= htmlspecialchars($comment->getAuthor()) ?>" />
 							</div>
 								
 							<div class="form-group">
 								<label for="comment">Commentaire </label>
-								<textarea type="text" name="comment" id="comment" class="form-control"><?= htmlspecialchars($comment->getComment()) ?></textarea>
+								<input type="text" name="comment" id="comment" class="form-control tiny" value="<?= $comment->getComment() ?>" />
 							</div>
 
 							<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($comment->getId()) ?>"/> 

@@ -45,11 +45,19 @@ class Admin_control
 		}
 	}
 
+	/**
+	 * [createPostPage]
+	 * @return renvoie l'admin sur la page de création d'article si les champs sont vides
+	 */
 	public function createPostPage()
 	{
 		header('Location: index.php?action=adminPosts');
 	}
 
+	/**
+	 * [getPostsList] affiche la liste des billets si l'admin est connecté
+	 * @return [type] [description]
+	 */
 	public function getPostsList()
 	{
 		$postsList = $this->post_manager->getPosts();
@@ -88,9 +96,7 @@ class Admin_control
 				$_SESSION['success']['deletedPost'] = 'Votre article n° '. $post_id.' a bien été supprimé ainsi que ses commentaires.';
 			} else {
 				$_SESSION['errors']['deletedPostFail'] = 'Votre article n°'. $post_id.' n\'a pu être suprrimé.';
-			}
-			
-
+			}	
 			// suppression des commentaires liés à l'article effectuée en bdd - foreign_key ON DELETE CASCADE (structure bdd et vue relationnelle)
 			/** supprime les commentaires liés au billet 
 			if($suppr == true){
@@ -100,8 +106,7 @@ class Admin_control
 				}			
 			}
 			**/
-		}
-				
+		}				
 		header('Location: index.php?action=adminPosts');
 	}
 	

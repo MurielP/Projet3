@@ -5,14 +5,13 @@
 class Post
 {
 	/**
-	 * __construct 
+	 * __construct : constructeur qui génère un tableau de données et les initialise
 	 * @param array $data 
 	 */
 	public function __construct(array $data)	
 	{
 		$this->hydrate($data);
 	}
-
 	/**
 	 * hydrate 
 	 * @param  array  $data [attributs des billets]
@@ -46,10 +45,8 @@ class Post
     private $post_amended_date; 
 
 
-
     /**
-     * [getId]
-     * @return [int] [id du post]
+     * getters
      */
     public function getId() 
     {
@@ -80,11 +77,9 @@ class Post
     {
     	return $this->post_amended_date;
     }
-
    
     /**
-     * [setId description]
-     * @param [type] $id [description]
+     * setters
      */
     public function setId($id)
     {
@@ -110,7 +105,7 @@ class Post
     	if(is_string($title) AND strlen($title <= 100) AND ($title = trim($title))) {
     		return $this->title = $title;
     	} else {
-            $_SESSION['errors']['titlePost'] = 'Le titre de l\'article est invalide. Il doit être composé d\'une chaîne de moins de 100 caractères .' ;
+            $_SESSION['errors']['titlePost'] = 'Le titre de l\'article est invalide. Il doit être composé d\'une chaîne de moins de 100 caractères.' ;
         }
     }
 
@@ -119,7 +114,7 @@ class Post
     	if(isset($content) AND is_string($content) AND strlen($content) >= 15 AND strlen($content) <= 3000 AND ($content = trim($content))) {
     		return $this->content = $content;
     	} else {
-            $_SESSION['errors']['contentPost'] = 'Le contenu de l\'article est invalide. Il doit être composé d\'une chaîne de caractères comprise entre 25 et 30000 caratères.' ;
+            $_SESSION['errors']['contentPost'] = 'Le contenu de l\'article est invalide. Il doit être composé d\'une chaîne de caractères comprise entre 25 et 30000 caractères.' ;
         }
     }
     
@@ -134,4 +129,5 @@ class Post
         $post_amended_date = DateTime::createFromFormat('j-M-Y', $post_amended_date);
     	return $this->post_amended_date = $post_amended_date;
     }
+
 }

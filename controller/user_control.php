@@ -161,9 +161,7 @@ class User_control
 		// redirection
 		header('Location: index.php');
 		exit();
-	}
-
-	
+	}	
 }
 
 

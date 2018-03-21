@@ -12,22 +12,26 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
-       <link href="https://fonts.googleapis.com/css?family=Lato|Raleway:500" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css?family=Raleway:500" rel="stylesheet">
 
        <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
         <script type="text/javascript">
             tinymce.init({
             selector: '.tiny',
-            //inline: true,
-            toolbar: 'undo redo',
-
-            max_height: 500,
-            max_width: 500,
-            min_height: 100,
-            min_width: 400,
-            
-            branding: false, // supprime le "Powered by TinyMCE" branding
-            
+            menubar: false,
+            content_css: "public/css/style3.css",
+            toolbar: [' undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify ', 
+             'bullist numlist outdent indent | link image | print preview fullpage | forecolor backcolor emoticons', 
+            ], 
+            plugins: [
+              'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+              'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime  nonbreaking',
+              'save table contextmenu directionality emoticons template paste textcolor'
+            ], 
+            width: 400,
+            height: 150,
+            branding: false, // supprime le "Powered by TinyMCE" branding           
         });
         </script>
 
@@ -54,7 +58,7 @@
 <!-- Footer --> 
     <footer id="footer" class="footer w-100 mt-1 text-center text-white fixed-bottom">
         <div class="container">
-            <p>Jean Forteroche vous livre ses aventures.</br>
+            <p>Jean Forteroche vous livre ses aventures.<br />
                 <small>Copyright 2018 jean.forteroche.com </small></p>
         </div>
     </footer>

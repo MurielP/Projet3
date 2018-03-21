@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top navbar-shrink" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30px"  height="30px" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30"  height="30" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
 
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
@@ -70,8 +70,10 @@
 	<div class="card-deck">
 		<div class="card my-3">
 			<div class="card-header">
-				<h3 class="card-title"><?=  $post->getTitle() ?></h3>
-    			<p class="card-text"><time>Le <?= $post->getFormatted_creation_date()?></time>par <?= $post->getAuthor() ?></p>   
+				<a class="card-title" href="index.php?">
+					<h3 class="card-title"><?=  $post->getTitle() ?></h3>
+				</a>
+    			<p class="card-text">Le <time><?= $post->getFormatted_creation_date()?></time><br/>par <em><?= $post->getAuthor() ?></em></p>   
 				
 				<div class="card-body h-5">		
 		    		<p class="card-text"><?= $post->getContent() ?></p>
@@ -90,10 +92,13 @@
 
 <?php foreach ($comments as $comment) : ?> 
 		<div class="card-body">
-			<p>Commentaire de : <?= htmlspecialchars ($comment->getAuthor()) ?> <br/>
-			Le <?= $comment->getFormatted_comment_date() ?><br/>
-			<?= nl2br(htmlspecialchars($comment->getComment())) ?>
-			</p>
+			<div class="card-title">
+				<p>Commentaire de <em><?= htmlspecialchars ($comment->getAuthor()) ?></em><br/>
+				Le <time> <?= $comment->getFormatted_comment_date() ?></time><br/></p>
+			</div>
+			<div class="content">
+				<p><?= nl2br($comment->getComment()) ?></p>
+			</div>
 			<a href="index.php?action=flag&idComment=<?= $comment->getId()?>" class="btn btn-info btn-sm"><small>Signaler</small></a>
 			<hr>
 		</div>

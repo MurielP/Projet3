@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top navbar-shrink" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30px"  height="30px" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php"><img src="public/img/begins_Simon_Migaj_pexels.jpg" class="rounded" width="30"  height="30" alt="Let's begin image d'accueil" title="Que l'aventure commence !"> Jean Forteroche</a>
 
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
@@ -94,8 +94,7 @@
 				<caption class="text-uppercase">Liste des commentaires</caption>
 				<thead class="text-uppercase text-center thead-dark"> <!-- en-tête du tableau -->
 					<tr> <!-- Ligne du tabelau -->
-						<th scope="col">Id du commentaire</th>
-						<th scope="col">Id de l'article concerné</th>
+						<th scope="col">Id du commentaire/<br />Id de l'article</th>
 						<th scope="col">Commentaire</th>
 						<th scope="col">Auteur</th>
 					  	<th scope="col">Date de création</th>
@@ -105,9 +104,8 @@
 				<tbody>
 					<?php foreach ($comments as $comment) :?>
 							<tr class="<?php if($comment->getIs_flagged()){ echo 'flagged'; };?>">
-								<td><?= htmlspecialchars ($comment->getId()) ?></td>
-								<td><?= htmlspecialchars ($comment->getPost_id()) ?></td>
-								<td><?= htmlspecialchars ($comment->getComment()) ?></td>
+								<td><?= htmlspecialchars($comment->getId()) ?> / <?=  htmlspecialchars($comment->getPost_id()) ?></td></td>
+								<td><?=  $comment->getComment() ?></td>
 								<td><?= htmlspecialchars ($comment->getAuthor()) ?></td>
 								<td><?= htmlspecialchars ($comment->getFormatted_comment_date()) ?></td>
 								<td>

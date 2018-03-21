@@ -2,6 +2,26 @@
 
 class User_manager extends Database 
 {
+
+	public function getAdminByLogin($admin1)
+	{
+		try{
+			$sql = ('SELECT id, username, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS formatted_inscription_date FROM members WHERE username = ?');
+			$adminBdd = $this->executeQuery($sql, array($admin1->getUsername()));
+			
+			$resultAdmin = $adminBdd->fetch(PDO::FETCH_ASSOC);	
+			
+			if($resultAdmin != false){
+				$admin2 = new User($resultAdmin); 
+				return $admin2;
+			}
+		}catch(Exception $e){
+			$_SESSION['errors']['errorAdminBdd'] = 'Votre identifiant est erroné.';
+			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
+		}
+	}
+
+
 	/**
 	 * [createUser] requête préparée qui insère le nouveau $user ds la table membres et prend en paramètre $user
 	 * @param  [type] $user [fait appel aux contrôles effectués dans l'entité user.php]
@@ -110,25 +130,6 @@ class User_manager extends Database
 			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
 		}
 	}	
-
-	public function getAdminByLogin($admin1)
-	{
-		try{
-			$sql = ('SELECT id, username, DATE_FORMAT(inscription_date, \'%d %m %Y\') AS formatted_inscription_date FROM members WHERE username = ?');
-			$adminBdd = $this->executeQuery($sql, array($admin1->getUsername()));
-			
-			$resultAdmin = $adminBdd->fetch(PDO::FETCH_ASSOC);	
-			
-			if($resultAdmin != false){
-				$admin2 = new User($resultAdmin); 
-				return $admin2;
-			}
-		}catch(Exception $e){
-			$_SESSION['errors']['errorAdminBdd'] = 'Votre identifiant est erroné.';
-			$_SESSION['errors']['sqlError'] = 'Une erreur SQL s\'est produite : '. $e->getMessage() . ' dont le code erreur est : '.$e->getCode() .'';
-		}
-	}
-
 
 	/**
 	 * [getUserDetails] récupère les infos d'un membre 
