@@ -179,7 +179,7 @@ ul > li > a:hover, ul > li > a:active, ul > li > a:focus {
     border-color: #1a252f
 }
 
-h3.card-title {
+h3.card-title, h2.card-title {
     color: #FF5A4A;
 }
 
@@ -263,7 +263,13 @@ table > caption {
     margin-bottom: 3rem;
     margin-top: 4.3rem;
     }
+    
+    #header.masthead {
+    margin-top: 74px;
+    }
 }
+
+
 
 .flagged {
     background-color: #18ADF4;

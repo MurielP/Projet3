@@ -60,7 +60,7 @@
 					</p>
 				</div>
 				<div class="card-body h-5">			
-					<p class="card-text"><?= $post->getContent() ?></p>
+					<p class="card-text text-justify"><?= $post->getContent() ?></p>
 				</div>
 			</div>
 		</div>

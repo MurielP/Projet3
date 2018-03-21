@@ -35,7 +35,7 @@
 		<div class="row">
 			<article class="col-l-8 col-md-10 mx-auto my-3">
 				<time>Date de publication : <?= $comment->getFormatted_comment_date() ?></time></br>   
-				<p>Auteur du commentaire : <?= htmlspecialchars($comment->getAuthor()) ?></p>
+				<p>Auteur du commentaire : <em><?= htmlspecialchars($comment->getAuthor()) ?></em></p>
 			 	<p><strong>Commentaire</strong><br><?= $comment->getComment() ?></p>
 			</article>
 		</div>

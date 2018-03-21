@@ -34,11 +34,11 @@
 	<div class="container">
 		<div class="row">
 			<article class="col-l-8 col-md-10 mx-auto my-3">
-				<h2>Titre de l'article : <?= $post->getTitle() ?></h2>
-				<p>Auteur :  <?=  $post->getAuthor() ?></p>
+				<h2 class="card-title">Titre de l'article : <?= $post->getTitle() ?></h2>
+				<p>Auteur :  <em><?=  $post->getAuthor() ?></em></p>
 
-				<time>Date de création : <?= $post->getFormatted_creation_date()?></time></br>   
-				<p>Contenu de l'article : <br><?= $post->getContent() ?></p>
+				<p><time>Date de création : <?= $post->getFormatted_creation_date()?></time><p>   
+				<p><strong>Contenu de l'article : </strong><br><?= $post->getContent() ?></p>
 			</article>
 		</div>
 	</div>
@@ -98,7 +98,7 @@
 
 							<div class="form-group">
 								<label for="content">Contenu </label>
-								<input type="text" name="content" id="content" class="form-control tiny" value="<?= $post->getContent() ?>" />
+								<input type="text" name="content" id="content" class="form-control tiny" value="<?=  $post->getContent()?>" />
 							</div>
 
 							<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($post->getId()) ?>"/> 

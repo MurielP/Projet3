@@ -76,7 +76,7 @@
     			<p class="card-text">Le <time><?= $post->getFormatted_creation_date()?></time><br/>par <em><?= $post->getAuthor() ?></em></p>   
 				
 				<div class="card-body h-5">		
-		    		<p class="card-text"><?= $post->getContent() ?></p>
+		    		<p class="card-text text-justify"><?= $post->getContent() ?></p>
 		    	</div>
 		    </div>
 		</div>

@@ -94,11 +94,11 @@
 				<caption class="text-uppercase">Liste des commentaires</caption>
 				<thead class="text-uppercase text-center thead-dark"> <!-- en-tête du tableau -->
 					<tr> <!-- Ligne du tabelau -->
-						<th scope="col">Id du commentaire/<br />Id de l'article</th>
-						<th scope="col">Commentaire</th>
-						<th scope="col">Auteur</th>
-					  	<th scope="col">Date de création</th>
-					  	<th scope="col">Action</th>
+						<th class="align-middle" scope="col">Id du commentaire/<br />Id de l'article</th>
+						<th class="align-middle" scope="col">Commentaire</th>
+						<th class="align-middle" scope="col">Auteur</th>
+					  	<th class="align-middle" scope="col">Date de création</th>
+					  	<th class="align-middle" scope="col">Action</th>
 					</tr>
 				</thead>	  
 				<tbody>

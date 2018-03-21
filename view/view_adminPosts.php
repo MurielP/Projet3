@@ -90,7 +90,7 @@
 
 	<div id="adminPosts" >
 		<div class="row">
-			<div class="pt-2 px-3 my-2">
+			<div class="pt-2 mx-auto my-2">
 				<form class="form" method="post" action="index.php?action=createPost">
 				<fieldset>
 					<legend>Rédiger un nouvel épisode</legend>
@@ -123,11 +123,11 @@
 					<caption class="text-uppercase">Liste des billets</caption>
 						<thead class="text-uppercase text-center thead-dark"> <!-- en-tête du tableau -->
 							<tr> <!-- Ligne du tabelau -->
-								<th scope="col">Titre</th>
-								<th scope="col">Aperçu du contenu</th>
-								<th scope="col">Auteur</th>
-							  	<th scope="col">Date de création</th>
-							  	<th scope="col">Action</th>
+								<th class="align-middle" scope="col">Titre</th>
+								<th class="align-middle" scope="col">Aperçu du contenu</th>
+								<th class="align-middle" scope="col">Auteur</th>
+							  	<th class="align-middle" scope="col">Date de création</th>
+							  	<th class="align-middle" scope="col">Action</th>
 							</tr>
 						</thead>	  
 						<tbody>
