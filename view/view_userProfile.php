@@ -20,7 +20,7 @@
    	 </ul>
     </header>
 		<h2>Mon compte</h2>
-		<h3>Bonjour <?= $_SESSION['userUsername']?> !</h3> <!-- méthode registerUser ds user_control--> 
+		<h3>Bonjour <?= htmlspecialchars($_SESSION['userUsername']) ?> !</h3> <!-- méthode registerUser ds user_control--> 
 		<p>Votre identifiant est : <?= htmlspecialchars($user->getUsername()) ?><br/>
 		Votre email est : <?= htmlspecialchars($user->getEmail()) ?><br/>
 		Date d'inscription : <?= htmlspecialchars($user->getFormatted_inscription_date() )?><br />

@@ -44,9 +44,9 @@
 <div class="container">
   <div class="row">
       <article class="col-l-8 col-md-10 mx-auto">
-      <h3 class="card-title my-2">Titre de l'article : <?=  $post->getTitle() ?></h3>
+      <h3 class="card-title my-2">Titre de l'article : <?=  htmlspecialchars($post->getTitle()) ?></h3>
 
-    	<time>Date de création : <?= $post->getFormatted_creation_date() ?></time></br>   
+    	<time>Date de création : <?= htmlspecialchars($post->getFormatted_creation_date()) ?></time></br>   
     	<p><strong>Contenu</strong><br><?= $post->getContent() ?></p>
     </article>
   </div>

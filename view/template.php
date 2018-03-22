@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="public/css/style3.css" /> 
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
        <link href="https://fonts.googleapis.com/css?family=Raleway:500" rel="stylesheet">
 
@@ -29,6 +28,7 @@
               'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime  nonbreaking',
               'save table contextmenu directionality emoticons template paste textcolor'
             ], 
+            
             width: 400,
             height: 150,
             branding: false, // supprime le "Powered by TinyMCE" branding           
@@ -51,7 +51,7 @@
         </div>
     </header>  
 
-        <div class="template">      
+        <div class="template">    
             <?= $content ?>                      
         </div>
    

@@ -18,10 +18,13 @@ class Home_control
 	public function homePage()
 	{
 		$posts = $this->post_manager->getPosts();
+
 		// appel du fichier qui génère la vue 
 		$view = new view('home');
+		// redéfinition des setters 
 		$view->setTitle('Accueil - Blog de Jean Forteroche');
-		$view->setAdmin(false);
+		$view->setAdmin(false); // cf body du template (classe css pour masquer image du header)
+		// boucle foreach ($posts as $post) appelée ds vue 
 		$view->generate(array(
 			'posts' => $posts,
 		));

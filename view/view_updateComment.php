@@ -91,11 +91,12 @@
 								
 							<div class="form-group">
 								<label for="comment">Commentaire </label>
-								<input type="text" name="comment" id="comment" class="form-control tiny" value="<?= $comment->getComment() ?>" />
+								<textarea name="comment" id="comment" class="form-control tiny"><?= $comment->getComment() ?></textarea>
 							</div>
 
-							<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($comment->getId()) ?>"/> 
+							<input type="hidden" name="id" id="id" value="<?= htmlspecialchars($comment->getId()) ?>"/> <!-- crée la variable $_POST['id'] ds page cible -->
 							<input type="hidden" name="post_id" id="post_id" value="<?= htmlspecialchars($comment->getPost_id()) ?>"/> 
+
 							<input type="submit" name="submit" class="btn btn-info mt-1" value="Modifier le commentaire" />
 					</fieldset>
 				</form>

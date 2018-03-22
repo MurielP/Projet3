@@ -32,7 +32,7 @@ class Router
 		try {
 			if (isset($_GET['action'])) {
 				if ($_GET['action'] == 'post') {
-					// déclaration de la variable $post_id qui récupère l'id du billet 
+					// déclaration de la variable $post_id qui récupère l'id du billet  
 					$post_id = intval($this->getParam($_GET, 'post_id'));
 					// si j'ai un id de billet, je vais chercher la méthode post($post_id) pour afficher le détail du billet choisi
 					if ($post_id > 0) {
@@ -84,7 +84,6 @@ class Router
 					// si ma session existe et n'est pas vide alors adminProfile
 					if(!empty($_SESSION['adminUsername'])) {
 						$username = $this->getParam($_SESSION,'adminUsername');
-
 						$_SESSION['success']['alreadyLoggedAdmin'] ='Vous êtes connecté';
 
 						$this->user_control->adminProfile();
@@ -94,9 +93,7 @@ class Router
 						$loginAdmin = $this->getParam($_POST, 'username');
 						$passwordAdmin = $this->getParam($_POST, 'password');
 
-						$_SESSION['success']['loggedAdmin'] ='Vous êtes maintenant connecté';
-
-						$this->user_control->logAdmin($loginAdmin, $passwordAdmin);
+						$this->user_control->logAdmin($loginAdmin, $passwordAdmin);						
 
 					} else {
 						/**
@@ -116,7 +113,6 @@ class Router
 				}elseif ($_GET['action'] == 'adminProfile'){
 					if(!empty($_SESSION['adminUsername'])){
 						$username = $this->getParam($_SESSION,'adminUsername');
-
 						$this->user_control->adminProfile();
 					} else {
 						throw new Exception ('Vous ne pouvez pas accéder à la page d\'administration.');
@@ -124,8 +120,10 @@ class Router
 
 				} elseif ($_GET['action'] == 'logoutAdmin') {
 					if(isset($_SESSION['adminUsername']) AND !empty($_SESSION['adminUsername'])){
-						$this->user_control->logoutAdmin();
+						$this->user_control->logoutAdmin();				
 					}
+
+
 
 				} elseif ($_GET['action'] == 'adminPosts') {
 					$this->admin_control->getPostsList();
@@ -330,7 +328,6 @@ class Router
 							
 			} else {	
 					// page par défaut
-				
 				$this->home_control->homePage();			
 			}
 		// attrape les exceptions "Exception" si existantes avec la varivable $e qui représente l'exception lancée	
@@ -346,6 +343,7 @@ class Router
  */
 	private function error($errorMessage) {
 		$view = new View('error');
+		$view->setAdmin(true);
 		$view->generate(array(
 			'errorMessage' => $errorMessage));
 	}

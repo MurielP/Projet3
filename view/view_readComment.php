@@ -41,11 +41,11 @@
 <div class="container">
 	<div class="row">
 		<article class="col-l-8 col-md-10 mx-auto">
-			<h3 class="card-title my-2">Commentaire lié à l'article : <?= $post->getTitle() ?></h3>
+			<h3 class="card-title my-2">Commentaire lié à l'article : <?= htmlspecialchars($post->getTitle()) ?></h3>
 
-			<time>Date de publication : <?= $comment->getFormatted_comment_date() ?></time></br>   
-			<p>Auteur du commentaire : <em><?= $comment->getAuthor() ?></em></p>
-		 	<p><strong>Commentaire</strong><br><?= $comment->getComment() ?></p>
+			<time>Date de publication : <?= htmlspecialchars($comment->getFormatted_comment_date()) ?></time></br>   
+			<p>Auteur du commentaire : <em><?= htmlspecialchars($comment->getAuthor()) ?></em></p>
+		 	<p><strong>Commentaire</strong><br><?= $comment->getComment()  ?></p>
 		</article>
 	</div>
 </div>

@@ -27,6 +27,25 @@
 </nav>
  
  <div id="mainContainer" class="container">
+
+<?php
+//var_dump($_SESSION['success']);
+	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
+		foreach ($_SESSION['success'] as $type => $message) {
+?>
+	<div class="container mt-xs-4">
+		<div id="errors" class="overflow-visible">
+			<ul class="list-group mt-2 mt-sm-6">
+				<li class="list-group-item list-group-item-success"><?= $message ?></li>
+			</ul>
+		</div>
+	</div>
+<?php
+}
+}	
+	$_SESSION['success'] = [];
+?>
+
 <?php
 	//var_dump($_SESSION['errors']);
 

@@ -8,6 +8,7 @@ class View
 	private $file;
 	// Nom du titre associé à la vue
 	private $title;
+	// si admin est connecté 
 	private $admin;
 /**
  * @param $action qui détermine le fichier vue utilisé
@@ -42,6 +43,7 @@ public function getAdmin()
 {
 	return $this->admin;
 }
+
 /**
  * permet de générer le titre de l'onglet
  * @param $title 
@@ -67,6 +69,8 @@ public function setAdmin($admin)
 {
 	$this->admin = $admin;
 }
+
+
 /**
  * méthode qui génère la vue 
  * @param  $data (titre et vue)
@@ -76,16 +80,17 @@ public function setAdmin($admin)
 	{
 		// appelle la vue selon action et récupère les données
 		$content = $this->generateFile($this->file, $data);
+
 		$view = $this->generateFile('view/template.php', array(
-			'title' => $this->title, 
-			'content' => $content, 
-			'admin' => $this->getAdmin(),
+			'title' => $this->title, // onglet
+			'content' => $content, // contenu
+			'admin' => $this->getAdmin(), // si true alors image masquée / si false image affichée 	
 		));
 
 		echo $view;
 	}
  /**
-  * méthode qui génère fichier vue et renvoie le résultat - encapsule l'utilisation de require et permet le check de l'existence du fichier vue à afficher
+  * méthode qui génère fichier vue et renvoie le résultat - encapsule l'utilisation de require et permet la vérification de l'existence du fichier vue à afficher
   * @param  $file [nom du fichier vue à afficher]
   * @param  array($data) [données à afficher]
   * @return ob_get_clean pour arrêter la temporisation de sortie 

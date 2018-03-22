@@ -41,7 +41,7 @@
 			<div class="col-md-8">
 				<div id="dashboard" class="d-flex align-items-end flex-column">	
 					<ul class="list-inline" id="onglets">
-						<li class="btn btn-primary btn-lg active list-inline-item"" role="button" aria-pressed="true"><a href="index.php?action=adminPosts">Articles</a></li>
+						<li class="btn btn-primary btn-lg active list-inline-item" role="button" aria-pressed="true"><a href="index.php?action=adminPosts">Articles</a></li>
 						<li class="btn btn-primary btn-lg active list-inline-item" role="button" aria-pressed="true"><a href="index.php?action=adminComments">Commentaires</a></li>
 					</ul>
 				</div>

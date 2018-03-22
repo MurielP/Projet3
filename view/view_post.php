@@ -97,9 +97,9 @@
 				Le <time> <?= $comment->getFormatted_comment_date() ?></time><br/></p>
 			</div>
 			<div class="content">
-				<p><?= nl2br($comment->getComment()) ?></p>
+				<p><?= nl2br(($comment->getComment())) ?></p>
 			</div>
-			<a href="index.php?action=flag&idComment=<?= $comment->getId()?>" class="btn btn-info btn-sm"><small>Signaler</small></a>
+			<a href="index.php?action=flag&idComment=<?= htmlspecialchars($comment->getId())?>" class="btn btn-info btn-sm"><small>Signaler</small></a>
 			<hr>
 		</div>
 <?php endforeach; ?>

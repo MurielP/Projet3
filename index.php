@@ -2,6 +2,7 @@
 /**
  *  création de l'index 
  */
+
 session_start();
 
 //require_once 'controller/router.php';
