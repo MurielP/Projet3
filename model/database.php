@@ -15,7 +15,7 @@ abstract class Database
 	{
 		// technique du chargement tardif (« lazy loading ») pour retarder l'instanciation de l'objet $bdd à sa première utilisation. 
 		if ($this->db == null) {
-			$this->db = new PDO('mysql:host=localhost; dbname=OC_Projet3; charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+			$this->db = new PDO('mysql:host=localhost; dbname=OC_Projet3; charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));	
 		}
 		return $this->db;
 	}

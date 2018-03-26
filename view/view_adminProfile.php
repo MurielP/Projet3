@@ -55,26 +55,26 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="table-responsive">
-				<table class="table table-bordered table-hover">
+			<div id="table" class="col-md-12">
+				<table class="col-md-12 table table-bordered table-condensed table-hover">
 					<caption class="text-uppercase">Liste des commentaires</caption>
 					<thead class="text-uppercase text-center thead-dark"> <!-- en-tête du tableau -->
 						<tr> <!-- Ligne du tableau -->
-							<th class="align-middle" scope="col">Id du commentaire/<br />Id de l'article</th>
-							<th class="align-middle" scope="col">Commentaire</th>
-							<th class="align-middle" scope="col">Auteur</th>
-						  	<th class="align-middle" scope="col">Date de création</th>
-						  	<th class="align-middle" scope="col">Action</th>
+							<th class="align-middle resp" scope="col">Id du commentaire/<br />Id de l'article</th>
+							<th class="align-middle resp" scope="col">Commentaire</th>
+							<th class="align-middle resp" scope="col">Auteur</th>
+						  	<th class="align-middle resp" scope="col">Date de création</th>
+						  	<th class="align-middle resp" scope="col">Action</th>
 						</tr>
 					</thead>	  
 					<tbody>
 						<?php foreach ($comments as $comment) :?>
 								<tr class="<?php if($comment->getIs_flagged()){ echo 'flagged'; };?>">
-									<td><?= htmlspecialchars($comment->getId()) ?> / <?=  htmlspecialchars($comment->getPost_id()) ?></td>
-									<td><?= $comment->getComment() ?></td>
-									<td><?= htmlspecialchars($comment->getAuthor()) ?></td>
-									<td><?= htmlspecialchars($comment->getFormatted_comment_date()) ?></td>
-									<td>
+									<td data-title="Id commentaire / Id article" class="resp"><?= htmlspecialchars($comment->getId()) ?> / <?=  htmlspecialchars($comment->getPost_id()) ?></td>
+									<td data-title="Commentaire" class="resp"><?= $comment->getComment() ?></td>
+									<td data-title="Auteur" class="resp"><?= htmlspecialchars($comment->getAuthor()) ?></td>
+									<td data-title="Date de commentaire" class="resp"><?= htmlspecialchars($comment->getFormatted_comment_date()) ?></td>
+									<td data-title="Action" class="resp">
 										<ul>
 											<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=readComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Lire</a></li>
 											<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=modifyComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Modifier</a></li>

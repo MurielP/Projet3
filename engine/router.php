@@ -123,8 +123,6 @@ class Router
 						$this->user_control->logoutAdmin();				
 					}
 
-
-
 				} elseif ($_GET['action'] == 'adminPosts') {
 					$this->admin_control->getPostsList();
 
@@ -178,19 +176,14 @@ class Router
 					
 					} else {
 						if(isset($_POST['author']) AND empty($_POST['author'])){
-					
 							$_SESSION['errors']['emptyAuthor'] = 'Le champ Auteur est vide';
 						} 
-						if (isset($_POST['title']) AND empty($_POST['title'])){
-					
+						if (isset($_POST['title']) AND empty($_POST['title'])){					
 							$_SESSION['errors']['emptyTitle'] = 'Le champ Titre est vide';
-
 						}
 						if (isset($_POST['content']) AND empty($_POST['content'])){
-					
 							$_SESSION['errors']['emptyContent'] = 'Le champ Contenu est vide';
 						}
-
 						// vérifie si j'ai un id de billet 
 						$post_id = (int)$this->getParam($_GET, 'post_id');
 
@@ -274,11 +267,13 @@ class Router
 						throw new Exception ('Une erreur inconnue s\'est produite dans le signalement du commentaire');
 					}
 				
+/**  Début de code pour ajouter la fonction de création d'un membre et afficher une page compte membre
+
 				} elseif ($_GET['action'] == 'registerUser') {
 					/*
 					* si les champs sont remplis et que mon mdp de confirmation est ok -> j'appelle la méthode pour enregistrer le nouveau user(manager)
 					*/
-					if(!empty($_POST['username']) AND !empty($_POST['email']) AND !empty($_POST['password']) AND!empty($_POST['confirm_password'])){
+/**					if(!empty($_POST['username']) AND !empty($_POST['email']) AND !empty($_POST['password']) AND!empty($_POST['confirm_password'])){
 
 						$username = $this->getParam($_POST, 'username'); 
 						$email = $this->getParam($_POST, 'email');
@@ -291,6 +286,7 @@ class Router
 						/**
 						 * si mon champ est vide j'envoie un msg d'erreur 
 						 */
+/**						
 						if (isset($_POST['username']) AND empty($_POST['username'])){
 							$username = $this->getParam($_POST, 'username'); 
 							$_SESSION['errors']['emptyUser'] = 'Le champ Pseudo doit être rempli';
@@ -310,6 +306,7 @@ class Router
 						/*
 						* et je renvoie le visiteur sur la page de création de compte si les champs sont vides
 						*/
+/**					
 						$this->user_control->registerUserPage();
 					}
 
@@ -321,7 +318,7 @@ class Router
 
 						$this->user_control->userProfile();
 					}
-
+**/
 				} else {
 					throw New Exception ('Action inconnue.');
 				}
@@ -349,7 +346,7 @@ class Router
 	}
 
 /** 
-* getParam méthode privée qui recherche un paramètre dans un tableau. Si un paramètre est manquant on affiche un message indiquant le nom du parmètre manquant.
+* getParam méthode privée qui recherche un paramètre dans un tableau. Si un paramètre est manquant on affiche un message indiquant le nom du paramètre manquant.
 * $array[$key]
 */
 	private function getParam($array, $name) {

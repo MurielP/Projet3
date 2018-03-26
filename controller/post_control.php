@@ -63,10 +63,9 @@ class Post_control
 				'post_id' => $post_id,
  		));
 
-		// signel le commentaire dès sa création
+		// signal le commentaire dès sa création
 		if($lastComment != NULL){
 			$lastComment->setIs_flagged(1);	
-
 	 		// si aucune erreur - enregistre le commentaire en bdd 
 			if(count($_SESSION['errors']) == 0){
 				$insertComment = $this->comment_manager->saveComment($lastComment);	

@@ -218,7 +218,7 @@ div#errors {
 }
 
 /********************************************************/
-/*                 Form:                                */
+/*                 Table                                */
 /********************************************************/
 .table-hover tbody tr:hover {
     background-color: #647581;
@@ -231,7 +231,51 @@ table > caption {
     letter-spacing: 0.5rem;
     color: #647581;
     margin-bottom: 1rem;
+}
 
+@media only screen and (max-width: 767px) {
+    #table table, #table caption, #table thead, #table tbody, #table th, #table td, #table tr {
+        display : block;
+    }
+
+    #table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #table tr {
+        border: 1px solid #ccc;
+    }
+
+    #table td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee; 
+        position: relative;
+        padding-left: 50%; 
+        white-space: normal;
+        text-align:left;
+    }
+
+    #table td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 10px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+        text-align:left;
+        font-weight: bold;
+        
+    }
+
+    /*
+    Label the data
+    */
+    #table td:before { content: attr(data-title); }
 }
 /********************************************************/
 /*            Footer                                      */

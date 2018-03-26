@@ -97,7 +97,7 @@ class Admin_control
 			} else {
 				$_SESSION['errors']['deletedPostFail'] = 'Votre article n°'. $post_id.' n\'a pu être suprrimé.';
 			}	
-			// suppression des commentaires liés à l'article effectuée en bdd - foreign_key ON DELETE CASCADE (structure bdd et vue relationnelle)
+			// suppression des commentaires liés à l'article effectuée en bdd - table comments - foreign_key ON DELETE : CASCADE (structure bdd et vue relationnelle)
 			/** supprime les commentaires liés au billet 
 			if($suppr == true){
 				$commentsToDelete = $this->comment_manager->suppressCommentByPostId($post_id);
@@ -230,6 +230,6 @@ class Admin_control
 		}
 
 		header('Location: index.php?action=post&post_id=' .$comment->getPost_id());
-
 	}
+
 }
