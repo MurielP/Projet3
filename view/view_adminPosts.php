@@ -55,7 +55,7 @@
 	?>
 
 
-	<div id="adminPosts" >
+	<div class="container" id="adminPosts" >
 		<div class="row">
 			<div class="pt-2 mx-auto my-2">
 				<form class="form" method="post" action="index.php?action=createPost">
@@ -79,33 +79,34 @@
 						<button type="submit" name="submit"  class="btn btn-info mt-1" value="">Publier l'article</button>
 				</fieldset>
 				</form>
-			</div>	
+			</div>
 		</div>
 	</div>
 
 	<div class="container">
 		<div class="row">
-			<div class="table-responsive-lg-12 table-responsive-md-6 table-responsive-sm-4">
-				<table class="table table-bordered table-hover">
-					<caption class="text-uppercase">Liste des billets</caption>
-						<thead class="text-uppercase text-center thead-dark"> <!-- en-tête du tableau -->
-							<tr> <!-- Ligne du tabelau -->
-								<th class="align-middle" scope="col">Titre</th>
-								<th class="align-middle" scope="col">Aperçu du contenu</th>
-								<th class="align-middle" scope="col">Auteur</th>
-							  	<th class="align-middle" scope="col">Date de création</th>
-							  	<th class="align-middle" scope="col">Action</th>
-							</tr>
-						</thead>	  
-						<tbody>
+			<div id="table" class="col-md-12">
+				<div class="col-md-12 table table-bordered table-condensed table-hover">
+					<table class="table table-bordered table-hover">
+						<caption class="text-uppercase">Liste des billets</caption>
+							<thead class="text-uppercase text-center thead-dark"> <!-- en-tête du tableau -->
+								<tr> <!-- Ligne du tabelau -->
+									<th class="align-middle resp" scope="col">Titre</th>
+									<th class="align-middle resp" scope="col">Contenu</th>
+									<th class="align-middle resp" scope="col">Auteur</th>
+								  	<th class="align-middle resp" scope="col">Date de création</th>
+								  	<th class="align-middle resp" scope="col">Action</th>
+								</tr>
+							</thead>	  
+							<tbody>
 							<?php foreach ($posts as $post) :?>
 									<tr>
-										<td><?= htmlspecialchars($post->getTitle()) ?></td>
-										<td><?= $post->getContent() ?></td>
-										<td><?= htmlspecialchars($post->getAuthor()) ?></td>
-										<td><?= htmlspecialchars($post->getFormatted_creation_date()) ?></td>
-										<td>
-											<ul>
+										<td data-title="Titre" class="resp"><?= htmlspecialchars($post->getTitle()) ?></td>
+										<td data-title="Contenu" class="resp"><?= $post->getContent() ?></td>
+										<td data-title="Auteur" class="resp"><?= htmlspecialchars($post->getAuthor()) ?></td>
+										<td data-title="Date de création" class="resp"><?= htmlspecialchars($post->getFormatted_creation_date()) ?></td>
+										<td data-title="Action" class="resp">
+											<ul id="min">
 												<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=readPost&post_id=<?= htmlspecialchars($post->getId()) ?>">Lire</a></li>
 												<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=modifyPost&post_id=<?= htmlspecialchars($post->getId()) ?>">Modifier</a></li>
 												<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=cancelPost&post_id=<?= htmlspecialchars($post->getId()) ?>">Supprimer</a></li>	
@@ -114,7 +115,8 @@
 									</tr>							
 							<?php endforeach; ?>
 						</tbody>	
-				</table>
+					</table>	
+				</div>
 			</div>
 		</div>
 	</div>

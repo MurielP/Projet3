@@ -29,7 +29,6 @@
               'save table contextmenu directionality emoticons template paste textcolor'
             ], 
             
-            width: 400,
             height: 150,
             branding: false, // supprime le "Powered by TinyMCE" branding           
         });
@@ -68,7 +67,7 @@
     </div>
 </nav>
         <div class="carousel-item">
-            <img class="img-fluid w-100 d-none d-sm-block mx-auto" src="public/img/snow_pexels.jpg" alt="Let's begin image d'accueil" title="Que l'aventure commence !">
+            <img class="img-fluid w-100 d-none d-md-block mx-auto" src="public/img/snow_pexels.jpg" alt="Let's begin image d'accueil" title="Que l'aventure commence !">
             <div class="carousel-caption">
                 <h1 class="mb-0" id="blogTitle">Billet simple pour l'Alaska</h1>
                 <hr>

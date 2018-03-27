@@ -70,12 +70,12 @@
 					<tbody>
 						<?php foreach ($comments as $comment) :?>
 								<tr class="<?php if($comment->getIs_flagged()){ echo 'flagged'; };?>">
-									<td data-title="Id commentaire / Id article" class="resp"><?= htmlspecialchars($comment->getId()) ?> / <?=  htmlspecialchars($comment->getPost_id()) ?></td>
+									<td data-title="Id commentaire / Id article" class="resp min"><?= htmlspecialchars($comment->getId()) ?> / <?=  htmlspecialchars($comment->getPost_id()) ?></td>
 									<td data-title="Commentaire" class="resp"><?= $comment->getComment() ?></td>
 									<td data-title="Auteur" class="resp"><?= htmlspecialchars($comment->getAuthor()) ?></td>
 									<td data-title="Date de commentaire" class="resp"><?= htmlspecialchars($comment->getFormatted_comment_date()) ?></td>
 									<td data-title="Action" class="resp">
-										<ul>
+										<ul id="min">
 											<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=readComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Lire</a></li>
 											<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=modifyComment&id=<?= htmlspecialchars($comment->getId()) ?>&post_id=<?= htmlspecialchars($comment->getPost_id()) ?>">Modifier</a></li>
 											<li class="btn btn-primary btn-sm active py-0" role="button" aria-pressed="true"><a href="index.php?action=cancelComment&id=<?= htmlspecialchars($comment->getId()) ?>">Supprimer</a></li>	
