@@ -1,16 +1,12 @@
 <?php
-// require_once 'controller/autoloader.php';
-// Autoloader::registerAutoload();
 //require_once 'home_control.php';
 //require_once 'post_control.php';
 //require_once 'view/view.php';
-
 
 /**
  * création de la classe Router 
  * dont la méthode principale analyse la requête entrante pour déterminer l'action à entreprendre 
  */
-
 class Router 
 {
 	private $post_control;
@@ -25,7 +21,7 @@ class Router
 		$this->admin_control = new Admin_control();
 	}
 /**
- * [routeQuery méthode qui permet d'appeler la page nécessaire pour exécuter l'action passée en paramètre
+ * [routeQuery méthode qui permet d'appeler la page nécessaire pour exécuter l'action passée en paramètre dans url]
  * @return affiche la page demandée
  */
 	public function routeQuery() {
@@ -55,11 +51,11 @@ class Router
 					if(!empty($_POST['author']) AND !empty($_POST['comment'])){
 						$author = $this->getParam($_POST, 'author'); // défini la variable $author
 						$comment = $this->getParam($_POST, 'comment');
-						$post_id = $this->getParam($_POST, 'post_id'); // champ hidden
+						$post_id = $this->getParam($_POST, 'post_id'); // champ hidden qui permet de récupérer l'id du post
 						
 						$this->post_control->createComment($author, $comment, $post_id);
 					/**
-					 * si j'ai des erreurs j'affiche un msg et je renvoie vers la page du billet choisi avec ses commentaires
+					 * si j'ai des erreurs j'affiche un msg à l'utilisateur et je renvoie vers la page du billet choisi avec ses commentaires
 					 */
 					} else {
 						if (isset($_POST['author']) AND empty($_POST['author'])){

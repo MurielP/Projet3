@@ -14,7 +14,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Raleway:500" rel="stylesheet">
 
-         <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+        <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
         <script type="text/javascript">
             tinymce.init({
             selector: '.tiny',
@@ -76,7 +76,7 @@
         </div>
     </header>  
 
-<!-- Body -->
+<!-- Content -->
         <div class="template">    
             <?= $content ?>                      
         </div>

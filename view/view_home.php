@@ -39,6 +39,7 @@
 ?>
 
 
+
 	<article id="homePageContainer" class="container pt-sm-2 pt-md-1 pt-lg-0">		
 	<?php foreach ($posts as $post) : ?> 
 		<div class="card-deck">

@@ -79,9 +79,7 @@ class Post_control
 		}
 		// puis retour sur le billet et ses commentaires / si erreur mm page
 		header('Location: index.php?action=post&post_id=' .$post_id );
-	}
-
-	
+	}	
 }
 
 

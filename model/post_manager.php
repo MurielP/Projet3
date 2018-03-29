@@ -37,12 +37,9 @@ class Post_manager extends Database
 	 public function getPost($post_id) {
 	    	
 	    	$sql = ('SELECT COUNT(*)  FROM  posts WHERE id = ?'); 
-
 			if($req = $this->executeQuery($sql, array($post_id))) {
-
 				/* Récupère le nombre de lignes qui correspond à la requête SELECT */
 				if($req->fetchColumn() > 0){
-
 					 /* Effectue la vraie requête SELECT et travaille sur le résultat */
 					$sql = ('SELECT id, author, title, content, DATE_FORMAT(creation_date,\'%d/%m/%Y à %Hh%imin\') AS formatted_creation_date FROM posts WHERE id = ?');
 					foreach ($req = $this->executeQuery($sql, array($post_id)) as $row){

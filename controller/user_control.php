@@ -13,7 +13,6 @@ class User_control
 		$this->comment_manager = new Comment_manager();
 	}
 
-
 	/**
 	 * [logAdmin description] récupère les identifiants de l'admin
 	 * @param  [str] $loginAdmin    [identifiant de l'admin]

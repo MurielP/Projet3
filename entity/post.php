@@ -43,8 +43,6 @@ class Post
     private $content;
     private $creation_date;
     private $post_amended_date; 
-
-
     /**
      * getters
      */
@@ -131,3 +129,5 @@ class Post
     }
 
 }
+        
+

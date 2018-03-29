@@ -16,9 +16,9 @@ class Admin_control
 
 	/**
 	 * [addPost] fonction pour ajouter un nouveau billet 
-	 * @param [type] $author  [auteur]
-	 * @param [type] $title   [titre ]
-	 * @param [type] $content [contenu du billet]
+	 * @param [str] $author  [auteur]
+	 * @param [str] $title   [titre ]
+	 * @param [arr] $content [contenu du billet]
 	 */
 	public function createPost($author, $title, $content)
 	{
