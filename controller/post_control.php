@@ -1,14 +1,4 @@
 <?php
-/*
-require_once 'model/post_manager.php';
-require_once 'entity/post.class.php';
-
-require_once 'model/comment_manager.php';
-require_once 'entity/comment.class.php';
-
-require_once 'view/view.php';
-*/
-
 /**
  * Classe qui gère les billets
  */
@@ -45,7 +35,7 @@ class Post_control
 			'post' => $post,
 			'comments' => $comments,
 			'comments_nb' => $comments_nb,
-		));
+			));
 	}
 
 	/**
@@ -61,13 +51,13 @@ class Post_control
 				'author' => $author, 
 				'comment' => $comment,
 				'post_id' => $post_id,
- 		));
+ 				));
 
 		// signal le commentaire dès sa création
-		if($lastComment != NULL){
+		if ($lastComment != NULL) {
 			$lastComment->setIs_flagged(1);	
 	 		// si aucune erreur - enregistre le commentaire en bdd 
-			if(count($_SESSION['errors']) == 0){
+			if (count($_SESSION['errors']) == 0) {
 				$insertComment = $this->comment_manager->saveComment($lastComment);	
 				/**
 				 * si $insertComment est ok : je crée ma variable de session pour afficher msg success 

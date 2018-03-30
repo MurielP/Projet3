@@ -2,10 +2,7 @@
 /**
  *  création de l'index 
  */
-
 session_start();
-
-//require_once 'controller/router.php';
 
 /**
  * appel de l'autoloader pour charger les classes 

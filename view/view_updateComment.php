@@ -22,8 +22,8 @@
 			</div>
 		</div>
 	<?php
-	}
-	}	
+			}
+		}	
 		$_SESSION['success'] = [];
 	?>
 
@@ -40,8 +40,8 @@
 			</div>
 		</div>
 	<?php
-	}
-	}	
+			}
+		}	
 		// création d'un tableau vide pour vider les erreurs
 		$_SESSION['errors'] = [];
 	?>

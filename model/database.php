@@ -13,7 +13,7 @@ abstract class Database
 */
 	private function getDb()
 	{
-		// technique du chargement tardif (« lazy loading ») pour retarder l'instanciation de l'objet $bdd à sa première utilisation. 
+		// technique du chargement tardif (« lazy loading ») pour retarder l'instanciation de l'objet $bdd à sa première utilisation 
 		if ($this->db == null) {
 			$this->db = new PDO('mysql:host=localhost; dbname=OC_Projet3; charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));	
 		}
@@ -26,6 +26,8 @@ abstract class Database
  * @param  $params les paramètres 
  * @return $result le résultat de la requête
  */
+
+	// doit rester accessible par les classes filles (model)
 	protected function executeQuery($sql, $params = null)
 	{
 		// si aucun paramètre n'est passé j'effectue une requête query
@@ -36,10 +38,7 @@ abstract class Database
 			$result = $this->getDb()->prepare($sql); // $sth = $dbh->prepare('req')
 			$result->execute($params); 
 		}
-
 		// dans les 2 cas retourne $result
 		return $result;
-	}
-
-	
+	}	
 }

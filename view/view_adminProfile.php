@@ -18,7 +18,7 @@
 
 	<?php
 	//var_dump($_SESSION['success']);
-		if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
+		if (isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
 			foreach ($_SESSION['success'] as $type => $message) {
 	?>
 		<div class="container mt-xs-4">
@@ -29,14 +29,14 @@
 			</div>
 		</div>
 	<?php
-	}
-	}	
+			}
+		}	
 		$_SESSION['success'] = [];
 	?>
 
 	<?php
 	//echo '<pre>' . print_r($user,true) . '</pre>';
-		if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
+		if (isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 			foreach ($_SESSION['errors'] as $type => $message) {
 	?>
 		<div class="msg container mt-xs-4">
@@ -47,8 +47,8 @@
 			</div>
 		</div>
 	<?php
-	}
-	}	
+			}
+		}	
 		// création d'un tableau vide pour vider les erreurs
 		$_SESSION['errors'] = [];
 	?>

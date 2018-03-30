@@ -1,5 +1,5 @@
 <?php
-//var_dump($_SESSION['success']);
+	//var_dump($_SESSION['success']);
 	if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
 		foreach ($_SESSION['success'] as $type => $message) {
 ?>
@@ -11,13 +11,13 @@
 		</div>
 	</div>
 <?php
-}
-}	
+		}
+	}	
 	$_SESSION['success'] = [];
 ?>
 
 <?php
-//echo '<pre>' . print_r($user,true) . '</pre>';
+	//echo '<pre>' . print_r($user,true) . '</pre>';
 	if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 		foreach ($_SESSION['errors'] as $type => $message) {
 ?>
@@ -29,8 +29,8 @@
 		</div>
 	</div>
 <?php
-}
-}	
+		}
+	}	
 	// création d'un tableau vide pour vider les erreurs
 	$_SESSION['errors'] = [];
 ?>
@@ -39,11 +39,8 @@
 	<div class="card-deck">
 		<div class="card my-3">
 			<div class="card-header">
-				<a class="card-title" href="index.php?">
-					<h3 class="card-title"><?=  $post->getTitle() ?></h3>
-				</a>
+				<a class="card-title" href="index.php?"><h3 class="card-title"><?=  $post->getTitle() ?></h3></a>
     			<p class="card-text">Le <time><?= $post->getFormatted_creation_date()?></time><br/>par <em><?= $post->getAuthor() ?></em></p>   
-				
 				<div class="card-body h-5">		
 		    		<p class="card-text text-justify"><?= $post->getContent() ?></p>
 		    	</div>
@@ -58,8 +55,7 @@
 	    <p><span class="badge badge-pill badge-secondary"><?= htmlspecialchars($comments_nb) ?></span> commentaires :</p>
 	</div>
 
-
-<?php foreach ($comments as $comment) : ?> 
+	<?php foreach ($comments as $comment) : ?> 
 		<div class="card-body">
 			<div class="card-title">
 				<p>Commentaire de <em><?= htmlspecialchars ($comment->getAuthor()) ?></em><br/>
@@ -71,8 +67,7 @@
 			<a href="index.php?action=flag&idComment=<?= htmlspecialchars($comment->getId())?>" class="btn btn-info btn-sm"><small>Signaler</small></a>
 			<hr>
 		</div>
-<?php endforeach; ?>
-
+	<?php endforeach; ?>
 
 	<div class="row">
 		<div class="col-lg-8 pt-2 mx-auto my-2">

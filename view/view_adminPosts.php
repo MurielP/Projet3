@@ -16,10 +16,9 @@
 		</div>
 	</div>	
 
-
 	<?php
 	//var_dump($_SESSION['success']);
-		if(isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
+		if (isset($_SESSION['success']) AND !empty($_SESSION['success'])) {
 			foreach ($_SESSION['success'] as $type => $message) {
 	?>
 		<div class="container mt-xs-4">
@@ -30,14 +29,14 @@
 			</div>
 		</div>
 	<?php
-	}
-	}	
+			}
+		}	
 		$_SESSION['success'] = [];
 	?>
 
 	<?php
 	//echo '<pre>' . print_r($user,true) . '</pre>';
-		if(isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
+		if (isset($_SESSION['errors']) AND !empty($_SESSION['errors'])) {
 			foreach ($_SESSION['errors'] as $type => $message) {
 	?>
 		<div class="msg container mt-xs-4">
@@ -48,36 +47,35 @@
 			</div>
 		</div>
 	<?php
-	}
-	}	
+			}
+		}	
 		// création d'un tableau vide pour vider les erreurs
 		$_SESSION['errors'] = [];
 	?>
-
 
 	<div class="container" id="adminPosts" >
 		<div class="row">
 			<div class="pt-2 mx-auto my-2">
 				<form class="form" method="post" action="index.php?action=createPost">
-				<fieldset>
-					<legend>Rédiger un nouvel épisode</legend>
-						<div class="form-group">
-							<label for="author">Auteur </label>
-							<input type="text" name="author" id="author" class="form-control" value="" />
-						</div>
-						
-						<div class="form-group">
-							<label for="title">Titre de l'épisode </label>
-							<input type="text" name="title" id="title" class="form-control" value="" />
-						</div>
+					<fieldset>
+						<legend>Rédiger un nouvel épisode</legend>
+							<div class="form-group">
+								<label for="author">Auteur </label>
+								<input type="text" name="author" id="author" class="form-control" value="" />
+							</div>
+							
+							<div class="form-group">
+								<label for="title">Titre de l'épisode </label>
+								<input type="text" name="title" id="title" class="form-control" value="" />
+							</div>
 
-						<div class="form-group">
-							<label for="content">Contenu </label>
-							<input name="content" id="content" class="form-control tiny" value="" />
-						</div>
+							<div class="form-group">
+								<label for="content">Contenu </label>
+								<input name="content" id="content" class="form-control tiny" value="" />
+							</div>
 
-						<button type="submit" name="submit"  class="btn btn-info mt-1" value="">Publier l'article</button>
-				</fieldset>
+							<button type="submit" name="submit"  class="btn btn-info mt-1" value="">Publier l'article</button>
+					</fieldset>
 				</form>
 			</div>
 		</div>

@@ -4,6 +4,16 @@
  */
 class Post
 {
+    /**
+     * attributs 
+     */
+    private $id; 
+    private $author;
+    private $title;
+    private $content;
+    private $creation_date;
+    private $post_amended_date; 
+
 	/**
 	 * __construct : constructeur qui génère un tableau de données et les initialise
 	 * @param array $data 
@@ -12,6 +22,7 @@ class Post
 	{
 		$this->hydrate($data);
 	}
+
 	/**
 	 * hydrate 
 	 * @param  array  $data [attributs des billets]
@@ -35,16 +46,7 @@ class Post
     }
 
     /**
-     * attributs 
-     */
-    private $id; 
-    private $author;
-    private $title;
-    private $content;
-    private $creation_date;
-    private $post_amended_date; 
-    /**
-     * getters
+     * getters - valeur des attributs
      */
     public function getId() 
     {
@@ -77,7 +79,7 @@ class Post
     }
    
     /**
-     * setters
+     * setters assigne une valeur à l'attribut en vérifiant son intégrité -  respect du principe encapsulation (accessibilité des propriétés et méthodes)
      */
     public function setId($id)
     {
@@ -90,7 +92,7 @@ class Post
 
     public function setAuthor($author)
     {	
-    	if(is_string($author) AND strlen($author) <= 20 AND strlen($author) >= 5 AND 
+    	if (is_string($author) AND strlen($author) <= 20 AND strlen($author) >= 5 AND 
             ($author = trim($author))) {
     		return $this->author = $author;
     	} else {
@@ -100,7 +102,7 @@ class Post
 
     public function setTitle($title)
     {
-    	if(is_string($title) AND strlen($title <= 100) AND ($title = trim($title))) {
+    	if (is_string($title) AND strlen($title <= 100) AND ($title = trim($title))) {
     		return $this->title = $title;
     	} else {
             $_SESSION['errors']['titlePost'] = 'Le titre de l\'article est invalide. Il doit être composé d\'une chaîne de moins de 100 caractères.' ;
@@ -109,7 +111,7 @@ class Post
 
     public function setContent($content)
     {
-    	if(isset($content) AND is_string($content) AND strlen($content) >= 15 AND strlen($content) <= 3000 AND ($content = trim($content))) {
+    	if (isset($content) AND is_string($content) AND strlen($content) >= 15 AND strlen($content) <= 3000 AND ($content = trim($content))) {
     		return $this->content = $content;
     	} else {
             $_SESSION['errors']['contentPost'] = 'Le contenu de l\'article est invalide. Il doit être composé d\'une chaîne de caractères comprise entre 25 et 30000 caractères.' ;
@@ -119,7 +121,6 @@ class Post
     public function setFormatted_creation_date($creation_date) 
     {
         return $this->creation_date = $creation_date;
-
     }
 
     public function setFormatted_PAD($post_amended_date)
@@ -127,7 +128,6 @@ class Post
         $post_amended_date = DateTime::createFromFormat('j-M-Y', $post_amended_date);
     	return $this->post_amended_date = $post_amended_date;
     }
-
 }
         
 

@@ -3,6 +3,16 @@
 class User
 {
 	/**
+     * attributs 
+     */
+    private $id; 
+    private $username;
+    private $password;
+    private $email; 
+    private $inscription_date; 
+    private $confirm_password;
+
+	/**
 	 * __construct 
 	 * @param array $data 
 	 */
@@ -28,18 +38,9 @@ class User
             }
         }
     }
+    
     /**
-     * attributs 
-     */
-    private $id; 
-    private $username;
-    private $password;
-    private $email; 
-    private $inscription_date; 
-    private $confirm_password;
-
-    /**
- 	* liste les getters 
+ 	* getters 
 	*/
 	public function getId() 
 	{ 
@@ -73,7 +74,7 @@ class User
 
 
 	/**
- 	* liste les setters 
+ 	* setters 
 	*/
 
  	/** [setId Id du user] */
@@ -84,6 +85,7 @@ class User
 			$this->id = $id;
 		}
 	}
+
 	/** [setUsername pseudonyme] */
 	public function setUsername($username) 
 	{
@@ -97,21 +99,24 @@ class User
 			$_SESSION['errors']['usernameFormatError'] = 'Votre pseudonyme est invalide. Il doit comprendre entre 5 et 15 caractères alphanumériques.' ;
 		}
 	}
+
 	/**
-	 * [setPassword mot de passe]
+	 * [setPassword]  mot de passe
  	* @param [string] $password [mot de passe haché]
  	*/
 	public function setPassword($password) 
 	{	
 		$password = trim($password);
 
-		if (preg_match('#^[a-zA-Z0-9_]{8,32}$#', $password)){
+		if (preg_match('#^[a-zA-Z0-9_]{8,32}$#', $password)) {
+			// Crée une clé de hachage pour un mot de passe - PASSWORD_DEFAULT - Utilisation de l'algorithme bcrypt
 			$password_hash = password_hash($password, PASSWORD_DEFAULT);
 			$this->password = $password_hash;
 		} else {
 			$_SESSION['errors']['passwordError'] = 'Votre mot de passe saisi  n\'est pas correct. Il doit comporter au moins 8 caractères alphanumériques.';
 		}
 	}
+
 	/** [setEmail email]
 	* @param [string] $email selon regex
 	**/
@@ -119,12 +124,11 @@ class User
 	{
 		$email = trim($email);
 
-		if(preg_match('#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#', $email)){
+		if(preg_match('#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#', $email)) {
 			$this->email = $email;
 		} else {
 			$_SESSION['errors']['emailError'] = 'Le mail saisi  n\'est pas correct. Les caractères doivent être en minuscules';
 		}
-		
 	}
 
 	/**
@@ -135,7 +139,7 @@ class User
 	{
 		$confirm_password = trim($confirm_password);
 
-		if ($_POST['confirm_password'] == $_POST['password']){
+		if ($_POST['confirm_password'] == $_POST['password']) {
 			$this->confirm_password = $confirm_password;
 		} else {
 			$_SESSION['errors']['confirm_passwordError'] = 'Le mot de passe de confirmation saisi est différent. Merci de vérifier votre mot de passe. ';
